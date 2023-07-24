@@ -1,0 +1,37 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { AuthComponent } from './auth.component';
+import { SignupComponent } from './signup/signup.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: AuthComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full',
+      },
+      {
+        path: 'login',
+        component: LoginComponent,
+        data: { returnUrl: window.location.pathname, noReuse: true },
+      },
+      {
+        path: 'signup',
+        component: SignupComponent,
+        data: { returnUrl: window.location.pathname, noReuse: true },
+      },
+      { path: '**', redirectTo: 'login', pathMatch: 'full' },
+    ],
+  },
+];
+
+@NgModule({
+  declarations: [],
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class AuthRoutingModule {}
