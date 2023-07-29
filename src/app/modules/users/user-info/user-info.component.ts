@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../users.service';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-user-info',
@@ -13,15 +14,14 @@ export class UserInfoComponent implements OnInit {
     private userService: UsersService
   ) {
     route.params.subscribe((params) => {
-      // console.log(params['id']);
       this.userService.getUser(params['user_id']).subscribe((res) => {
-        console.log('user', res);
+        if (res.status == '200') {
+          this.user = res.data[0] as User;
+        }
       });
     });
-    let breakhere = true;
   }
 
+  user: User = new User();
   ngOnInit() {}
-
-  asd() {}
 }

@@ -4,16 +4,8 @@ import { CommonModule } from '@angular/common';
 import { UsersRoutingModule } from './users-routing.module';
 import { UserInfoComponent } from './user-info/user-info.component';
 
-
 @NgModule({
-  declarations: [
-    UserInfoComponent
-  ],
-  imports: [
-    CommonModule,
-    UsersRoutingModule
-  ]
+  declarations: [UserInfoComponent],
+  imports: [CommonModule, UsersRoutingModule],
 })
-export class UsersModule { 
-  
-}
+export class UsersModule {}
