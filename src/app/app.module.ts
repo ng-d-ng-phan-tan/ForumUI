@@ -6,6 +6,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { QuestionsModule } from './modules/questions/questions.module';
 import { TagsModule } from './modules/tags/tags.module';
 import { UsersModule } from './modules/users/users.module';
+import { AuthService } from './modules/auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({

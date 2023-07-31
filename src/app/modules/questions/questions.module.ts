@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-
+import { AskComponent } from './ask/ask.component';
+import { QuestionsRoutingModule } from './questions-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
-  declarations: [],
+  declarations: [AskComponent],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+    QuestionsRoutingModule,
+    ReactiveFormsModule,
+    CKEditorModule,
+  ],
 })
-export class QuestionsModule { }
+export class QuestionsModule {}
