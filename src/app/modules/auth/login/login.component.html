@@ -1,3 +1,6 @@
+<div id="toast">
+            
+</div>
 <div class="c5bsm cofmt crgu2 crxw9 cnzqg">
   <div class="c3sbg cfhw0 c8zpm ctj5y c5uxf">
     <!-- Site header -->
@@ -21,8 +24,8 @@
             <div class="cg15g ckout cdfxl c5uxf cc9uf">
               <div class="cmkbe cmnuk">
                 Not a member?
-                <a class="ciojy cejt1 cpefv c6bh0 cnsvb ctlm4" href="join.html"
-                  >Join</a
+                <a class="ciojy cejt1 cpefv c6bh0 cnsvb ctlm4" [routerLink]="['/auth/signup']"
+                  >Sign up</a
                 >
               </div>
             </div>
@@ -65,6 +68,8 @@
                       type="email"
                       placeholder="Your email"
                       required=""
+                      [ngModelOptions]="{ standalone: true }"
+                      [(ngModel)]="emailValue" 
                     />
                   </div>
                   <div>
@@ -76,11 +81,13 @@
                       placeholder="Your password"
                       autocomplete="on"
                       required=""
+                      [ngModelOptions]="{ standalone: true }"
+                      [(ngModel)]="passwordValue"
                     />
                   </div>
                 </div>
                 <div class="cbi0w">
-                  <button class="cfs3l ck65l ce60u cp4mw cniyg">Sign In</button>
+                  <button class="cfs3l ck65l ce60u cp4mw cniyg" (click)="onClickLogin()">Login</button>
                 </div>
               </form>
 
@@ -113,5 +120,13 @@
         </div>
       </section>
     </main>
+  </div>
+</div>
+<div class="cbi0w toast">
+  <button class="cfs3l ck65l ce60u cp4mw cniyg" (click)="onClickLogin()">Sign In</button>
+</div>
+<div class="toast">
+  <div class="alert alert-info">
+    <span>New message arrived.</span>
   </div>
 </div>

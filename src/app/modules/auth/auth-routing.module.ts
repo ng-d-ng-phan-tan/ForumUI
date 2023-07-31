@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth.component';
 import { SignupComponent } from './signup/signup.component';
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,11 @@ const routes: Routes = [
       {
         path: 'signup',
         component: SignupComponent,
+        data: { returnUrl: window.location.pathname, noReuse: true },
+      },      
+      {
+        path: 'changepassword',
+        component: ChangepasswordComponent,
         data: { returnUrl: window.location.pathname, noReuse: true },
       },
       { path: '**', redirectTo: 'login', pathMatch: 'full' },
