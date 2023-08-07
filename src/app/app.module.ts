@@ -8,10 +8,11 @@ import { TagsModule } from './modules/tags/tags.module';
 import { UsersModule } from './modules/users/users.module';
 import { AuthService } from './modules/auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { LayoutComponent } from './pages/layout/layout.component';
 import { DatePipe } from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LayoutComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [DatePipe],
   bootstrap: [AppComponent],
