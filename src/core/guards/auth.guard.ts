@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean | UrlTree {
     // Thực hiện kiểm tra xem người dùng đã đăng ký hay chưa
-    const isUserLoggedIn = false; // Thay đổi thành kiểm tra xem người dùng đã đăng ký hay chưa
+    const isUserLoggedIn = true; // Thay đổi thành kiểm tra xem người dùng đã đăng ký hay chưa
 
     if (isUserLoggedIn) {
       return true;
