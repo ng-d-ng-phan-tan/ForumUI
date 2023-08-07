@@ -9,9 +9,10 @@ import { UsersModule } from './modules/users/users.module';
 import { AuthService } from './modules/auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { LayoutComponent } from './pages/layout/layout.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LayoutComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [CookieService],
   bootstrap: [AppComponent],
