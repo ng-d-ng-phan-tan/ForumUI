@@ -1,4 +1,5 @@
 export class User {
+  public user_id!: string;
   public name!: string;
   public email!: string;
   public avatar!: string;

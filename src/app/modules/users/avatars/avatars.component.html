@@ -1,0 +1,43 @@
+<ng-container class="m-2.5" *ngIf="lstUser.length == 1; else group">
+  <div [class]="'flex mb-2.5'">
+    <div class="avatar">
+      <div [class]="'w-' + width + ' rounded-full'">
+        <img [src]="curUser?.avatar" />
+      </div>
+    </div>
+
+    <input
+      #avatarFile
+      type="file"
+      style="display: none"
+      accept="image/*"
+      placeholder="Type here"
+      (change)="changeAvatar($event)"
+    />
+    <div class="more-info" *ngIf="!isProfile">
+      <div class="ml-2.5">{{ curUser?.name }}</div>
+      <div class="ml-2.5">{{ curUser?.name }}</div>
+    </div>
+  </div>
+  <button class="file-upload btn btn-info pen" (click)="avatarFile.click()">
+    <label for="">Thay đổi avatar</label>
+  </button>
+</ng-container>
+
+<ng-template #group>
+  <div class="avatar-group -space-x-6">
+    <div class="avatar" *ngFor="let user of lstShowUsers">
+      <div>
+        <div [class]="'w-' + width">
+          <img [src]="user.avatar" />
+        </div>
+      </div>
+    </div>
+
+    <div class="avatar placeholder" *ngIf="lstUser.length - showMax > 0">
+      <div class="w-12 bg-neutral-focus text-neutral-content">
+        <span>+{{ lstUser.length - showMax }}</span>
+      </div>
+    </div>
+  </div>
+</ng-template>
