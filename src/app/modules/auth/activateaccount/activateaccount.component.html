@@ -1,0 +1,71 @@
+<div class="c5bsm cofmt crgu2 crxw9 cnzqg">
+    <div class="c3sbg cfhw0 c8zpm ctj5y c5uxf">
+      <!-- Site header -->
+      <header class="csiag cniyg ckmvo">
+        <div class="cotbe cyf6z cqsr5 cweql">
+          <div class="c3wfj cg15g cgiwh c5uxf cnmwy">
+            <!-- Site branding -->
+            <div class="c9d2g c0jvr">
+              <!-- Logo -->
+              <a class="group csx82" href="index.html" aria-label="Cruip">
+                <img
+                  src="../../../../assets/images/logo.svg"
+                  width="32"
+                  height="32"
+                  alt="Community"
+                />
+              </a>
+            </div>
+  
+            <nav class="c5uxf cc9uf">
+              <div class="cg15g ckout cdfxl c5uxf cc9uf">
+                <div class="cmkbe cmnuk">
+                  Already a member?
+                  <a class="ciojy cejt1 cpefv c6bh0 cnsvb ctlm4" [routerLink]="['/auth/login']"
+                    >Sign in</a
+                  >
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </header>
+  
+      <main class="cc9uf">
+        <section class="c0uko">
+          <!-- Illustration -->
+          <div class="cqngb cjugn cvw7r csiag c3sr8" aria-hidden="true">
+            <img
+              src="../../../../assets/images/hero-illustration.svg"
+              class="clnw9"
+              width="1905"
+              height="622"
+              alt="Hero Illustration"
+            />
+          </div>
+  
+          <div class="cotbe c0uko cyf6z cqsr5 cweql">
+            <div class="crc1c c84if cs41y c704m">
+              <!-- Page header -->
+              <div class="c8m8l ckrdo cqsr5">
+                <h1 class="cxw9w cjvhn cwnb8 cr2cv cean8 ccbgj c7e14 cs41y ckq6n" *ngIf="activateSuccess == true">
+                  Your account have been activated, please login to proceed.
+                </h1>
+                <h1 class="cxw9w cjvhn cwnb8 cr2cv cean8 ccbgj c7e14 cs41y ckq6n" *ngIf="activateSuccess == false">
+                    Some error occured, can not authenticate to activate account, please check your activation email again.
+                  </h1>
+                  <div *ngIf="displayProcess == true">
+                      <h1 class="cxw9w cjvhn cwnb8 cr2cv cean8 ccbgj c7e14 cs41y ckq6n" >
+                        Please wait for a while, we are processing your credentials
+                    </h1>
+                <span class="loading loading-spinner loading-lg text-primary"></span>
+                    <!-- <progress class="progress w-20 progress-primary"></progress> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+  

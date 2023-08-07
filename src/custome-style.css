@@ -6,7 +6,7 @@
     z-index: 5;
 }
 
-.toast{
+.toast-custome{
     display: flex;
     align-items: center;
     margin-top: 24px;
@@ -54,7 +54,7 @@
     font-weight: 600;
     color: #333;
     padding: 0;
-    margin: 8px 0 4px 0;
+    margin: 6px 0 2px 0;
 }
 
 .toast__msg{
@@ -62,7 +62,7 @@
     margin-top: 0px;
     line-height: 16px;
     color: black;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
 }
 
 .toast__close{

@@ -20,7 +20,7 @@ export function toast(title = '', message = '', type = 'info', duration = 3000){
             }
         }
 
-        toastNode.classList.add('toast', `toast--${type}`)
+        toastNode.classList.add('toast-custome', `toast--${type}`)
         toastNode.style.animation = `toastSlideIn ease 0.3s, fadeOut linear 1s ${duration/1000}s forwards`
         toastNode.innerHTML = `
             <div class="toast__icon">

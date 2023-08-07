@@ -32,7 +32,15 @@ export class AuthService {
   }
 
   changePassword(data: any): Observable<any> {
-    return this.http.get<any>(this.url + '/changePassword', data);
+    return this.http.post<any>(this.url + '/changePassword', data);
+  }
+
+  resetPassword(data: any): Observable<any> {
+    return this.http.post<any>(this.url + '/resetPassword', data);
+  }
+
+  registResetPassword(data: any): Observable<any> {
+    return this.http.get<any>(this.url + `/registResetPassword?email=${data}`);
   }
 
   //Lấy role của user dựa vào token gửi tới BE
@@ -40,5 +48,15 @@ export class AuthService {
     const headers = new HttpHeaders({ 'Authorization': this.token });
     // Gửi request với header chứa JWT token
     return this.http.get<any>(this.url + '/getUserRole', { headers });
+  }
+
+  checkUserInRole(role: any): Observable<any>{
+    const headers = new HttpHeaders({ 'Authorization': this.token });
+    // Gửi request với header chứa JWT token
+    return this.http.get<any>(this.url + `/checkUserInRole?role=${role}`, { headers });
+  }
+
+  activateAccount(email: any, activeCode: any): Observable<any>{
+    return this.http.get<any>(this.url + `/activateAccount?email=${email}&activate=${activeCode}`);
   }
 }

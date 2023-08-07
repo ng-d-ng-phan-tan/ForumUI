@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
+import {toast} from 'src/assets/js/main.js';
 
 @Component({
   selector: 'app-changepassword',
   templateUrl: './changepassword.component.html',
-  styleUrls: ['./changepassword.component.css']
+  styleUrls: ['./changepassword.component.css','../../../../custome-style.css']
 })
 export class ChangepasswordComponent {
   emailValue: string = '';
@@ -15,7 +16,7 @@ export class ChangepasswordComponent {
 
   onClickChangePassword(){
     if(this.passwordValue == this.newPasswordValue){
-      alert("Mật khẩu mới không được trùng với mật khẩu cũ")
+      toast('Warning', 'New password is not allowed to be the same to your old password','warning',3000);
       return;
     }
     let obj = {
@@ -25,10 +26,10 @@ export class ChangepasswordComponent {
     }
     this.auth.changePassword(obj).subscribe((res) => {
       if(res.status == 200){
-        alert("Đổi mật khẩu thành công");
+        toast('Success', 'Change password success','success',3000);
       }
       else {
-        alert("Đổi mật khẩu thất bại");
+        toast('Failed', 'Change password failed','error',3000);
       }
     })
   }
