@@ -1,13 +1,24 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ApiService } from './services/api.service';
 import { FormatDistancePipe } from './pipes/format-distance.pipe';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
+import { AngularFireModule } from '@angular/fire/compat';
+import { MessagingService } from './services/messaging.service';
+import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import { environment } from 'src/environments/environment.development';
 
 @NgModule({
-  declarations: [
-    FormatDistancePipe
+  declarations: [FormatDistancePipe],
+  imports: [
+    HttpClientModule,
+    CommonModule,
+    AngularFireAuthModule,
+    AngularFireMessagingModule,
+    AngularFireModule.initializeApp(environment.firebase),
   ],
-  imports: [CommonModule],
-  providers: [ApiService],
+  providers: [ApiService, MessagingService, DatePipe, CookieService],
 })
 export class CoreModule {}
