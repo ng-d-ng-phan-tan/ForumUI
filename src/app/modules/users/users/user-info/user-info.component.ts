@@ -47,7 +47,8 @@ export class UserInfoComponent implements OnInit {
           });
 
           this.lstUserIDs = [
-            '3b015c4f-1a95-4ab5-b794-cf00cb01c34d',
+            this.user.user_id,
+            // '3b015c4f-1a95-4ab5-b794-cf00cb01c34d',
             // '6c9f45bf-9e8c-4778-affd-69ddcf3384bd',
             // 'c7e2650f-fc9b-4a51-8307-7c88e1b5223b',
             // 'f279d4ce-78fe-4625-943b-a06d242f540e',

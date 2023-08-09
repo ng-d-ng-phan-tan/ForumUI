@@ -12,7 +12,9 @@ export class AvatarsComponent implements OnInit {
   @Input() lstIDs: string[] = [];
   @Input() lstUsers: User[] = [];
   @Input() width: number = 0;
-  @Input() isProfile: boolean = true;
+  @Input() allowChangeAvatar: boolean = true;
+  @Input() showName: boolean = true;
+  @Input() showAddress: boolean = true;
   @Input() showMax: number = 0;
   constructor(
     private userService: UsersService,

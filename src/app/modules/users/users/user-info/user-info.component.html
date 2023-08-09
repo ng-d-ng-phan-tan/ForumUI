@@ -2,12 +2,14 @@
   <div class="container flex flex-col" style="padding: 10px">
     <div class="flex flex-col mb-2.5">
       <label for="" class="h1">Ảnh đại diện</label>
+      <!-- [lstIDs]="lstUserIDs" -->
       <app-avatars
-        *ngIf="lstUserIDs"
-        [lstIDs]="lstUserIDs"
+        *ngIf="lstUserIDs || user.user_id"
+        [lstUsers]="[user]"
         [width]="12"
         [showMax]="2"
-        [isProfile]="true"
+        [showName]="false"
+        [showAddress]="false"
       >
       </app-avatars>
     </div>

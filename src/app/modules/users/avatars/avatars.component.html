@@ -15,16 +15,25 @@
       style="display: none"
       accept="image/*"
       placeholder="Type here"
-      [disabled]="!isProfile"
+      [disabled]="!allowChangeAvatar"
       (change)="changeAvatar($event)"
     />
     <div class="more-info">
-      <div class="ml-2.5 text-sm">{{ curUser?.name }}</div>
-      <div class="ml-2.5 text-sm">{{ curUser?.address }}</div>
+      <div
+        *ngIf="showName"
+        [class]="
+          'ml-2.5 text-sm flex items-center ' + (!showAddress ? 'h-full' : '')
+        "
+      >
+        {{ curUser?.name }}
+      </div>
+      <div *ngIf="showAddress" class="ml-2.5 text-sm">
+        {{ curUser?.address }}
+      </div>
     </div>
   </div>
   <button
-    *ngIf="isProfile"
+    *ngIf="allowChangeAvatar"
     class="file-upload btn btn-info pen"
     (click)="avatarFile.click()"
   >
