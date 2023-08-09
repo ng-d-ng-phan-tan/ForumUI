@@ -8,13 +8,14 @@ import { TagsModule } from './modules/tags/tags.module';
 import { UsersModule } from './modules/users/users.module';
 import { AuthService } from './modules/auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 import { LayoutComponent } from './pages/layout/layout.component';
 import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, LayoutComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [DatePipe],
+  providers: [DatePipe, CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

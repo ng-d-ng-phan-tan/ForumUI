@@ -24,7 +24,7 @@ export class SignupComponent {
     this.auth.register(obj).subscribe((res) => {
       debugger
       if(res.status == 200){
-        toast('Success', 'Register success','success',3000);
+        toast('Success', res.message,'success',3000);
       }
       else{
         toast('Failed', 'Register failed please check your input','error',3000);
