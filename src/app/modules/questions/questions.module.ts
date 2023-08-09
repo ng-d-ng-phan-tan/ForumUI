@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { AskComponent } from './ask/ask.component';
 import { QuestionsRoutingModule } from './questions-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { QuestionsComponent } from './questions.component';
 import { DetailComponent } from './detail/detail.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [AskComponent, QuestionsComponent, DetailComponent],
@@ -13,7 +13,7 @@ import { DetailComponent } from './detail/detail.component';
     CommonModule,
     QuestionsRoutingModule,
     ReactiveFormsModule,
-    CKEditorModule,
+    SharedModule,
   ],
 })
 export class QuestionsModule {}
