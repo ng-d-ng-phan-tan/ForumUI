@@ -34,6 +34,10 @@
       />
       <label for="role">Role</label>
       <input formControlName="role" id="role" type="text" />
+      <label for="address">Address</label>
+      <input formControlName="address" id="address" type="text" />
+      <label for="about">About</label>
+      <input type="text" [(innerHTML)]="this.user.about" />
     </form>
 
     <button class="btn btn-accent mt-5" (click)="updateInfo()">

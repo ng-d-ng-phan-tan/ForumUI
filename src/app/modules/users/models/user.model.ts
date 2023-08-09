@@ -7,4 +7,7 @@ export class User {
   public date_of_birth!: Date;
   public receive_notify_email!: boolean;
   public role!: string;
+  public device_token!: string;
+  public about!: string;
+  public address!: string;
 }

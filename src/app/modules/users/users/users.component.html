@@ -1,0 +1,8 @@
+<ng-container *ngIf="lstUsers.length > 0">
+  <div class="grid grid-cols-4 gap-3">
+    <div *ngFor="let user of lstUsers" class="mb-1" (click)="selectUser(user)">
+      <app-avatars [isProfile]="false" [lstUsers]="[user]" [width]="12">
+      </app-avatars>
+    </div>
+  </div>
+</ng-container>

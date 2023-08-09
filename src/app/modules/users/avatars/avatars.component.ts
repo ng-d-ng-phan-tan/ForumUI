@@ -10,6 +10,7 @@ import { UsersService } from '../users.service';
 export class AvatarsComponent implements OnInit {
   // @Input() ids: string[] = [];
   @Input() lstIDs: string[] = [];
+  @Input() lstUsers: User[] = [];
   @Input() width: number = 0;
   @Input() isProfile: boolean = true;
   @Input() showMax: number = 0;
@@ -19,18 +20,24 @@ export class AvatarsComponent implements OnInit {
   ) {}
 
   lstShowUsers: User[] = [];
-  lstUser: User[] = [];
   curUser: User = new User();
   ngOnInit() {
-    this.userService.getUsers(this.lstIDs).subscribe((res) => {
-      if (res.status == '200') {
-        this.lstUser = res.data;
-        this.curUser = this.lstUser[0];
-        for (let index = 0; index < this.showMax; index++) {
-          this.lstShowUsers.push(this.lstUser[index]);
+    if (this.lstIDs.length > 0) {
+      this.userService.getUsers(this.lstIDs).subscribe((res) => {
+        if (res.status == '200') {
+          this.lstUsers = res.data;
+          this.curUser = this.lstUsers[0];
+          for (let index = 0; index < this.showMax; index++) {
+            this.lstShowUsers.push(this.lstUsers[index]);
+          }
         }
+      });
+    } else {
+      this.curUser = this.lstUsers[0];
+      for (let index = 0; index < this.showMax; index++) {
+        this.lstShowUsers.push(this.lstUsers[index]);
       }
-    });
+    }
   }
 
   changeAvatar(evt: any) {

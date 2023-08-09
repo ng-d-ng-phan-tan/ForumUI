@@ -13,6 +13,7 @@ export class UsersService {
   private userUrl = 'http://localhost:8002/api/';
   private getUserMethod = 'getUser';
   private getUsersMethod = 'getUsers';
+  private getUsersPagingMethod = 'getUsersPaging';
   private addUserMethod = 'add';
   private updateUserMethod = 'update';
   private deleteUserMethod = 'delete';
@@ -30,6 +31,12 @@ export class UsersService {
   getUsers(lstUserIDs: string[]): Observable<any> {
     return this.http.post(this.userUrl + this.getUsersMethod, {
       lstIDs: lstUserIDs,
+    });
+  }
+
+  getUsersPaging(page: number) {
+    return this.http.post(this.userUrl + this.getUsersPagingMethod, {
+      page: page,
     });
   }
 

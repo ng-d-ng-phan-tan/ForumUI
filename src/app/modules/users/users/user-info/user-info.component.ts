@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UsersService } from '../users.service';
-import { User } from '../models/user.model';
+import { UsersService } from '../../users.service';
+import { User } from '../../models/user.model';
 import { DatePipe } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -18,19 +18,12 @@ export class UserInfoComponent implements OnInit {
     private df: ChangeDetectorRef
   ) {
     route.params.subscribe((params) => {
+      console.log('params', params);
+
       this.userService.getUser(params['user_id']).subscribe((res) => {
         if (res.status == '200') {
           this.user = res.data[0] as User;
           console.log(this.user);
-          // if (this.user.date_of_birth) {
-          //   let bday = this.datePipe.transform(
-          //     this.user.date_of_birth,
-          //     'yyyy-MM-dd'
-          //   );
-          //   if (bday != null) {
-          //     this.user.date_of_birth = new Date(bday);
-          //   }
-          // }
 
           this.formGroup = new FormGroup({
             user_id: new FormControl({
@@ -43,6 +36,8 @@ export class UserInfoComponent implements OnInit {
             date_of_birth: new FormControl(this.user.date_of_birth),
             role: new FormControl({ value: this.user.role, disabled: true }),
             avatar: new FormControl(this.user.avatar),
+            address: new FormControl(this.user.address),
+            // about: new FormControl(this.user.about),
           });
 
           this.formGroup.valueChanges.subscribe((value: any) => {

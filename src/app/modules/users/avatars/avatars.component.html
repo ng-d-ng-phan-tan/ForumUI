@@ -1,6 +1,9 @@
-<ng-container class="m-2.5" *ngIf="lstUser.length == 1; else group">
+<ng-container
+  [class]="'m-2.5 w-' + width"
+  *ngIf="lstUsers.length == 1; else group"
+>
   <div [class]="'flex mb-2.5'">
-    <div class="avatar">
+    <div [class]="'avatar'">
       <div [class]="'w-' + width + ' rounded-full'">
         <img [src]="curUser?.avatar" />
       </div>
@@ -12,14 +15,19 @@
       style="display: none"
       accept="image/*"
       placeholder="Type here"
+      [disabled]="!isProfile"
       (change)="changeAvatar($event)"
     />
-    <div class="more-info" *ngIf="!isProfile">
-      <div class="ml-2.5">{{ curUser?.name }}</div>
-      <div class="ml-2.5">{{ curUser?.name }}</div>
+    <div class="more-info">
+      <div class="ml-2.5 text-sm">{{ curUser?.name }}</div>
+      <div class="ml-2.5 text-sm">{{ curUser?.address }}</div>
     </div>
   </div>
-  <button class="file-upload btn btn-info pen" (click)="avatarFile.click()">
+  <button
+    *ngIf="isProfile"
+    class="file-upload btn btn-info pen"
+    (click)="avatarFile.click()"
+  >
     <label for="">Thay đổi avatar</label>
   </button>
 </ng-container>
@@ -34,9 +42,9 @@
       </div>
     </div>
 
-    <div class="avatar placeholder" *ngIf="lstUser.length - showMax > 0">
+    <div class="avatar placeholder" *ngIf="lstUsers.length - showMax > 0">
       <div class="w-12 bg-neutral-focus text-neutral-content">
-        <span>+{{ lstUser.length - showMax }}</span>
+        <span>+{{ lstUsers.length - showMax }}</span>
       </div>
     </div>
   </div>
