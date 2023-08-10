@@ -21,22 +21,45 @@
           <!-- Desktop navigation -->
           <nav class="c5uxf cc9uf">
             <!-- Desktop sign in links -->
-            <ul class="c5uxf cc9uf cdfxl cg15g ckout">
-              <li>
-                <a
-                  [routerLink]="['/auth/login']"
-                  class="c5uxf cg15g cd7gb chx2r cmnuk c6bh0 cgm02 ctlm4 cpefv cnsvb ce0ap crsga"
-                  >Sign in</a
-                >
-              </li>
-              <li class="cw89k">
-                <a
-                  class="cp4mw cniyg ck65l ce60u cfs3l"
-                  [routerLink]="['/auth/signup']"
-                  >Join Community</a
-                >
-              </li>
-            </ul>
+            <div class="c5uxf cc9uf cdfxl cg15g ckout">
+              <div style="display: flex;" *ngIf="alreadyLogin() == true">
+                <div class="cw89k">
+                  <!-- <app-avatars
+                  [allowChangeAvatar]="false"
+                  [showName]="true"
+                  [showAddress]="false"
+                  [showEmail]="false"
+                  [lstIDs]="[userId]"
+                  [width]="12"
+                  >
+                  </app-avatars> -->
+                </div>
+                <div class="cw89k">
+                  <button
+                    class="cp4mw cniyg ck65l ce60u cfs3l"
+                    (click)="logOut()"
+                    >Logout</button>
+                </div>
+              </div>
+
+              <div style="display: flex;" *ngIf="alreadyLogin() == false">
+                <div>
+                  <a
+                    [routerLink]="['/auth/login']"
+                    class="c5uxf cg15g cd7gb chx2r cmnuk c6bh0 cgm02 ctlm4 cpefv cnsvb ce0ap crsga"
+                    >Sign in</a
+                  >
+                </div>
+                <div class="cw89k">
+                  <a
+                    class="cp4mw cniyg ck65l ce60u cfs3l"
+                    [routerLink]="['/auth/signup']"
+                    >Join Community</a
+                  >
+                </div>
+              </div>
+
+            </div>
           </nav>
 
           
