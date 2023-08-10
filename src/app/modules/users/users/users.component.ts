@@ -24,25 +24,25 @@ export class UsersComponent implements OnInit {
   }
 
   getUsersPagination() {
-    // if (this.curPage > 0) {
-    //   this.lstUsers = [];
-    //   this.userService.getUsersPaging(this.curPage).subscribe((res: any) => {
-    //     if (res.status == '200') {
-    //       this.lstUsers = res.data.data;
-    //       this.df.detectChanges();
+    if (this.curPage > 0) {
+      this.lstUsers = [];
+      this.userService.getUsersPaging(this.curPage).subscribe((res: any) => {
+        if (res.status == '200') {
+          this.lstUsers = res.data.data;
+          this.df.detectChanges();
 
-    //       console.log('res', this.lstUsers);
-    //     }
-    //   });
-    //   this.df.detectChanges();
-    // }
-    let user = new User();
-    user.user_id = '1234';
-    user.name = 'Test';
-    user.email = 'test@example.com';
-    user.gender = true;
-    user.avatar = './images/avatar-01.jpg';
-    this.lstUsers = [user];
+          console.log('res', this.lstUsers);
+        }
+      });
+      this.df.detectChanges();
+    }
+    // let user = new User();
+    // user.user_id = '1234';
+    // user.name = 'Test';
+    // user.email = 'test@example.com';
+    // user.gender = true;
+    // user.avatar = './images/avatar-01.jpg';
+    // this.lstUsers = [user];
   }
 
   selectUser(user: User) {
