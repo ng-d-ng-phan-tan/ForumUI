@@ -1,3 +1,15 @@
+<div class="search w-full mb-12">
+  <div class="flex mr-2 justify-center">
+    <input
+      type="text"
+      placeholder="Tên tài khoản"
+      class="input input-bordered w-full max-w-xs mr-2"
+      (change)="searchName($event)"
+    />
+    <button class="btn btn-info w-1/4" (click)="searchUsers()">Tìm kiếm</button>
+  </div>
+</div>
+
 <ng-container *ngIf="lstUsers.length > 0">
   <div class="grid grid-cols-4 gap-3">
     <div *ngFor="let user of lstUsers" class="mb-1" (click)="selectUser(user)">
@@ -5,6 +17,7 @@
         [allowChangeAvatar]="false"
         [showName]="true"
         [showAddress]="false"
+        [showEmail]="true"
         [lstUsers]="[user]"
         [width]="12"
       >

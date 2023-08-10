@@ -15,6 +15,7 @@ export class AvatarsComponent implements OnInit {
   @Input() allowChangeAvatar: boolean = true;
   @Input() showName: boolean = true;
   @Input() showAddress: boolean = true;
+  @Input() showEmail: boolean = true;
   @Input() showMax: number = 0;
   constructor(
     private userService: UsersService,

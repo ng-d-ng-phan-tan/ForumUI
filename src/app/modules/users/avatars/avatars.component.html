@@ -22,13 +22,17 @@
       <div
         *ngIf="showName"
         [class]="
-          'ml-2.5 text-sm flex items-center ' + (!showAddress ? 'h-full' : '')
+          'ml-2.5 text-sm flex items-center ' +
+          (!showAddress && !showEmail ? 'h-full' : '')
         "
       >
         {{ curUser?.name }}
       </div>
       <div *ngIf="showAddress" class="ml-2.5 text-sm">
         {{ curUser?.address }}
+      </div>
+      <div *ngIf="showEmail" class="ml-2.5 text-sm">
+        {{ curUser?.email }}
       </div>
     </div>
   </div>
