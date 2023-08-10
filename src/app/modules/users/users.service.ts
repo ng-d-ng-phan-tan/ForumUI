@@ -13,6 +13,7 @@ export class UsersService {
   private userUrl = 'http://localhost:8002/api/';
   private getUserMethod = 'getUser';
   private getUsersMethod = 'getUsers';
+  private getUsersByNameMethod = 'getUsersByNameMethod';
   private getUsersPagingMethod = 'getUsersPaging';
   private addUserMethod = 'add';
   private updateUserMethod = 'update';
@@ -37,6 +38,12 @@ export class UsersService {
   getUsersPaging(page: number) {
     return this.http.post(this.userUrl + this.getUsersPagingMethod, {
       page: page,
+    });
+  }
+
+  searchUsers(name: string) {
+    return this.http.post(this.userUrl + this.getUsersByNameMethod, {
+      predict: name,
     });
   }
 
