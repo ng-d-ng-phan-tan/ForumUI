@@ -4,11 +4,17 @@ import { CommonModule } from '@angular/common';
 import { UsersRoutingModule } from './users-routing.module';
 import { UserInfoComponent } from './users/user-info/user-info.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AvatarsComponent } from './avatars/avatars.component';
 import { UsersComponent } from './users/users.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
-  declarations: [UserInfoComponent, AvatarsComponent, UsersComponent],
-  imports: [CommonModule, UsersRoutingModule, ReactiveFormsModule, FormsModule],
+  declarations: [UserInfoComponent, UsersComponent],
+  imports: [
+    CommonModule,
+    UsersRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    SharedModule,
+  ],
 })
 export class UsersModule {}
