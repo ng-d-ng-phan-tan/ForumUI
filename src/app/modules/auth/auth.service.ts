@@ -9,7 +9,7 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
   //base URL của BE
-  private url = 'http://127.0.0.1:8000/api';
+  private url = 'http://127.0.0.1:8001/api';
   private device_token = '';
 
   //Token gán cứng để thử truyền token qua header của request
