@@ -9,6 +9,24 @@ import { AuthService } from 'src/app/modules/auth/auth.service';
   styleUrls: ['./layout.component.css'],
 })
 export class LayoutComponent {
+  notifications: any = [
+    {
+      title: 'New message from John Doe',
+      body: 'Hi, I just wanted to let you know that I finished the project you assigned me.',
+      type: 'info',
+    },
+    {
+      title: 'Your account has been updated',
+      body: 'Your account has been updated with the latest security settings.',
+      type: 'success',
+    },
+    {
+      title: 'Your order has been shipped',
+      body: 'Your order has been shipped and will arrive within 2-3 business days.',
+      type: 'warning',
+    },
+  ];
+
   constructor(
     private router: Router,
     private cookieService: CookieService,
@@ -38,5 +56,17 @@ export class LayoutComponent {
           this.cookieService.delete('refresh_token');
         }
       });
+  }
+
+  showNotificationList() {}
+
+  showNotification(notification: Notification) {
+    this.notifications.push(notification);
+  }
+
+  closeNotification(notification: Notification) {
+    this.notifications = this.notifications.filter(
+      (n: any) => n !== notification
+    );
   }
 }
