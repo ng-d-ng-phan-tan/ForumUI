@@ -3,6 +3,7 @@ import { User } from '../models/user.model';
 import { UsersService } from '../users.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { toast } from 'src/assets/js/main.js';
 
 @Component({
   selector: 'app-users',
@@ -59,7 +60,7 @@ export class UsersComponent implements OnInit {
   selectUser(user: User) {
     window.location.href += '/' + user.user_id;
   }
- 
+
   goToPage(isNextPage: boolean) {
     if (isNextPage) {
       this.curPage += 1;
@@ -95,6 +96,9 @@ export class UsersComponent implements OnInit {
           if (res?.status == '200') {
             this.lstSearchUsers = res.data.data as User[];
             this.isSearching = false;
+            if (this.lstSearchUsers.length == 0) {
+              toast('Failed', 'No user matches the given name', 'error', 3000);
+            }
           }
         });
     } else {

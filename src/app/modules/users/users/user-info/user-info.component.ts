@@ -5,6 +5,7 @@ import { User } from '../../models/user.model';
 import { DatePipe } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { toast } from 'src/assets/js/main.js';
 
 @Component({
   selector: 'app-user-info',
@@ -16,7 +17,7 @@ export class UserInfoComponent implements OnInit {
   formGroup: any;
   lstUserIDs: string[] = [];
   loginUserID: string = '';
-
+  isUpdating = false;
   constructor(
     private route: ActivatedRoute,
     private userService: UsersService,
@@ -25,7 +26,6 @@ export class UserInfoComponent implements OnInit {
     private cookieService: CookieService
   ) {
     this.loginUserID = this.cookieService.get('user_id');
-
     route.params.subscribe((params) => {
       console.log('params', params);
 
@@ -85,9 +85,13 @@ export class UserInfoComponent implements OnInit {
 
   updateInfo() {
     console.log(this.user);
-
+    this.isUpdating = true;
     this.userService.updateUser(this.user).subscribe((res) => {
       console.log('update res', res);
+      if (res.status == '200') {
+        this.isUpdating = false;
+        toast('Success', 'Updated', 'success', 3000);
+      }
     });
   }
 }
