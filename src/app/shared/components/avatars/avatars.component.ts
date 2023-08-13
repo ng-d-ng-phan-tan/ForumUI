@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { User } from '../models/user.model';
-import { UsersService } from '../users.service';
+import { User } from 'src/app/modules/users/models/user.model';
+import { UsersService } from 'src/app/modules/users/users.service';
 
 @Component({
   selector: 'app-avatars',

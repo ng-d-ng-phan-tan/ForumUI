@@ -1,21 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private cookieService: CookieService,
+    ) {
   }
   //base URL của BE
-  private url = 'http://127.0.0.1:8000/api';
+  private url = 'http://127.0.0.1:8001/api';
+  private device_token = '';
 
-  //Token gán cứng để thử truyền token qua header của request
-  private token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNjkwMzgwMDg2LCJleHAiOjE2OTA1OTYwODYsIm5iZiI6MTY5MDM4MDA4NiwianRpIjoiTGhlZzZyTkFBZHlJdHlGTSIsInN1YiI6IjliMzMwNWExLTBkNGQtNDdjNy05N2NlLTNmZmI1ZmY2YWFhYSIsInBydiI6ImJjOTNhNWNmZThjOWYzNWFkOWQzODI0MDQwOWNkMTY1Y2U2ZWZjMGIiLCJ1c2VyX2lkIjoiOWIzMzA1YTEtMGQ0ZC00N2M3LTk3Y2UtM2ZmYjVmZjZhYWFhIiwicm9sZSI6ImFkbWluIiwibmFtZSI6IlF1YW5nIEhpZXAiLCJlbWFpbCI6InZ1aGllcDJAZ21haWwuY29tIn0.FflIle2E_bq88yZ7mCG6Fx_nXmsUeX8B7hh0tqoJ4E4';
+  receiveDeviceToken(data: any){
+    this.device_token = data;
+  }
+
+  getDeviceToken(){
+    return this.device_token;
+  }
 
   login(data: any): Observable<any> {
     return this.http.post<any>(this.url + '/login', data /*, { headers } */);
+  }
+
+  logout(token: any): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': token });
+    return this.http.get<any>(this.url + '/logout', { headers } );
   }
 
   register(data: any): Observable<any> {
@@ -26,7 +40,7 @@ export class AuthService {
 
   //gọi api getTokenPayLoad, api này có truyển trong header Key Authorization, value là token để backend xử lí token
   getTokenPayload(): Observable<any> {
-    const headers = new HttpHeaders({ 'Authorization': this.token });
+    const headers = new HttpHeaders({ 'Authorization': this.cookieService.get('access_token') });
     // Gửi request với header chứa JWT token
     return this.http.get<any>(this.url + '/getTokenPayload', { headers });
   }
@@ -45,18 +59,22 @@ export class AuthService {
 
   //Lấy role của user dựa vào token gửi tới BE
   getUserRole(): Observable<any> {
-    const headers = new HttpHeaders({ 'Authorization': this.token });
+    const headers = new HttpHeaders({ 'Authorization': this.cookieService.get('access_token') });
     // Gửi request với header chứa JWT token
     return this.http.get<any>(this.url + '/getUserRole', { headers });
   }
 
   checkUserInRole(role: any): Observable<any>{
-    const headers = new HttpHeaders({ 'Authorization': this.token });
+    const headers = new HttpHeaders({ 'Authorization': this.cookieService.get('access_token') });
     // Gửi request với header chứa JWT token
     return this.http.get<any>(this.url + `/checkUserInRole?role=${role}`, { headers });
   }
 
   activateAccount(email: any, activeCode: any): Observable<any>{
     return this.http.get<any>(this.url + `/activateAccount?email=${email}&activate=${activeCode}`);
+  }
+
+  reGenAccessToken(data: any): Observable<any> {
+    return this.http.post<any>(this.url + '/reGenAccessToken', data);
   }
 }

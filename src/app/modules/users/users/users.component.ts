@@ -59,7 +59,7 @@ export class UsersComponent implements OnInit {
   selectUser(user: User) {
     window.location.href += '/' + user.user_id;
   }
-
+ 
   goToPage(isNextPage: boolean) {
     if (isNextPage) {
       this.curPage += 1;
