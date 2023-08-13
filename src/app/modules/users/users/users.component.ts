@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { User } from '../models/user.model';
 import { UsersService } from '../users.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-users',
@@ -13,27 +14,37 @@ export class UsersComponent implements OnInit {
     private userService: UsersService,
     private activeRoute: ActivatedRoute,
     private router: Router,
-    private df: ChangeDetectorRef
+    private df: ChangeDetectorRef,
+    private cookieService: CookieService
   ) {}
 
   lstUsers: User[] = [];
   curPage: number = 1;
+  lstSearchUsers: User[] = [];
+  curSeachPage: number = 1;
+
   curSearchValue: string = '';
+  loginUserID: string = '';
+  isAdmin: boolean = true;
+  isSearching: boolean = false;
   ngOnInit(): void {
+    this.loginUserID = this.cookieService.get('user_id');
+
     this.getUsersPagination();
   }
 
   getUsersPagination() {
     if (this.curPage > 0) {
       this.lstUsers = [];
-      this.userService.getUsersPaging(this.curPage).subscribe((res: any) => {
-        if (res.status == '200') {
-          this.lstUsers = res.data.data;
-          this.df.detectChanges();
-
-          console.log('res', this.lstUsers);
-        }
-      });
+      this.userService
+        .getUsersPaging(this.curPage, this.isAdmin, this.curSearchValue)
+        .subscribe((res: any) => {
+          if (res.status == '200') {
+            this.lstUsers = res.data.data;
+            this.df.detectChanges();
+            console.log('res', this.lstUsers);
+          }
+        });
       this.df.detectChanges();
     }
     // let user = new User();
@@ -58,13 +69,37 @@ export class UsersComponent implements OnInit {
     this.getUsersPagination();
   }
 
+  goToSearchPage(isNextPage: boolean) {
+    if (isNextPage) {
+      this.curSeachPage += 1;
+    } else {
+      this.curSeachPage -= 1;
+    }
+    this.searchUsers();
+  }
+
   searchName(evt: any) {
     this.curSearchValue = evt.target.value;
+    if (this.curSearchValue == '') {
+      this.lstSearchUsers = [];
+      this.isSearching = false;
+    }
   }
 
   searchUsers() {
-    // this.userService.searchUsers().subscribe(users => {
-    //   this.lstUsers = users
-    // })
+    this.isSearching = true;
+    if (this.curSearchValue != '') {
+      this.userService
+        .getUsersPaging(this.curSeachPage, this.isAdmin, this.curSearchValue)
+        .subscribe((res: any) => {
+          if (res?.status == '200') {
+            this.lstSearchUsers = res.data.data as User[];
+            this.isSearching = false;
+          }
+        });
+    } else {
+      this.isSearching = false;
+      this.lstSearchUsers = [];
+    }
   }
 }
