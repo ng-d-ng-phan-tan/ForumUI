@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { initFlowbite } from 'flowbite';
 import { MessagingService } from './core/services/messaging.service';
 
 @Component({
@@ -12,6 +13,7 @@ export class AppComponent implements OnInit {
   constructor(private messagingService: MessagingService) {}
 
   ngOnInit() {
+    initFlowbite();
     this.messagingService.requestPermission();
     this.messagingService.receiveMessage();
     this.message = this.messagingService.currentMessage;
