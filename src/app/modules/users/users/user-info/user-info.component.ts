@@ -4,6 +4,8 @@ import { UsersService } from '../../users.service';
 import { User } from '../../../../shared/models/user.model';
 import { DatePipe } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
+import { toast } from 'src/assets/js/main.js';
 
 @Component({
   selector: 'app-user-info',
@@ -11,12 +13,19 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./user-info.component.scss'],
 })
 export class UserInfoComponent implements OnInit {
+  user: User = new User();
+  formGroup: any;
+  lstUserIDs: string[] = [];
+  loginUserID: string = '';
+  isUpdating = false;
   constructor(
     private route: ActivatedRoute,
     private userService: UsersService,
     private datePipe: DatePipe,
-    private df: ChangeDetectorRef
+    private df: ChangeDetectorRef,
+    private cookieService: CookieService
   ) {
+    this.loginUserID = this.cookieService.get('user_id');
     route.params.subscribe((params) => {
       console.log('params', params);
 
@@ -30,29 +39,37 @@ export class UserInfoComponent implements OnInit {
               value: this.user.user_id,
               disabled: true,
             }),
-            name: new FormControl({ value: this.user.name, disabled: false }),
+            name: new FormControl({
+              value: this.user.name,
+              disabled: false && this.loginUserID != this.user.user_id,
+            }),
             email: new FormControl({ value: this.user.email, disabled: true }),
-            gender: new FormControl(this.user.gender),
-            date_of_birth: new FormControl(this.user.date_of_birth),
+            gender: new FormControl({
+              value: this.user.gender ? 'Nam' : 'Nữ',
+              disabled: true,
+            }),
             role: new FormControl({ value: this.user.role, disabled: true }),
-            avatar: new FormControl(this.user.avatar),
-            address: new FormControl(this.user.address),
-            // about: new FormControl(this.user.about),
+            avatar: new FormControl({
+              value: this.user.avatar,
+              disabled: this.loginUserID != this.user.user_id,
+            }),
+            address: new FormControl({
+              value: this.user.address,
+              disabled: this.loginUserID != this.user.user_id,
+            }),
+            about: new FormControl({
+              value: this.user.about,
+              disabled: this.loginUserID != this.user.user_id,
+            }),
           });
 
           this.formGroup.valueChanges.subscribe((value: any) => {
             this.user.name = value.name;
-            this.user.date_of_birth = value.date_of_birth;
-            this.user.role = value.role;
+            this.user.about = value.about;
+            this.user.address = value.address;
           });
 
-          this.lstUserIDs = [
-            this.user.user_id,
-            // '3b015c4f-1a95-4ab5-b794-cf00cb01c34d',
-            // '6c9f45bf-9e8c-4778-affd-69ddcf3384bd',
-            // 'c7e2650f-fc9b-4a51-8307-7c88e1b5223b',
-            // 'f279d4ce-78fe-4625-943b-a06d242f540e',
-          ];
+          this.lstUserIDs = [this.user.user_id];
 
           this.df.detectChanges();
         }
@@ -60,9 +77,6 @@ export class UserInfoComponent implements OnInit {
     });
   }
 
-  user: User = new User();
-  formGroup: any;
-  lstUserIDs: string[] = [];
   ngOnInit() {}
   changeBDay(evt: any) {
     console.log(evt.value);
@@ -70,8 +84,14 @@ export class UserInfoComponent implements OnInit {
   }
 
   updateInfo() {
+    console.log(this.user);
+    this.isUpdating = true;
     this.userService.updateUser(this.user).subscribe((res) => {
       console.log('update res', res);
+      if (res.status == '200') {
+        this.isUpdating = false;
+        toast('Success', 'Updated', 'success', 3000);
+      }
     });
   }
 }

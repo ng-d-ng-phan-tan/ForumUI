@@ -13,7 +13,7 @@ export class UsersService {
   private userUrl = 'http://localhost:8002/api/';
   private getUserMethod = 'getUser';
   private getUsersMethod = 'getUsers';
-  private getUsersByNameMethod = 'getUsersByNameMethod';
+  private searchUser = 'searchUser';
   private getUsersPagingMethod = 'getUsersPaging';
   private addUserMethod = 'add';
   private updateUserMethod = 'update';
@@ -35,15 +35,17 @@ export class UsersService {
     });
   }
 
-  getUsersPaging(page: number) {
+  getUsersPaging(page: number, isAdmin: boolean, searchName: string) {
     return this.http.post(this.userUrl + this.getUsersPagingMethod, {
       page: page,
+      isAdmin: isAdmin,
+      searchName: searchName,
     });
   }
 
   searchUsers(name: string) {
-    return this.http.post(this.userUrl + this.getUsersByNameMethod, {
-      predict: name,
+    return this.http.post(this.userUrl + this.searchUser, {
+      name: name,
     });
   }
 

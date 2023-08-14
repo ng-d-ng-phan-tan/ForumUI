@@ -22,7 +22,7 @@
           <nav class="c5uxf cc9uf">
             <!-- Desktop sign in links -->
             <div class="c5uxf cc9uf cdfxl cg15g ckout">
-              <div style="display: flex;" *ngIf="alreadyLogin() == true">
+              <div style="display: flex" *ngIf="alreadyLogin() === true">
                 <div class="cw89k">
                   <!-- <app-avatars
                   [allowChangeAvatar]="false"
@@ -35,14 +35,41 @@
                   </app-avatars> -->
                 </div>
                 <div class="cw89k">
+                  <div class="dropdown dropdown-end">
+                    <button class="btn" (click)="showNotificationList()">
+                      <i class="fa-solid fa-bell"></i>
+                      <div class="badge badge-secondary">
+                        <span>{{ notifications.length }}</span>
+                      </div>
+                    </button>
+                    <ul
+                      tabindex="0"
+                      class="dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-96 max-h-72 overflow-auto"
+                    >
+                      <li *ngFor="let notification of notifications">
+                        <div class="card w-full bg-base-100 shadow-xl">
+                          <div class="card-body">
+                            <h2 class="card-title">{{ notification.title }}</h2>
+                            <p>
+                              {{ notification.body }}
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="cw89k">
                   <button
                     class="cp4mw cniyg ck65l ce60u cfs3l"
                     (click)="logOut()"
-                    >Logout</button>
+                  >
+                    Logout
+                  </button>
                 </div>
               </div>
 
-              <div style="display: flex;" *ngIf="alreadyLogin() == false">
+              <div style="display: flex" *ngIf="alreadyLogin() === false">
                 <div>
                   <a
                     [routerLink]="['/auth/login']"
@@ -58,11 +85,8 @@
                   >
                 </div>
               </div>
-
             </div>
           </nav>
-
-          
         </div>
       </div>
     </header>
@@ -216,7 +240,7 @@
                         <h3 class="ck3vf cmnuk">
                           <a
                             class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
-                           [routerLink]="['/questions/1']"
+                            [routerLink]="['/questions/1']"
                             >Search Startup Jobs - Week 5 - Build in Public -
                             Slow Week</a
                           >
@@ -246,7 +270,7 @@
                         <h3 class="ck3vf cmnuk">
                           <a
                             class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
-                           [routerLink]="['/questions/1']"
+                            [routerLink]="['/questions/1']"
                             >What are the most useful tools for SEO
                             marketing?</a
                           >
@@ -276,7 +300,7 @@
                         <h3 class="ck3vf cmnuk">
                           <a
                             class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
-                           [routerLink]="['/questions/1']"
+                            [routerLink]="['/questions/1']"
                             >How can you minimize the customer acquisition
                             cost?</a
                           >
@@ -399,7 +423,7 @@
                         <h3 class="ck3vf cmnuk">
                           <a
                             class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
-                           [routerLink]="['/questions/1']"
+                            [routerLink]="['/questions/1']"
                             >How do you decide and keep focus on the
                             <em class="coq3d">"right"</em> things?</a
                           >
@@ -429,7 +453,7 @@
                         <h3 class="ck3vf cmnuk">
                           <a
                             class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
-                           [routerLink]="['/questions/1']"
+                            [routerLink]="['/questions/1']"
                             >How do you approach building a team for your
                             startup?</a
                           >
@@ -459,7 +483,7 @@
                         <h3 class="ck3vf cmnuk">
                           <a
                             class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
-                           [routerLink]="['/questions/1']"
+                            [routerLink]="['/questions/1']"
                             >The 5 big lessons I've learnt from Geeks and
                             Experts</a
                           >

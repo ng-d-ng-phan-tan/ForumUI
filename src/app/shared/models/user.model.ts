@@ -10,4 +10,5 @@ export class User {
   public device_token!: string;
   public about!: string;
   public address!: string;
+  public delete_at!: Date;
 }

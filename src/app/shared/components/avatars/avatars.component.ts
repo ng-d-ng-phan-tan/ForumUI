@@ -11,12 +11,13 @@ export class AvatarsComponent implements OnInit {
   // @Input() ids: string[] = [];
   @Input() lstIDs: string[] = [];
   @Input() lstUsers: User[] = [];
-  @Input() width: number = 0;
+  @Input() width: number = 50;
   @Input() allowChangeAvatar: boolean = true;
   @Input() showName: boolean = true;
-  @Input() showAddress: boolean = true;
-  @Input() showEmail: boolean = true;
+  @Input() showAddress: boolean = false;
+  @Input() showEmail: boolean = false;
   @Input() showMax: number = 0;
+  @Input() showDelete: boolean = false;
   constructor(
     private userService: UsersService,
     private df: ChangeDetectorRef
