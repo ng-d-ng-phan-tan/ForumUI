@@ -4,12 +4,12 @@
   <div class="flex mr-2 justify-center">
     <input
       type="text"
-      placeholder="Tên tài khoản"
+      placeholder="User Name"
       class="input input-bordered w-full max-w-xs mr-2"
       (change)="searchName($event)"
       [disabled]="isSearching"
     />
-    <button class="btn btn-info w-1/4" (click)="searchUsers()">Tìm kiếm</button>
+    <button class="btn btn-info w-1/8" (click)="searchUsers()">Search</button>
   </div>
 </div>
 
@@ -62,7 +62,11 @@
 
 <ng-container *ngIf="lstUsers.length > 0 && curSearchValue == ''">
   <div class="grid grid-cols-3 gap-3">
-    <div *ngFor="let user of lstUsers" class="mb-1" (click)="selectUser(user)">
+    <div
+      *ngFor="let user of lstUsers"
+      class="mb-6 ml-2"
+      (click)="selectUser(user)"
+    >
       <app-avatars
         [allowChangeAvatar]="false"
         [showName]="true"

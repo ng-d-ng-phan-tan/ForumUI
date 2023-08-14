@@ -26,7 +26,7 @@ export class UsersComponent implements OnInit {
 
   curSearchValue: string = '';
   loginUserID: string = '';
-  isAdmin: boolean = true;
+  isAdmin: boolean = false;
   isSearching: boolean = false;
   ngOnInit(): void {
     this.loginUserID = this.cookieService.get('user_id');

@@ -18,6 +18,8 @@ export class UserInfoComponent implements OnInit {
   lstUserIDs: string[] = [];
   loginUserID: string = '';
   isUpdating = false;
+  numOfPost: number = 0;
+  numOfCmt: number = 0;
   constructor(
     private route: ActivatedRoute,
     private userService: UsersService,
@@ -26,6 +28,9 @@ export class UserInfoComponent implements OnInit {
     private cookieService: CookieService
   ) {
     this.loginUserID = this.cookieService.get('user_id');
+    //nho xoa
+    this.loginUserID = '80a42783-4e41-44cf-a6f8-941ee4a8c961';
+
     route.params.subscribe((params) => {
       console.log('params', params);
 
@@ -79,8 +84,9 @@ export class UserInfoComponent implements OnInit {
 
   ngOnInit() {}
   changeBDay(evt: any) {
-    console.log(evt.value);
-    this.user.date_of_birth = new Date(evt.value);
+    this.user.date_of_birth = evt.value;
+
+    this.df.detectChanges();
   }
 
   updateInfo() {

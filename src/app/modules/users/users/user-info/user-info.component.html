@@ -2,33 +2,36 @@
   <div id="toast"></div>
   <div class="container flex flex-col" style="padding: 10px">
     <div class="flex flex-col mb-2.5">
-      <label
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+      <div class="ava flex justify-center">
+        <!-- <label
+        class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
         for=""
         class="h1"
         >Ảnh đại diện</label
-      >
-      <!-- [lstIDs]="lstUserIDs" -->
-      <app-avatars
-        *ngIf="lstUserIDs || user.user_id"
-        [lstUsers]="[user]"
-        [width]="150"
-        [showMax]="2"
-        [showName]="false"
-        [showEmail]="false"
-        [showAddress]="false"
-        [allowChangeAvatar]="loginUserID == user.user_id"
-      >
-      </app-avatars>
+      > -->
+
+        <app-avatars
+          *ngIf="lstUserIDs || user.user_id"
+          [lstUsers]="[user]"
+          [width]="150"
+          [showMax]="2"
+          [showName]="false"
+          [showEmail]="false"
+          [showAddress]="false"
+          [showPostInfo]="true"
+          [allowChangeAvatar]="loginUserID == user.user_id"
+        >
+        </app-avatars>
+      </div>
     </div>
     <form
       [formGroup]="formGroup"
-      class="info grid grid-cols-2 space-y-2"
+      class="info grid grid-cols-2 mt-3"
       *ngIf="formGroup"
     >
-      <div class="info-name">
+      <div class="info-name mb-3">
         <label
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
           for="name"
         >
           Name
@@ -41,9 +44,9 @@
         />
       </div>
 
-      <div class="info-email">
+      <div class="info-email mb-3">
         <label
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
           for="email"
           >Email</label
         >
@@ -55,9 +58,9 @@
         />
       </div>
 
-      <div class="info-gender">
+      <div class="info-gender mb-3">
         <label
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
           for="gender"
           >Gender</label
         >
@@ -68,9 +71,9 @@
           type="text"
         />
       </div>
-      <div class="info-bday">
+      <div class="info-bday mb-3">
         <label
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
           for="date_of_birth"
           >Birthday</label
         >
@@ -82,13 +85,13 @@
           [value]="this.user.date_of_birth"
           [disabled]="this.loginUserID != this.user.user_id"
         />
-        <!-- [(ngModel)]="" -->
         <!-- [valueAsDate]="this.user.date_of_birth | date : 'dd/MM/yyyy'" -->
+        <!-- [(ngModel)]="" -->
       </div>
 
       <!-- <div class="info-role">
         <label
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
           for="role"
           >Role</label
         >
@@ -99,9 +102,9 @@
           type="text"
         />
       </div> -->
-      <div class="info-address">
+      <div class="info-address mb-1">
         <label
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
           for="address"
           >Address</label
         >
@@ -112,9 +115,9 @@
           type="text"
         />
       </div>
-      <div class="info-about">
+      <div class="info-about mb-1">
         <label
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
           for="about"
           >About</label
         >
@@ -128,7 +131,7 @@
     </form>
 
     <button
-      class="btn btn-accent mt-5"
+      class="btn btn-accent mt-4"
       (click)="updateInfo()"
       *ngIf="loginUserID == user.user_id"
       [disabled]="isUpdating"

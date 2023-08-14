@@ -23,6 +23,10 @@ export class UsersService {
   private fileUrl = 'http://localhost:8005/';
   private uploadFileMethod = 'upload-file';
 
+  //post server
+  private postUrl = 'http://localhost:8004/api/post/questions/';
+  private postInfoMethod = 'count';
+
   getUser(user_id: string): Observable<any> {
     return this.http.post(this.userUrl + this.getUserMethod, {
       user_id: user_id,
@@ -87,7 +91,9 @@ export class UsersService {
     return this.http.post(this.fileUrl + this.uploadFileMethod, formData);
   }
 
-  // getUserPostInfo(): Observable<any> {
-
-  // }
+  getUserPostInfo(user_id: string): Observable<any> {
+    return this.http.post(this.postUrl + this.postInfoMethod, {
+      user_id: user_id,
+    });
+  }
 }
