@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { User } from 'src/app/modules/users/models/user.model';
+import { User } from 'src/app/shared/models/user.model';
 import { UsersService } from 'src/app/modules/users/users.service';
 
 @Component({

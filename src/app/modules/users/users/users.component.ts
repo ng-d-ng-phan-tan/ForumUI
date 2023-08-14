@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { User } from '../models/user.model';
+import { User } from '../../../shared/models/user.model';
 import { UsersService } from '../users.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -48,7 +48,7 @@ export class UsersComponent implements OnInit {
   selectUser(user: User) {
     window.location.href += '/' + user.user_id;
   }
- 
+
   goToPage(isNextPage: boolean) {
     if (isNextPage) {
       this.curPage += 1;
