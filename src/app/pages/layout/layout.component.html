@@ -25,13 +25,15 @@
               <div style="display: flex" *ngIf="alreadyLogin() === true">
                 <div class="cw89k">
                   <app-avatars
+                    *ngIf="loginUser"
                     [allowChangeAvatar]="false"
                     [showName]="true"
                     [showAddress]="false"
                     [showEmail]="false"
-                    [lstIDs]="[userId]"
                     [width]="12"
+                    [lstUsers]="[loginUser]"
                   >
+                    <!-- [lstIDs]="[userId]" -->
                   </app-avatars>
                 </div>
                 <div class="cw89k">
