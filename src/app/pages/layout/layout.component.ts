@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/modules/auth/auth.service';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-layout',
@@ -34,7 +35,7 @@ export class LayoutComponent {
   ) {}
 
   userId: any;
-
+  loginUser: User | undefined;
   goToPage(pageName: string) {
     this.router.navigate([`${pageName}`]);
   }
@@ -42,6 +43,10 @@ export class LayoutComponent {
   alreadyLogin() {
     if (this.cookieService.check('access_token')) {
       this.userId = this.cookieService.get('user_id');
+      let userInfo = localStorage.getItem('loginUser');
+      if (userInfo) {
+        this.loginUser = JSON.parse(userInfo) as User;
+      }
       return true;
     }
     return false;

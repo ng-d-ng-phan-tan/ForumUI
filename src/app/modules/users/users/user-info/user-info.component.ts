@@ -28,8 +28,6 @@ export class UserInfoComponent implements OnInit {
     private cookieService: CookieService
   ) {
     this.loginUserID = this.cookieService.get('user_id');
-    //nho xoa
-    this.loginUserID = '80a42783-4e41-44cf-a6f8-941ee4a8c961';
 
     route.params.subscribe((params) => {
       console.log('params', params);
