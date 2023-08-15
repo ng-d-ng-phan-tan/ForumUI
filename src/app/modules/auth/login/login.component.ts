@@ -23,14 +23,11 @@ export class LoginComponent {
   ) {}
 
   onClickLogin() {
-    // toast('Thông tin', 'Bạn vừa bấm vào nút đăng nhập','info',3000);
-    // toast('Cảnh báo', 'Bạn vừa bấm vào nút đăng nhập','warning',3000);
-    // toast('Thành công', 'Bạn đã đăng nhập thành công','success',3000);
-    // toast('Thất bại', 'Đăng nhập thất bại','error',3000);
     let obj = {
       deviceToken: this.auth.getDeviceToken(),
       email: this.emailValue,
       password: this.passwordValue,
+      role: 'user'
     };
     this.auth.login(obj).subscribe((res: any) => {
       if (res.status == 200) {

@@ -19,7 +19,7 @@ export class SignupComponent {
       name: this.nameValue,
       email: this.emailValue,
       password: this.passwordValue,
-      role: 'admin'
+      role: 'user'
     }
     this.auth.register(obj).subscribe((res) => {
       debugger
