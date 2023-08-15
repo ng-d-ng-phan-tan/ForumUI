@@ -1,20 +1,19 @@
-import { UsersService } from 'src/app/modules/users/users.service';
 import { Component } from '@angular/core';
-import { toast } from 'src/assets/js/main.js';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../auth/auth.service';
 import { CookieService } from 'ngx-cookie-service';
+import { UsersService } from '../../users/users.service';
 import { Router } from '@angular/router';
+import { toast } from 'src/assets/js/main.js';
 import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css', '../../../../custome-style.css'],
+  styleUrls: ['./login.component.css', '../../../../custome-style.css']
 })
 export class LoginComponent {
   emailValue: string = '';
   passwordValue: string = '';
-  processingLogin = false;
 
   constructor(
     private auth: AuthService,
@@ -28,7 +27,7 @@ export class LoginComponent {
       deviceToken: this.auth.getDeviceToken(),
       email: this.emailValue,
       password: this.passwordValue,
-      role: 'user'
+      role: 'admin'
     };
     this.auth.login(obj).subscribe((res: any) => {
       if (res.status == 200) {
@@ -48,10 +47,9 @@ export class LoginComponent {
         toast('Failed', res.message, 'error', 3000);
       }
     });
-    // console.log(this.cookieService.check('access_token'))
   }
 
   navigateToHome() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/admin']);
   }
 }

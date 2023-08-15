@@ -1,25 +1,80 @@
+<div id="toast"></div>
+
 <div class="search w-full mb-12">
   <div class="flex mr-2 justify-center">
     <input
       type="text"
-      placeholder="Tên tài khoản"
+      placeholder="User Name"
       class="input input-bordered w-full max-w-xs mr-2"
       (change)="searchName($event)"
+      [disabled]="isSearching"
     />
-    <button class="btn btn-info w-1/4" (click)="searchUsers()">Tìm kiếm</button>
+    <button class="btn btn-info w-1/8" (click)="searchUsers()">Search</button>
   </div>
 </div>
 
-<ng-container *ngIf="lstUsers.length > 0">
-  <div class="grid grid-cols-4 gap-3">
-    <div *ngFor="let user of lstUsers" class="mb-1" (click)="selectUser(user)">
+<div
+  class="w-full flex justify-center"
+  *ngIf="lstUsers.length == 0 || isSearching"
+>
+  <div class="loading loading-spinner loading-lg text-primary"></div>
+</div>
+
+<ng-container *ngIf="lstSearchUsers.length > 0">
+  <div class="grid grid-cols-3 gap-3">
+    <div
+      *ngFor="let user of lstSearchUsers"
+      class="mb-1"
+      (click)="selectUser(user)"
+    >
       <app-avatars
         [allowChangeAvatar]="false"
         [showName]="true"
         [showAddress]="false"
         [showEmail]="true"
+        [showDelete]="true"
         [lstUsers]="[user]"
-        [width]="12"
+        [width]="50"
+      >
+      </app-avatars>
+    </div>
+  </div>
+
+  <div class="flex justify-center w-full mt-5">
+    <!-- Previous Button -->
+    <button
+      (click)="goToSearchPage(false)"
+      [disabled]="curPage < 2"
+      class="btn btn-info flex items-center justify-center px-4 h-10 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+    >
+      Previous
+    </button>
+
+    <!-- Next Button -->
+    <button
+      (click)="goToSearchPage(true)"
+      class="btn btn-info flex items-center justify-center px-4 h-10 ml-3 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+    >
+      Next
+    </button>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="lstUsers.length > 0 && curSearchValue == ''">
+  <div class="grid grid-cols-3 gap-3">
+    <div
+      *ngFor="let user of lstUsers"
+      class="mb-6 ml-2"
+      (click)="selectUser(user)"
+    >
+      <app-avatars
+        [allowChangeAvatar]="false"
+        [showName]="true"
+        [showAddress]="false"
+        [showEmail]="true"
+        [showDelete]="true"
+        [lstUsers]="[user]"
+        [width]="50"
       >
       </app-avatars>
     </div>

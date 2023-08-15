@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/modules/auth/auth.service';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-layout',
@@ -9,6 +10,24 @@ import { AuthService } from 'src/app/modules/auth/auth.service';
   styleUrls: ['./layout.component.css'],
 })
 export class LayoutComponent {
+  notifications: any = [
+    {
+      title: 'New message from John Doe',
+      body: 'Hi, I just wanted to let you know that I finished the project you assigned me.',
+      type: 'info',
+    },
+    {
+      title: 'Your account has been updated',
+      body: 'Your account has been updated with the latest security settings.',
+      type: 'success',
+    },
+    {
+      title: 'Your order has been shipped',
+      body: 'Your order has been shipped and will arrive within 2-3 business days.',
+      type: 'warning',
+    },
+  ];
+
   constructor(
     private router: Router,
     private cookieService: CookieService,
@@ -16,7 +35,7 @@ export class LayoutComponent {
   ) {}
 
   userId: any;
-
+  loginUser: User | undefined;
   goToPage(pageName: string) {
     this.router.navigate([`${pageName}`]);
   }
@@ -24,6 +43,10 @@ export class LayoutComponent {
   alreadyLogin() {
     if (this.cookieService.check('access_token')) {
       this.userId = this.cookieService.get('user_id');
+      let userInfo = localStorage.getItem('loginUser');
+      if (userInfo) {
+        this.loginUser = JSON.parse(userInfo) as User;
+      }
       return true;
     }
     return false;
@@ -38,5 +61,17 @@ export class LayoutComponent {
           this.cookieService.delete('refresh_token');
         }
       });
+  }
+
+  showNotificationList() {}
+
+  showNotification(notification: Notification) {
+    this.notifications.push(notification);
+  }
+
+  closeNotification(notification: Notification) {
+    this.notifications = this.notifications.filter(
+      (n: any) => n !== notification
+    );
   }
 }

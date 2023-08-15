@@ -42,77 +42,11 @@
     <!-- List container -->
     <div class="cjfii c5uxf ctj5y c8gep">
       <div class="grid grid-cols-2 gap-4">
-        <div class="card w-75 bg-base-100 shadow-xl">
+        <div *ngFor="let tag of tags" class="card w-75 bg-base-100 shadow-xl">
           <div class="card-body">
-            <div class="badge badge-secondary" >Tag</div>
+            <div class="badge badge-secondary">{{ tag.name }}</div>
             <p>
-              For questions about programming in ECMAScript (Javascript/JS) and
-              its different dialects/implementations (except for ActionScript).
-            </p>
-            <div class="card-actions justify-between">
-              <div class="text-sm">2156250 questions</div>
-              <div class="text-sm">220 asked today</div>
-            </div>
-          </div>
-        </div>
-        <div class="card w-75 bg-base-100 shadow-xl">
-          <div class="card-body">
-            <div class="badge badge-secondary">Tag</div>
-            <p>
-              For questions about programming in ECMAScript (Javascript/JS) and
-              its different dialects/implementations (except for ActionScript).
-            </p>
-            <div class="card-actions justify-between">
-              <div class="text-sm">2156250 questions</div>
-              <div class="text-sm">220 asked today</div>
-            </div>
-          </div>
-        </div>
-        <div class="card w-75 bg-base-100 shadow-xl">
-          <div class="card-body">
-            <div class="badge badge-secondary">Tag</div>
-            <p>
-              For questions about programming in ECMAScript (Javascript/JS) and
-              its different dialects/implementations (except for ActionScript).
-            </p>
-            <div class="card-actions justify-between">
-              <div class="text-sm">2156250 questions</div>
-              <div class="text-sm">220 asked today</div>
-            </div>
-          </div>
-        </div>
-        <div class="card w-75 bg-base-100 shadow-xl">
-          <div class="card-body">
-            <div class="badge badge-secondary">Tag</div>
-            <p>
-              For questions about programming in ECMAScript (Javascript/JS) and
-              its different dialects/implementations (except for ActionScript).
-            </p>
-            <div class="card-actions justify-between">
-              <div class="text-sm">2156250 questions</div>
-              <div class="text-sm">220 asked today</div>
-            </div>
-          </div>
-        </div>
-        <div class="card w-75 bg-base-100 shadow-xl">
-          <div class="card-body">
-            <div class="badge badge-secondary">Tag</div>
-            <p>
-              For questions about programming in ECMAScript (Javascript/JS) and
-              its different dialects/implementations (except for ActionScript).
-            </p>
-            <div class="card-actions justify-between">
-              <div class="text-sm">2156250 questions</div>
-              <div class="text-sm">220 asked today</div>
-            </div>
-          </div>
-        </div>
-        <div class="card w-75 bg-base-100 shadow-xl">
-          <div class="card-body">
-            <div class="badge badge-secondary">Tag</div>
-            <p>
-              For questions about programming in ECMAScript (Javascript/JS) and
-              its different dialects/implementations (except for ActionScript).
+              {{ tag.description }}
             </p>
             <div class="card-actions justify-between">
               <div class="text-sm">2156250 questions</div>

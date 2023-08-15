@@ -2180,3 +2180,6 @@ input[type=range]::-moz-focus-outer {
 .c61mk:nth-child(-n+4) {
     order: -1
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

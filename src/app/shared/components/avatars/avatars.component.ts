@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { User } from 'src/app/modules/users/models/user.model';
+import { User } from 'src/app/shared/models/user.model';
 import { UsersService } from 'src/app/modules/users/users.service';
 
 @Component({
@@ -11,12 +11,20 @@ export class AvatarsComponent implements OnInit {
   // @Input() ids: string[] = [];
   @Input() lstIDs: string[] = [];
   @Input() lstUsers: User[] = [];
-  @Input() width: number = 0;
+  @Input() width: number = 50;
   @Input() allowChangeAvatar: boolean = true;
+
+  //Show Info
   @Input() showName: boolean = true;
-  @Input() showAddress: boolean = true;
-  @Input() showEmail: boolean = true;
+  @Input() showAddress: boolean = false;
+  @Input() showEmail: boolean = false;
   @Input() showMax: number = 0;
+  @Input() showPostInfo: boolean = false;
+  @Input() showDelete: boolean = false;
+
+  //
+  numOfQuestions: number = 1;
+  numOfAnswers: number = 1;
   constructor(
     private userService: UsersService,
     private df: ChangeDetectorRef
@@ -32,6 +40,21 @@ export class AvatarsComponent implements OnInit {
           this.curUser = this.lstUsers[0];
           for (let index = 0; index < this.showMax; index++) {
             this.lstShowUsers.push(this.lstUsers[index]);
+          }
+
+          if (this.curUser && this.showPostInfo) {
+            this.userService
+              .getUserPostInfo(this.curUser.user_id)
+              .subscribe((res) => {
+                if (res) {
+                  if (res.questions) {
+                    this.numOfQuestions = res.questions;
+                  }
+                  if (res.answers) {
+                    this.numOfAnswers = res.answers;
+                  }
+                }
+              });
           }
         }
       });

@@ -3,8 +3,14 @@
   *ngIf="lstUsers.length == 1; else group"
 >
   <div [class]="'flex mb-2.5'">
-    <div [class]="'avatar'">
-      <div [class]="'w-' + width + ' rounded-full'">
+    <div
+      [class]="'avatar'"
+      [style]="'width: ' + width + 'px;' + 'height: ' + width + 'px;'"
+    >
+      <div
+        class="rounded-full"
+        [style]="'width: ' + width + 'px;' + 'height: ' + width + 'px;'"
+      >
         <img [src]="curUser?.avatar" />
       </div>
     </div>
@@ -34,14 +40,29 @@
       <div *ngIf="showEmail" class="ml-2.5 text-sm">
         {{ curUser?.email }}
       </div>
+      <div
+        *ngIf="showDelete && curUser?.delete_at"
+        class="ml-2.5 text-sm rounded"
+        style="background-color: rgb(221, 56, 56); padding: 2%"
+      >
+        Đã xóa: {{ curUser?.delete_at | date : "dd/MM/yyyy" }}
+      </div>
+      <div
+        *ngIf="showPostInfo"
+        class="info-posts flex-col flex justify-center ml-5"
+        [style]="'height: ' + width + 'px;'"
+      >
+        <div class="num-of-post">Posts: {{ numOfQuestions }}</div>
+        <div class="num-of-cmt">Comments: {{ numOfAnswers }}</div>
+      </div>
     </div>
   </div>
   <button
     *ngIf="allowChangeAvatar"
-    class="file-upload btn btn-info pen"
+    class="file-upload btn btn-info pen mt-2"
     (click)="avatarFile.click()"
   >
-    <label for="">Thay đổi avatar</label>
+    <label for="">Change Avatar</label>
   </button>
 </ng-container>
 
