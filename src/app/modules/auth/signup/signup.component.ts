@@ -11,23 +11,26 @@ export class SignupComponent {
   nameValue: string = '';
   emailValue: string = '';
   passwordValue: string = '';
+  processingRegister = false;
 
   constructor(private auth: AuthService) {}
 
   onClickSignUp(){
+    this.processingRegister = true;
     let obj ={
       name: this.nameValue,
       email: this.emailValue,
       password: this.passwordValue,
-      role: 'admin'
+      role: 'user'
     }
     this.auth.register(obj).subscribe((res) => {
-      debugger
+    this.processingRegister = false;
+    debugger
       if(res.status == 200){
         toast('Success', res.message,'success',3000);
       }
       else{
-        toast('Failed', 'Register failed please check your input','error',3000);
+        toast('Failed', res.message,'error',3000);
       }
     });
   }

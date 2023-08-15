@@ -12,6 +12,7 @@ export class AuthService {
     ) {
   }
   //base URL của BE
+  // private url = 'http://localhost:8080/api/auth';
   private url = 'http://127.0.0.1:8001/api';
   private device_token = '';
 

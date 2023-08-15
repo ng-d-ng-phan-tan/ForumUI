@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   emailValue: string = '';
   passwordValue: string = '';
+  processingLogin = false;
 
 
   constructor(private auth: AuthService,
@@ -29,13 +30,17 @@ export class LoginComponent {
       email: this.emailValue,
       password: this.passwordValue,
     }
+    this.processingLogin = true;
     this.auth.login(obj).subscribe((res: any) => {
+    this.processingLogin = false;
       if(res.status == 200){    
-        toast('Success', 'Login success','success',3000);
+        toast('Success', 'Login success','success',3000)
         this.cookieService.set('access_token', res.data.token, 3600);
         this.cookieService.set('user_id', res.data.userId, 3600);
         this.cookieService.set('refresh_token', res.data.refreshToken, 7200)
-        this.navigateToHome();
+        setTimeout(()=>{
+          this.navigateToHome();
+      }, 1000);
       }
       else{
         toast('Failed', res.message,'error',3000);
