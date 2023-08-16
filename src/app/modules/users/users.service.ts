@@ -27,6 +27,9 @@ export class UsersService {
   private postUrl = 'http://localhost:8004/api/post/questions/';
   private postInfoMethod = 'count';
 
+  //search server
+  private searchUrl = 'http://localhost:8001/api/search';
+
   getUser(user_id: string): Observable<any> {
     return this.http.post(this.userUrl + this.getUserMethod, {
       user_id: user_id,
@@ -48,7 +51,7 @@ export class UsersService {
   }
 
   searchUsers(name: string) {
-    return this.http.post(this.userUrl + this.searchUser, {
+    return this.http.post(this.searchUrl, {
       name: name,
     });
   }

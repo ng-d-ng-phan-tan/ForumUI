@@ -90,11 +90,22 @@ export class UsersComponent implements OnInit {
   searchUsers() {
     this.isSearching = true;
     if (this.curSearchValue != '') {
+      // this.userService
+      //   .getUsersPaging(this.curSeachPage, this.isAdmin, this.curSearchValue)
+      //   .subscribe((res: any) => {
+      //     if (res?.status == '200') {
+      //       this.lstSearchUsers = res.data.data as User[];
+      //       this.isSearching = false;
+      //       if (this.lstSearchUsers.length == 0) {
+      //         toast('Failed', 'No user matches the given name', 'error', 3000);
+      //       }
+      //     }
+      //   });
       this.userService
-        .getUsersPaging(this.curSeachPage, this.isAdmin, this.curSearchValue)
+        .searchUsers(this.curSearchValue)
         .subscribe((res: any) => {
-          if (res?.status == '200') {
-            this.lstSearchUsers = res.data.data as User[];
+          if (res) {
+            this.lstSearchUsers = res.users as User[];
             this.isSearching = false;
             if (this.lstSearchUsers.length == 0) {
               toast('Failed', 'No user matches the given name', 'error', 3000);
