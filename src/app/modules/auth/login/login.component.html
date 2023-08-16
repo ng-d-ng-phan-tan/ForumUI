@@ -86,20 +86,21 @@
                     />
                   </div>
                 </div>
-                <div class="cbi0w">
-                  <button class="cfs3l ck65l ce60u cp4mw cniyg" (click)="onClickLogin()">Login</button>
+                <div class="cbi0w flex items-center flex-col">
+                  <button class="mb-8 cfs3l ck65l ce60u cp4mw w-44" (click)="onClickLogin()">Login</button>
+                  <div *ngIf="processingLogin == true" class="loading loading-spinner loading-lg text-primary"></div>
                 </div>
               </form>
 
               <!-- Divider -->
               <div class="cg15g c8amx c5uxf">
                 <div class="chdu3 cyca1 c5q4u cc9uf" aria-hidden="true"></div>
-                <div class="cgm02 ccc0n coq3d">Or</div>
+                <div class="cgm02 ccc0n coq3d">Forget password?</div>
                 <div class="chdu3 cyca1 cw89k cc9uf" aria-hidden="true"></div>
               </div>
 
               <!-- Social login -->
-              <button
+              <!-- <button
                 class="cbyji chpwp cxw9w cf3ch cvinr c37ex cejt1 c0oy9 c0uko cp4mw cniyg cgvj8 c5uxf cympu"
               >
                 <div class="cg15g cinls c5uxf">
@@ -114,7 +115,17 @@
                   </svg>
                 </div>
                 <span class="ckkn2 cat6u">Sign In With Google</span>
-              </button>
+              </button> -->
+
+              <div class="cbi0w flex items-center flex-col">
+                <button class="mb-8 cfs3l ck65l ce60u cp4mw w-44">
+                  <a
+                    [routerLink]="['/auth/regisresetpsw']"
+                  >
+                  Reset password
+                  </a>
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -14,6 +14,7 @@ import { User } from 'src/app/shared/models/user.model';
 export class LoginComponent {
   emailValue: string = '';
   passwordValue: string = '';
+  processingLogin = false;
 
   constructor(
     private auth: AuthService,
@@ -23,6 +24,8 @@ export class LoginComponent {
   ) {}
 
   onClickLogin() {
+    debugger
+    this.processingLogin = true;
     let obj = {
       deviceToken: this.auth.getDeviceToken(),
       email: this.emailValue,
@@ -30,6 +33,7 @@ export class LoginComponent {
       role: 'admin'
     };
     this.auth.login(obj).subscribe((res: any) => {
+    this.processingLogin = false;
       if (res.status == 200) {
         toast('Success', 'Login success', 'success', 3000);
         this.cookieService.set('access_token', res.data.token, 3600);

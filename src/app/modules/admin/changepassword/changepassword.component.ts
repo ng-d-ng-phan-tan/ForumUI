@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../auth/auth.service';
 import {toast} from 'src/assets/js/main.js';
 
 @Component({
@@ -15,8 +15,9 @@ export class ChangepasswordComponent {
 
   constructor(private auth: AuthService) {}
 
-  onClickChangePassword(){
-  this.processingChangePsw = true;
+  onClickChangePsw(){
+    debugger
+    this.processingChangePsw = true;
     if(this.passwordValue == this.newPasswordValue){
       toast('Warning', 'New password is not allowed to be the same to your old password','warning',3000);
       return;

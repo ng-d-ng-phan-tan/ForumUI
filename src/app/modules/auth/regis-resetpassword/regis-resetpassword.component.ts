@@ -10,6 +10,7 @@ import { AuthService } from '../auth.service';
 })
 export class RegisResetpasswordComponent {
   emailValue: string = '';
+  processingSendingMail = false;
 
   constructor(private auth: AuthService) {}
 
@@ -18,8 +19,9 @@ export class RegisResetpasswordComponent {
     // toast('Cảnh báo', 'Bạn vừa bấm vào nút đăng nhập','warning',3000);
     // toast('Thành công', 'Bạn đã đăng nhập thành công','success',3000);
     // toast('Thất bại', 'Đăng nhập thất bại','error',3000);
-  
+    this.processingSendingMail = true;
     this.auth.registResetPassword(this.emailValue).subscribe((res) => {
+      this.processingSendingMail = false;
       if(res.status == 200){    
         toast('Success', res.message, 'success',3000);
       }

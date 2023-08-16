@@ -20,8 +20,9 @@
           name="email"
           id="email"
           class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-          placeholder="name@company.com"
-          required
+          placeholder="email@gmail.com"
+          [ngModelOptions]="{ standalone: true }"
+          [(ngModel)]="emailValue" 
         />
       </div>
       <div>
@@ -36,8 +37,9 @@
           id="password"
           placeholder="••••••••"
           class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-          required
-        />
+          [ngModelOptions]="{ standalone: true }"
+          [(ngModel)]="passwordValue"
+          />
       </div>
       <!-- <div class="flex items-start">
         <div class="flex items-center h-5">
@@ -63,11 +65,14 @@
           >Lost Password?</a
         >
       </div> -->
-      <button
-        class="cfs3l ck65l ce60u cp4mw cniyg"
-      >
-        Login to your account
-      </button>
+      <div class="cbi0w flex items-center flex-col">
+        <button
+        class="mb-8 cfs3l ck65l ce60u cp4mw w-44" (click)="onClickLogin()"
+        >
+          Login to your account
+        </button>
+        <div *ngIf="processingLogin == true" class="loading loading-spinner loading-lg text-primary"></div>
+      </div>
       <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
         Not registered?
         <a class="text-primary-700 hover:underline dark:text-primary-500"

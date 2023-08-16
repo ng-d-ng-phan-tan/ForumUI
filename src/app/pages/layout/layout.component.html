@@ -61,14 +61,40 @@
                     </ul>
                   </div>
                 </div>
-                <div class="cw89k">
+                <div class="dropdown dropdown-bottom">
+                  <label tabindex="0" class="cursor-pointer">
+                  <i class="fa-solid fa-gear" style="color: #d8dce4; font-size: 18px;"></i>
+                  </label>
+                  <ul tabindex="0" class="dropdown-content menu shadow bg-base-100 rounded-box w-44">
+                    <li
+                    >
+                      <a
+                      [routerLink]="['/auth/changepassword']"
+                        class="text-sm text-black"
+                      >Change password</a>
+                    </li>
+                    <li
+                    >
+                      <a
+                      [routerLink]="['/users', userId]"
+                        class="text-sm text-black"
+                      >Profile</a>
+                    </li>
+                    <li
+                    >
+                      <a
+                      (click)="logOut()"
+                      class="text-sm text-black"
+                      >Logout</a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- <div class="cw89k">
                   <button
                     class="cp4mw cniyg ck65l ce60u cfs3l"
                     (click)="logOut()"
-                  >
-                    Logout
-                  </button>
-                </div>
+                    >Logout</button>
+                </div> -->
               </div>
 
               <div style="display: flex" *ngIf="alreadyLogin() === false">
