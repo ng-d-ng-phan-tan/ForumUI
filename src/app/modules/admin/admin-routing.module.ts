@@ -7,6 +7,7 @@ import { UsersComponent } from './users/users.component';
 import { PostsComponent } from './posts/posts.component';
 import { LayoutComponent } from './layout/layout.component';
 import { Error404Component } from 'src/app/pages/error404/error404.component';
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
       {
         path: 'signup',
         component: SignupComponent,
+      },
+      {
+        path: 'changepsw',
+        component: ChangepasswordComponent,
       },
     ],
   },

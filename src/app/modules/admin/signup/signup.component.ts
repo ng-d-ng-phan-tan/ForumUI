@@ -11,18 +11,20 @@ export class SignupComponent {
   nameValue: string = '';
   emailValue: string = '';
   passwordValue: string = '';
+  processingSignUp = false;
 
   constructor(private auth: AuthService) {}
 
-  onClickSignUp(){
+  onClickRegister(){
+    debugger
+    this.processingSignUp = true;
     let obj ={
       name: this.nameValue,
       email: this.emailValue,
       password: this.passwordValue,
-      role: 'user'
+      role: 'admin'
     }
     this.auth.register(obj).subscribe((res) => {
-      debugger
       if(res.status == 200){
         toast('Success', res.message,'success',3000);
       }

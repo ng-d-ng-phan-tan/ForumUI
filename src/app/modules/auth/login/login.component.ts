@@ -24,6 +24,7 @@ export class LoginComponent {
   ) {}
 
   onClickLogin() {
+    this.processingLogin = true;
     let obj = {
       deviceToken: this.auth.getDeviceToken(),
       email: this.emailValue,
@@ -31,6 +32,7 @@ export class LoginComponent {
       role: 'user'
     };
     this.auth.login(obj).subscribe((res: any) => {
+    this.processingLogin = false;
       if (res.status == 200) {
         toast('Success', 'Login success', 'success', 3000);
         this.cookieService.set('access_token', res.data.token, 3600);

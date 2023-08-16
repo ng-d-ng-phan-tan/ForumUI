@@ -7,6 +7,8 @@ import { SignupComponent } from './signup/signup.component';
 import { UsersComponent } from './users/users.component';
 import { PostsComponent } from './posts/posts.component';
 import { AdminService } from './admin.service';
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,8 +17,9 @@ import { AdminService } from './admin.service';
     SignupComponent,
     UsersComponent,
     PostsComponent,
+    ChangepasswordComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule],
+  imports: [CommonModule, AdminRoutingModule, FormsModule],
   providers: [AdminService],
 })
 export class AdminModule {}
