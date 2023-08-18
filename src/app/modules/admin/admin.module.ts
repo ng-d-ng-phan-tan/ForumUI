@@ -9,6 +9,7 @@ import { PostsComponent } from './posts/posts.component';
 import { AdminService } from './admin.service';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { FormsModule } from '@angular/forms';
     PostsComponent,
     ChangepasswordComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule, FormsModule],
+  imports: [CommonModule, AdminRoutingModule, FormsModule, SharedModule],
   providers: [AdminService],
 })
 export class AdminModule {}

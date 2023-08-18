@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../../auth/auth.service';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-layout',
@@ -6,5 +10,34 @@ import { Component } from '@angular/core';
   styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent {
+  userId: any;
+  loginUser: User | undefined;
+  constructor(
+    private router: Router,
+    private cookieService: CookieService,
+    private auth: AuthService
+  ) {}
 
+  logOut() {
+    this.auth
+      .logout(this.cookieService.get('access_token'))
+      .subscribe((res) => {
+        if (res.status == 200) {
+          this.cookieService.delete('access_token');
+          this.cookieService.delete('refresh_token');
+        }
+      });
+  }
+
+  alreadyLogin() {
+    if (this.cookieService.check('access_token')) {
+      this.userId = this.cookieService.get('user_id');
+      let userInfo = localStorage.getItem('loginUser');
+      if (userInfo) {
+        this.loginUser = JSON.parse(userInfo) as User;
+      }
+      return true;
+    }
+    return false;
+  }
 }
