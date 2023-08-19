@@ -161,11 +161,10 @@
         </div> -->
       </div>
       <div class="flex items-center ml-auto space-x-2 sm:space-x-3">
-        <button
+        <!-- <button
           type="button"
           class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
         >
-          <!-- data-modal-toggle="add-user-modal" -->
           <svg
             class="w-5 h-5 mr-2 -ml-1"
             fill="currentColor"
@@ -179,7 +178,7 @@
             ></path>
           </svg>
           Add user
-        </button>
+        </button> -->
         <a
           href="#"
           class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
@@ -364,11 +363,18 @@
                 >
                   View Profile
                 </button>
+                <!-- style="background-color: rgb(220 38 38)" -->
                 <button
                   *ngIf="user.delete_at == null"
+                  [disabled]="
+                    loginUser?.user_id == user.user_id ||
+                    user.role.toLowerCase() == 'admin'
+                  "
                   (click)="openDelModal()"
                   class="block justify-center text-white rounded-lg text-sm w-1/2 p-2"
-                  style="background-color: rgb(220 38 38)"
+                  [ngStyle]="{
+                    'background-color': user.role.toLowerCase() != 'admin' ? 'rgb(220 38 38)' : 'rgb(168 167 167)',
+                  }"
                   type="button"
                 >
                   Delete

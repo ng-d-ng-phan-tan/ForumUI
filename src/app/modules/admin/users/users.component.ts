@@ -28,11 +28,16 @@ export class UsersComponent implements OnInit, AfterViewInit {
   isLoading = true;
   curUser!: User | null;
   count = 0;
+  loginUser!: User;
 
   //Modal
   delModal!: ModalInterface;
 
   ngOnInit(): void {
+    let userInfo = localStorage.getItem('loginUser');
+    if (userInfo) {
+      this.loginUser = JSON.parse(userInfo) as User;
+    }
     this.getUsersPagination();
   }
 

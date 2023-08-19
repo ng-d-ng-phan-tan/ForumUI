@@ -29,9 +29,13 @@ export class UsersComponent implements OnInit {
   isAdmin: boolean = false;
   isSearching: boolean = false;
   isLoading = true;
+  loginUser!: User;
   ngOnInit(): void {
     this.loginUserID = this.cookieService.get('user_id');
-
+    let userInfo = localStorage.getItem('loginUser');
+    if (userInfo) {
+      this.loginUser = JSON.parse(userInfo) as User;
+    }
     this.getUsersPagination();
   }
 
