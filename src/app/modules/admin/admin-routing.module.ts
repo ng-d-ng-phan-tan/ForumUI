@@ -8,6 +8,7 @@ import { PostsComponent } from './posts/posts.component';
 import { LayoutComponent } from './layout/layout.component';
 import { Error404Component } from 'src/app/pages/error404/error404.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
+import { UserInfoComponent } from '../users/users/user-info/user-info.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,16 @@ const routes: Routes = [
       {
         path: 'users',
         component: UsersComponent,
+        // children: [
+        //   {
+        //     path: ':user_id',
+        //     component: UserInfoComponent,
+        //   },
+        // ],
+      },
+      {
+        path: 'users/:user_id',
+        component: UserInfoComponent,
       },
       {
         path: 'posts',

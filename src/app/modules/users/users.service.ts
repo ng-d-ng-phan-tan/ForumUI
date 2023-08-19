@@ -13,7 +13,7 @@ export class UsersService {
   private userUrl = 'http://localhost:8002/api/';
   private getUserMethod = 'getUser';
   private getUsersMethod = 'getUsers';
-  private searchUser = 'searchUser';
+  private searchUserByNameMethod = 'searchUserByName';
   private getUsersPagingMethod = 'getUsersPaging';
   private addUserMethod = 'add';
   private updateUserMethod = 'update';
@@ -51,8 +51,8 @@ export class UsersService {
     });
   }
 
-  searchUsers(name: string) {
-    return this.http.post(this.searchUrl, {
+  searchUsers(name: string): Observable<any> {
+    return this.http.post(this.userUrl + this.searchUserByNameMethod, {
       name: name,
     });
   }

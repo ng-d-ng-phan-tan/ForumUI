@@ -29,7 +29,7 @@
       class="info grid grid-cols-2 mt-3"
       *ngIf="formGroup"
     >
-      <div class="info-name mb-3">
+      <div class="info-name mb-3 flex flex-column items-center justify-center">
         <label
           class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
           for="name"
@@ -44,7 +44,7 @@
         />
       </div>
 
-      <div class="info-email mb-3">
+      <div class="info-email mb-3 flex flex-column items-center justify-center">
         <label
           class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
           for="email"
@@ -58,7 +58,9 @@
         />
       </div>
 
-      <div class="info-gender mb-3">
+      <div
+        class="info-gender mb-3 flex flex-column items-center justify-center"
+      >
         <label
           class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
           for="gender"
@@ -71,7 +73,7 @@
           type="text"
         />
       </div>
-      <div class="info-bday mb-3">
+      <div class="info-bday mb-3 flex flex-column items-center justify-center">
         <label
           class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
           for="date_of_birth"
@@ -102,7 +104,9 @@
           type="text"
         />
       </div> -->
-      <div class="info-address mb-1">
+      <div
+        class="info-address mb-1 flex flex-column items-center justify-center"
+      >
         <label
           class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
           for="address"
@@ -115,7 +119,7 @@
           type="text"
         />
       </div>
-      <div class="info-about mb-1">
+      <div class="info-about mb-1 flex flex-column items-center justify-center">
         <label
           class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
           for="about"
@@ -142,10 +146,10 @@
       </div>
     </button>
   </div>
-  <div *ngIf="isLoading || isUpdating">
-    <div
-      style="position: fixed; bottom: 30px; right: 30px"
-      class="loading loading-spinner loading-lg text-primary"
-    ></div>
-  </div>
 </ng-container>
+<div *ngIf="isLoading || isUpdating">
+  <div
+    style="position: fixed; bottom: 30px; right: 30px"
+    class="loading loading-spinner loading-lg text-primary"
+  ></div>
+</div>

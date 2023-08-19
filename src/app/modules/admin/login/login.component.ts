@@ -33,15 +33,15 @@ export class LoginComponent {
       role: 'admin',
     };
 
-    if(obj.email == '' || obj.email == null){
+    if (obj.email == '' || obj.email == null) {
       this.processingLogin = false;
-      toast('Failed','Please input your email','error',1500);
-      return
+      toast('Failed', 'Please input your email', 'error', 1500);
+      return;
     }
-    if(obj.password == '' || obj.password == null){
+    if (obj.password == '' || obj.password == null) {
       this.processingLogin = false;
-      toast('Failed','Please input your password','error',1500);
-      return
+      toast('Failed', 'Please input your password', 'error', 1500);
+      return;
     }
 
     this.auth.login(obj).subscribe((res: any) => {
@@ -53,8 +53,11 @@ export class LoginComponent {
         this.cookieService.set('refresh_token', res.data.refreshToken, 7200);
         this.userService.getUser(res.data.userId).subscribe((userResponse) => {
           if (userResponse.status == '200') {
-            if (res.data[0] as User) {
-              localStorage.setItem('loginUser', JSON.parse(res.data[0]));
+            if (userResponse.data[0] as User) {
+              localStorage.setItem(
+                'loginUser',
+                JSON.parse(userResponse.data[0])
+              );
               this.navigateToHome();
             }
           }

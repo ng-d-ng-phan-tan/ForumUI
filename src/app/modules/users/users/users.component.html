@@ -8,8 +8,15 @@
       class="input input-bordered w-full max-w-xs mr-2"
       (change)="searchName($event)"
       [disabled]="isSearching"
+      (keyup)="keyUpEvent($event)"
     />
-    <button class="btn btn-info w-1/8" (click)="searchUsers()">Search</button>
+    <button
+      class="btn btn-info w-1/8"
+      [disabled]="isSearching"
+      (click)="searchUsers()"
+    >
+      Search
+    </button>
   </div>
 </div>
 

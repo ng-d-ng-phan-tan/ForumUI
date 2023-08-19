@@ -121,4 +121,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
       this.curUser = user;
     }
   }
+
+  viewProfile(user: User) {
+    window.location.href += '/' + user.user_id;
+  }
 }

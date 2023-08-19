@@ -97,20 +97,15 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  keyUpEvent(event: any) {
+    if (event.key.toLowerCase() == 'enter') {
+      this.searchUsers();
+    }
+  }
   searchUsers() {
     this.isSearching = true;
     if (this.curSearchValue != '') {
-      // this.userService
-      //   .getUsersPaging(this.curSeachPage, this.isAdmin, this.curSearchValue)
-      //   .subscribe((res: any) => {
-      //     if (res?.status == '200') {
-      //       this.lstSearchUsers = res.data.data as User[];
-      //       this.isSearching = false;
-      //       if (this.lstSearchUsers.length == 0) {
-      //         toast('Failed', 'No user matches the given name', 'error', 3000);
-      //       }
-      //     }
-      //   });
+      //#region ElasticSearch
       this.userService
         .searchUsers(this.curSearchValue)
         .subscribe((res: any) => {
@@ -126,6 +121,20 @@ export class UsersComponent implements OnInit {
             toast('Failed', 'No user matches the given name', 'error', 3000);
           }
         });
+      //#endregion
+      //#region search Paging
+      // this.userService
+      //   .getUsersPaging(this.curSeachPage, this.isAdmin, this.curSearchValue)
+      //   .subscribe((res: any) => {
+      //     if (res?.status == '200') {
+      //       this.lstSearchUsers = res.data.data as User[];
+      //       this.isSearching = false;
+      //       if (this.lstSearchUsers.length == 0) {
+      //         toast('Failed', 'No user matches the given name', 'error', 3000);
+      //       }
+      //     }
+      //   });
+      //#endregion
     } else {
       this.isSearching = false;
       this.lstSearchUsers = [];
