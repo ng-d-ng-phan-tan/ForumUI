@@ -18,6 +18,7 @@ export class UsersService {
   private addUserMethod = 'add';
   private updateUserMethod = 'update';
   private deleteUserMethod = 'delete';
+  private countMethod = 'getCount';
 
   //file server
   private fileUrl = 'http://localhost:8005/';
@@ -98,5 +99,9 @@ export class UsersService {
     return this.http.post(this.postUrl + this.postInfoMethod, {
       user_id: user_id,
     });
+  }
+
+  getCount(): Observable<any> {
+    return this.http.post(this.userUrl + this.countMethod, {});
   }
 }

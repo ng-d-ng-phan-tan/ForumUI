@@ -99,3 +99,9 @@
     </button>
   </div>
 </ng-container>
+<div *ngIf="isLoading || isSearching">
+  <div
+    style="position: fixed; bottom: 30px; right: 30px"
+    class="loading loading-spinner loading-lg text-primary"
+  ></div>
+</div>

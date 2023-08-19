@@ -8,11 +8,20 @@
       [style]="'width: ' + width + 'px;' + 'height: ' + width + 'px;'"
     >
       <div
+        *ngIf="curUser?.avatar; else TextAvatar"
         class="rounded-full"
         [style]="'width: ' + width + 'px;' + 'height: ' + width + 'px;'"
       >
         <img [src]="curUser?.avatar" />
       </div>
+      <ng-template #TextAvatar>
+        <div
+          class="relative justify-center text-center items-center rounded-full bg-red-500 text-xl text-white uppercase"
+          style="display: flex"
+        >
+          {{ curUser?.name?.slice(0, 2) }}
+        </div>
+      </ng-template>
     </div>
 
     <input

@@ -18,6 +18,7 @@ export class UserInfoComponent implements OnInit {
   lstUserIDs: string[] = [];
   loginUserID: string = '';
   isUpdating = false;
+  isLoading = true;
   numOfPost: number = 0;
   numOfCmt: number = 0;
   constructor(
@@ -36,7 +37,7 @@ export class UserInfoComponent implements OnInit {
         if (res.status == '200') {
           this.user = res.data[0] as User;
           console.log(this.user);
-
+          this.isLoading = false;
           this.formGroup = new FormGroup({
             user_id: new FormControl({
               value: this.user.user_id,

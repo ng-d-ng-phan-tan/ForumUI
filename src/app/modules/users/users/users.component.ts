@@ -28,6 +28,7 @@ export class UsersComponent implements OnInit {
   loginUserID: string = '';
   isAdmin: boolean = false;
   isSearching: boolean = false;
+  isLoading = true;
   ngOnInit(): void {
     this.loginUserID = this.cookieService.get('user_id');
 
@@ -37,11 +38,13 @@ export class UsersComponent implements OnInit {
   getUsersPagination() {
     if (this.curPage > 0) {
       this.lstUsers = [];
+      this.isLoading = true;
       this.userService
         .getUsersPaging(this.curPage, this.isAdmin, this.curSearchValue)
         .subscribe((res: any) => {
           if (res.status == '200') {
             this.lstUsers = res.data.data;
+            this.isLoading = false;
             this.df.detectChanges();
             console.log('res', this.lstUsers);
           }
@@ -110,6 +113,10 @@ export class UsersComponent implements OnInit {
             if (this.lstSearchUsers.length == 0) {
               toast('Failed', 'No user matches the given name', 'error', 3000);
             }
+          } else {
+            this.isSearching = false;
+            this.lstSearchUsers = [];
+            toast('Failed', 'No user matches the given name', 'error', 3000);
           }
         });
     } else {

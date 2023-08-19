@@ -23,8 +23,8 @@ export class AvatarsComponent implements OnInit {
   @Input() showDelete: boolean = false;
 
   //
-  numOfQuestions: number = 1;
-  numOfAnswers: number = 1;
+  numOfQuestions: number = 0;
+  numOfAnswers: number = 0;
   constructor(
     private userService: UsersService,
     private df: ChangeDetectorRef

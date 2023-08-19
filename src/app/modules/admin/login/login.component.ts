@@ -9,7 +9,7 @@ import { User } from 'src/app/shared/models/user.model';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css', '../../../../custome-style.css']
+  styleUrls: ['./login.component.css', '../../../../custome-style.css'],
 })
 export class LoginComponent {
   emailValue: string = '';
@@ -24,16 +24,16 @@ export class LoginComponent {
   ) {}
 
   onClickLogin() {
-    debugger
+    debugger;
     this.processingLogin = true;
     let obj = {
       deviceToken: this.auth.getDeviceToken(),
       email: this.emailValue,
       password: this.passwordValue,
-      role: 'admin'
+      role: 'admin',
     };
     this.auth.login(obj).subscribe((res: any) => {
-    this.processingLogin = false;
+      this.processingLogin = false;
       if (res.status == 200) {
         toast('Success', 'Login success', 'success', 3000);
         this.cookieService.set('access_token', res.data.token, 3600);
@@ -43,10 +43,10 @@ export class LoginComponent {
           if (userResponse.status == '200') {
             if (res.data[0] as User) {
               localStorage.setItem('loginUser', JSON.parse(res.data[0]));
+              this.navigateToHome();
             }
           }
         });
-        this.navigateToHome();
       } else {
         toast('Failed', res.message, 'error', 3000);
       }

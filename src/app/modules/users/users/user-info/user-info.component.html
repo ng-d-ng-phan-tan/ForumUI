@@ -142,4 +142,10 @@
       </div>
     </button>
   </div>
+  <div *ngIf="isLoading || isUpdating">
+    <div
+      style="position: fixed; bottom: 30px; right: 30px"
+      class="loading loading-spinner loading-lg text-primary"
+    ></div>
+  </div>
 </ng-container>
