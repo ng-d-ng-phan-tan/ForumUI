@@ -23,9 +23,24 @@ export class SignupComponent {
       password: this.passwordValue,
       role: 'user'
     }
+
+    if(obj.name == '' || obj.name == null){
+      this.processingRegister = false;
+      toast('Failed','Please input your name','error',1500);
+      return
+    }
+    if(obj.email == '' || obj.email == null){
+      this.processingRegister = false;
+      toast('Failed','Please input your email','error',1500);
+      return
+    }
+    if(obj.password == '' || obj.password == null){
+      this.processingRegister = false;
+      toast('Failed','Please input your password','error',1500);
+      return
+    }
     this.auth.register(obj).subscribe((res) => {
     this.processingRegister = false;
-    debugger
       if(res.status == 200){
         toast('Success', res.message,'success',3000);
       }

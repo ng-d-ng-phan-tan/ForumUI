@@ -20,6 +20,12 @@ export class RegisResetpasswordComponent {
     // toast('Thành công', 'Bạn đã đăng nhập thành công','success',3000);
     // toast('Thất bại', 'Đăng nhập thất bại','error',3000);
     this.processingSendingMail = true;
+    if(this.emailValue == '' || this.emailValue == null){
+      this.processingSendingMail = false;
+      toast('Failed','Please input your email','error',1500);
+      return
+    }
+
     this.auth.registResetPassword(this.emailValue).subscribe((res) => {
       this.processingSendingMail = false;
       if(res.status == 200){    

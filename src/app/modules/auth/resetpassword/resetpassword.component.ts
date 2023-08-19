@@ -26,6 +26,23 @@ export class ResetpasswordComponent {
       resetPasswordStr: this.resetPasswordStrValue,
       passwordReset: this.newPasswordValue,
     }
+
+    if(obj.email == '' || obj.email == null){
+      this.resetPswProcess = false;
+      toast('Failed','Please input your email','error',1500);
+      return
+    }
+    if(obj.resetPasswordStr == '' || obj.resetPasswordStr == null){
+      this.resetPswProcess = false;
+      toast('Failed','Please input your reset password string','error',1500);
+      return
+    }
+    if(obj.passwordReset == '' || obj.passwordReset == null){
+      this.resetPswProcess = false;
+      toast('Failed','Please input your new password','error',1500);
+      return
+    }
+
     this.auth.resetPassword(obj).subscribe((res) => {
   this.resetPswProcess = false;
       if(res.status == 200){    

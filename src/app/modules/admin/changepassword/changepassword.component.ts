@@ -16,17 +16,32 @@ export class ChangepasswordComponent {
   constructor(private auth: AuthService) {}
 
   onClickChangePsw(){
-    debugger
     this.processingChangePsw = true;
-    if(this.passwordValue == this.newPasswordValue){
-      toast('Warning', 'New password is not allowed to be the same to your old password','warning',3000);
-      return;
-    }
 
     let obj = {
       email : this.emailValue,
       currentPassword : this.passwordValue,
       newPassword: this.newPasswordValue,
+    }
+    if(obj.email == '' || obj.email == null){
+      this.processingChangePsw = false;
+      toast('Failed','Please input your email','error',1500);
+      return
+    }
+    if(obj.currentPassword == '' || obj.currentPassword == null){
+      this.processingChangePsw = false;
+      toast('Failed','Please input your current password','error',1500);
+      return
+    }
+    if(obj.newPassword == '' || obj.newPassword == null){
+      this.processingChangePsw = false;
+      toast('Failed','Please input your new password','error',1500);
+      return
+    }
+    if(this.passwordValue == this.newPasswordValue){
+      this.processingChangePsw = false;
+      toast('Warning', 'New password is not allowed to be the same to your old password','warning',3000);
+      return;
     }
     this.auth.changePassword(obj).subscribe((res) => {
   this.processingChangePsw = false;
