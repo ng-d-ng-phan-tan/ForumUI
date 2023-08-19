@@ -32,10 +32,22 @@ export class LoginComponent {
       password: this.passwordValue,
       role: 'admin',
     };
+
+    if(obj.email == '' || obj.email == null){
+      this.processingLogin = false;
+      toast('Failed','Please input your email','error',1500);
+      return
+    }
+    if(obj.password == '' || obj.password == null){
+      this.processingLogin = false;
+      toast('Failed','Please input your password','error',1500);
+      return
+    }
+
     this.auth.login(obj).subscribe((res: any) => {
       this.processingLogin = false;
       if (res.status == 200) {
-        toast('Success', 'Login success', 'success', 3000);
+        // toast('Success', 'Login success', 'success', 3000);
         this.cookieService.set('access_token', res.data.token, 3600);
         this.cookieService.set('user_id', res.data.userId, 3600);
         this.cookieService.set('refresh_token', res.data.refreshToken, 7200);

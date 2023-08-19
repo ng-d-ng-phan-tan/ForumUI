@@ -63,7 +63,7 @@
           [(ngModel)]="passwordValue"
         />
       </div>
-      <div>
+      <!-- <div>
         <label
           for="confirm-password"
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -77,7 +77,7 @@
           class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
           
         />
-      </div>
+      </div> -->
       <!-- <div class="flex items-start">
         <div class="flex items-center h-5">
           <input
@@ -104,7 +104,7 @@
       </div> -->
       <div class="cbi0w flex items-center flex-col">
         <button class="mb-8 cfs3l ck65l ce60u cp4mw w-44" (click)="onClickRegister()">Create account</button>
-        <div *ngIf="processingSignUp == true" class="loading loading-spinner loading-lg text-primary"></div>
+        <!-- <div *ngIf="processingSignUp == true" class="loading loading-spinner loading-lg text-primary"></div> -->
       </div>
       <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
         Already have an account?
@@ -116,4 +116,12 @@
       </div>
     </form>
   </div>
+</div>
+
+<div *ngIf="processingSignUp == true">
+  <div style="position: fixed; bottom: 30px; right: 30px;" class="loading loading-spinner loading-lg text-primary"></div>
+</div>
+
+<div id="toast">
+            
 </div>

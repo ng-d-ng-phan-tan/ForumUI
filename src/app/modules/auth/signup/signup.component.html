@@ -67,7 +67,7 @@
                           class="cesz6 cmnuk cniyg"
                           type="text"
                           placeholder="Your name"
-                          required=""
+                          required
                           [ngModelOptions]="{ standalone: true }"
                           [(ngModel)]="nameValue"
                         />
@@ -101,7 +101,7 @@
                   </div>
                   <div class="cbi0w cbi0w flex items-center flex-col">
                     <button class="mb-8 cfs3l ck65l ce60u cp4mw w-44" (click)="onClickSignUp()">Sign Up</button>
-                    <div *ngIf="processingRegister == true" class="loading loading-spinner loading-lg text-primary"></div>
+                    <!-- <div *ngIf="processingRegister == true" class="loading loading-spinner loading-lg text-primary"></div> -->
                   </div>
                 </form>
   
@@ -135,5 +135,9 @@
         </section>
       </main>
     </div>
+  </div>
+
+  <div *ngIf="processingRegister == true">
+    <div style="position: fixed; bottom: 30px; right: 30px;" class="loading loading-spinner loading-lg text-primary"></div>
   </div>
   

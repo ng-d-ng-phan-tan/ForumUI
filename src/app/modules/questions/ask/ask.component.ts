@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
@@ -6,8 +7,15 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   templateUrl: './ask.component.html',
   styleUrls: ['./ask.component.css'],
 })
-export class AskComponent {
+export class AskComponent implements OnInit {
   Editor = ClassicEditor;
+  askQuestion = new FormGroup({
+    title: new FormControl(''), // <== default value
+    body: new FormControl(''), // <== default value
+    tags: new FormControl(''), // <== default value
+  });
 
   constructor() {}
+
+  ngOnInit(): void {}
 }
