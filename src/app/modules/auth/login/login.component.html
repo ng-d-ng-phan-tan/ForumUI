@@ -88,7 +88,7 @@
                 </div>
                 <div class="cbi0w flex items-center flex-col">
                   <button class="mb-8 cfs3l ck65l ce60u cp4mw w-44" (click)="onClickLogin()">Login</button>
-                  <div *ngIf="processingLogin == true" class="loading loading-spinner loading-lg text-primary"></div>
+                  <!-- <div *ngIf="processingLogin == true" class="loading loading-spinner loading-lg text-primary"></div> -->
                 </div>
               </form>
 
@@ -132,4 +132,8 @@
       </section>
     </main>
   </div>
+</div>
+
+<div *ngIf="processingLogin == true">
+  <div style="position: fixed; bottom: 30px; right: 30px;" class="loading loading-spinner loading-lg text-primary"></div>
 </div>

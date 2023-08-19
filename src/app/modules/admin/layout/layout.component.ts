@@ -12,6 +12,7 @@ import { User } from 'src/app/shared/models/user.model';
 export class LayoutComponent {
   userId: any;
   loginUser: User | undefined;
+  loadingSomething = false;
   constructor(
     private router: Router,
     private cookieService: CookieService,
@@ -19,12 +20,15 @@ export class LayoutComponent {
   ) {}
 
   logOut() {
+    this.loadingSomething = true;
     this.auth
       .logout(this.cookieService.get('access_token'))
       .subscribe((res) => {
+        this.loadingSomething = false;
         if (res.status == 200) {
           this.cookieService.delete('access_token');
           this.cookieService.delete('refresh_token');
+          this.navigateToLoginPage();
         }
       });
   }
@@ -39,5 +43,9 @@ export class LayoutComponent {
       return true;
     }
     return false;
+  }
+
+  navigateToLoginPage(){
+    this.router.navigate(['/admin/auth/login']);
   }
 }

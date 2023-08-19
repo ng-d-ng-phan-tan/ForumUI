@@ -11,6 +11,7 @@ export class ResetpasswordComponent {
   emailValue: string = '';
   resetPasswordStrValue: string = '';
   newPasswordValue : string = '';
+  resetPswProcess = false;
 
   constructor(private auth: AuthService) {}
 
@@ -19,13 +20,14 @@ export class ResetpasswordComponent {
     // toast('Cảnh báo', 'Bạn vừa bấm vào nút đăng nhập','warning',3000);
     // toast('Thành công', 'Bạn đã đăng nhập thành công','success',3000);
     // toast('Thất bại', 'Đăng nhập thất bại','error',3000);
-  
+  this.resetPswProcess = true;
     let obj ={
       email: this.emailValue,
       resetPasswordStr: this.resetPasswordStrValue,
       passwordReset: this.newPasswordValue,
     }
     this.auth.resetPassword(obj).subscribe((res) => {
+  this.resetPswProcess = false;
       if(res.status == 200){    
         toast('Success', 'Reset password success','success',3000);
       }
