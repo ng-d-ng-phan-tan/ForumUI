@@ -56,7 +56,7 @@ export class LoginComponent {
             if (userResponse.data[0] as User) {
               localStorage.setItem(
                 'loginUser',
-                JSON.parse(userResponse.data[0])
+                JSON.stringify(userResponse.data[0])
               );
               this.navigateToHome();
             }
