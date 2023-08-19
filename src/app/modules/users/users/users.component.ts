@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit {
   curPage: number = 1;
   lstSearchUsers: User[] = [];
   curSeachPage: number = 1;
-
+  count = 0;
   curSearchValue: string = '';
   loginUserID: string = '';
   isAdmin: boolean = false;
@@ -45,7 +45,14 @@ export class UsersComponent implements OnInit {
           if (res.status == '200') {
             this.lstUsers = res.data.data;
             this.isLoading = false;
-            this.df.detectChanges();
+            this.userService.getCount().subscribe((res) => {
+              if (res.status == '200') {
+                this.count = res.data;
+                console.log('count', this.count);
+
+                this.df.detectChanges();
+              }
+            });
             console.log('res', this.lstUsers);
           }
         });

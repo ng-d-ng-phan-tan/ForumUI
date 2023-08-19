@@ -70,7 +70,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
             this.userService.getCount().subscribe((res) => {
               if (res.status == '200') {
                 this.count = res.data;
-                this.df.detectChanges();
               }
             });
             this.df.detectChanges();
