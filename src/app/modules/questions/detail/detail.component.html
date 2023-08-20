@@ -7,20 +7,17 @@
           <div class="c5dim caoxh">
             <div class="cof72 csicb css0i cnyph ctj5y c5uxf">
               <!-- Upvotes button -->
-              <div class="c9d2g">
+              <div class="flex justify-center">
+                <button
+                  class="cbyji chpwp cxw9w cf3ch cvinr c37ex cg15g cpefv c8m8l cnsvb ctlm4 ctj5y cec07 chxzt cgvj8 crf9y c5uxf cap35 cm14g c0y9n cef8g mr-2"
+                >
+                  <i class="fas fa-arrow-up text-green-500"></i>
+                  <span class="cejt1 c6bh0 ccc0n">244</span>
+                </button>
                 <button
                   class="cbyji chpwp cxw9w cf3ch cvinr c37ex cg15g cpefv c8m8l cnsvb ctlm4 ctj5y cec07 chxzt cgvj8 crf9y c5uxf cap35 cm14g c0y9n cef8g"
                 >
-                  <svg
-                    class="c43fj cj7ab ck3vf"
-                    width="11"
-                    height="7"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M1.664 6.747.336 5.253 5.5.662l5.164 4.591-1.328 1.494L5.5 3.338z"
-                    ></path>
-                  </svg>
+                  <i class="fas fa-arrow-down text-red-500"></i>
                   <span class="cejt1 c6bh0 ccc0n">244</span>
                 </button>
               </div>
@@ -31,7 +28,7 @@
                   <!-- Post header -->
                   <header class="c02n6">
                     <h1 class="crxw9 ccbgj cgp1v ckq6n">
-                      Vertical SaaS vs Horizontal SaaS: 7 key differences
+                      {{ question?.title }}
                     </h1>
                     <div class="cg15g c5uxf">
                       <img
@@ -42,85 +39,34 @@
                         alt="User 01"
                       />
                       <div class="cv360 cmnuk">
-                        <a class="ciojy cejt1 cpefv c6bh0 cnsvb ctlm4" href="#0"
-                          >IndieMark</a
+                        <a
+                          class="ciojy cejt1 cpefv c6bh0 cnsvb ctlm4"
+                          href="#0"
+                          >{{ question?.questioner_id }}</a
                         >
-                        · <span class="cmkbe">24 Feb</span> ·
-                        <span class="cmkbe">13 Answers</span>
+                        ·
+                        <span class="cmkbe">{{
+                          question?.created_at | date
+                        }}</span>
+                        ·
+                        <span class="cmkbe"
+                          >{{ question?.num_of_answers ?? 0 }} Answers</span
+                        >
                       </div>
                     </div>
                   </header>
 
                   <!-- Post content -->
                   <div class="cgm02 cnyph">
-                    <p>
-                      SaaS adoption is snowballing. A recent Harvey Nash survey
-                      revealed that SaaS was voted the most important technology
-                      in helping achieve business goals.
-                    </p>
-                    <p class="c4b6l c9hzv coq3d cat6u">
-                      Metrics research found that organizations with more than
-                      1,000 employees use over 150 SaaS applications 🙌
-                    </p>
-                    <p>
-                      Products within the SaaS industry serve an immense number
-                      of functions. While some are intended to cater to the
-                      specific needs of a particular group of users, others help
-                      a hugely diverse client base, providing solutions to a
-                      broader market. This critical distinction has resulted in
-                      two key SaaS models:
-                      <a class="ciojy cejt1 cpefv c6bh0 cnsvb ctlm4" href="#0"
-                        >vertical and horizontal</a
-                      >.
-                    </p>
-                    <img
-                      src="../../../../assets/images/post-image.jpg"
-                      width="624"
-                      height="352"
-                      alt="Post image"
-                    />
-                    <p>
-                      If you're thinking of becoming part of the SaaS industry,
-                      you'll need to clearly understand these
-                      <strong class="crxw9 c6bh0"
-                        >two different models and determine which one is right
-                        for your business</strong
-                      >. Simply put - the better your understanding of these
-                      services, the higher your chances of success are.
-                    </p>
-                    <h2 class="crxw9 ctvp1 clmvk">
-                      The 7 Key Differences Between Vertical and Horizontal SaaS
-                    </h2>
-                    <h3 class="crxw9 ctvp1 cavo3">
-                      Scope of Industries and Market Size
-                    </h3>
-                    <p>
-                      The vertical SaaS business model is an end-to-end solution
-                      designed for the needs of a specific sector. These
-                      solutions' software features are specially designed to
-                      streamline particular industry operations. On the other
-                      hand, horizontal SaaS solutions are less
-                      industry-personalized and more problem-oriented. Their
-                      increased applicability across several industries sets
-                      them apart from horizontal SaaS.
-                    </p>
-                    <h3 class="crxw9 ctvp1 cavo3">
-                      Customer Acquisition and Retention Approaches
-                    </h3>
-                    <p>
-                      In the vertical SaaS model, acquiring customers takes less
-                      time and effort than in horizontal SaaS. As you can
-                      imagine, if only a few businesses offer solutions to a
-                      niche problem, customers will likely choose a business and
-                      stick with it. Make sure you have a look over our SaaS
-                      customer acquisition guide, as it might come in handy.
-                    </p>
+                    <div [innerHTML]="question?.body"></div>
                   </div>
                 </article>
 
                 <!-- Answers list -->
                 <div>
-                  <h4 class="crxw9 ctvp1 cyyzm">4 Answers</h4>
+                  <h4 class="crxw9 ctvp1 cyyzm">
+                    {{ question?.num_of_answers ?? 0 }} Answers
+                  </h4>
                   <!-- Answers (1st level) -->
                   <ul>
                     <li class="cw7gj">
@@ -164,83 +110,6 @@
                           · <a class="cgmu0 crxw9 coqvt" href="#0">Reply</a>
                         </div>
                       </div>
-                      <!-- Answers (2nd level) -->
-                      <ul class="cvinr c9hzv cr8jo">
-                        <li class="cw7gj">
-                          <div class="ck3vf">
-                            <div class="cg15g ck3vf c5uxf">
-                              <img
-                                class="c9tvh cqb2r"
-                                src="../../../../assets/images/avatar-09.jpg"
-                                width="20"
-                                height="20"
-                                alt="User 09"
-                              />
-                              <div class="cv360 ccc0n">
-                                <a
-                                  class="ciojy cejt1 cpefv c6bh0 cnsvb ctlm4"
-                                  href="#0"
-                                  >zakaria_c</a
-                                >
-                                · <span class="cmkbe">20 Feb</span>
-                              </div>
-                            </div>
-                            <div class="cgm02 csxgm cmnuk ck3vf">
-                              <p>A very well written Comment. Thank you.</p>
-                            </div>
-                            <div class="cv360 ccc0n">
-                              <a
-                                class="ce0ap cmkbe cpefv c6bh0 cnsvb ctlm4"
-                                href="#0"
-                                >Report</a
-                              >
-                              ·
-                              <a class="cgmu0 crxw9 coqvt" href="#0">Reply</a>
-                            </div>
-                          </div>
-                          <!-- Comment (3rd level) -->
-                          <ul class="cvinr c9hzv cr8jo">
-                            <li class="cw7gj">
-                              <div class="ck3vf">
-                                <div class="cg15g ck3vf c5uxf">
-                                  <img
-                                    class="c9tvh cqb2r"
-                                    src="../../../../assets/images/avatar-12.jpg"
-                                    width="20"
-                                    height="20"
-                                    alt="User 12"
-                                  />
-                                  <div class="cv360 ccc0n">
-                                    <a
-                                      class="ciojy cejt1 cpefv c6bh0 cnsvb ctlm4"
-                                      href="#0"
-                                      >MaryLync77</a
-                                    >
-                                    · <span class="cmkbe">20 Feb</span>
-                                  </div>
-                                </div>
-                                <div class="cgm02 csxgm cmnuk ck3vf">
-                                  <p>
-                                    Thanks for ur kindly comment. Tbh im totally
-                                    new to Webflow and still figure it out haha
-                                  </p>
-                                </div>
-                                <div class="cv360 ccc0n">
-                                  <a
-                                    class="ce0ap cmkbe cpefv c6bh0 cnsvb ctlm4"
-                                    href="#0"
-                                    >Report</a
-                                  >
-                                  ·
-                                  <a class="cgmu0 crxw9 coqvt" href="#0"
-                                    >Reply</a
-                                  >
-                                </div>
-                              </div>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
                     </li>
                     <li class="cw7gj">
                       <div class="ck3vf">

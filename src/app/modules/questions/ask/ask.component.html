@@ -41,20 +41,20 @@
             </div>
           </div>
         </div>
-        <form>
+        <form [formGroup]="askQuestion" (ngSubmit)="createQuestion()">
           <main id="question-form" class="mb-48">
             <div class="card w-full text-primary-content">
               <div class="card-body">
                 <h2 class="card-title text-white">Title</h2>
-                <p class="text-gray-500">
-                  Be specific and imagine you’re asking a question to another
-                  person.
-                </p>
+                <p class="text-gray-500">Title</p>
                 <div class="card-actions">
                   <input
                     type="text"
+                    id="title"
+                    formControlName="title"
                     placeholder="Type here"
                     class="input input-bordered w-full"
+                    required
                   />
                 </div>
               </div>
@@ -69,24 +69,16 @@
                   Minimum 20 characters.
                 </p>
                 <div class="card-actions">
-                  <app-rich-text-editor class="w-full"></app-rich-text-editor>
+                  <ckeditor
+                    #editor
+                    formControlName="body"
+                    class="w-full text-black"
+                    [editor]="Editor"
+                  ></ckeditor>
                 </div>
               </div>
             </div>
-            <div class="card w-full mt-3 text-primary-content">
-              <div class="card-body">
-                <h2 class="card-title text-white">
-                  What did you try and what were you expecting?
-                </h2>
-                <p class="text-gray-500">
-                  Describe what you tried, what you expected to happen, and what
-                  actually resulted. Minimum 20 characters.
-                </p>
-                <div class="card-actions">
-                  <app-rich-text-editor class="w-full"></app-rich-text-editor>
-                </div>
-              </div>
-            </div>
+
             <div class="card w-full mt-3 text-primary-content">
               <div class="card-body">
                 <h2 class="card-title text-white">Tags</h2>
@@ -95,37 +87,30 @@
                   Start typing to see suggestions.
                 </p>
                 <div class="card-actions">
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    class="input input-bordered w-full"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="card w-full mt-3 text-primary-content">
-              <div class="card-body">
-                <h2 class="card-title text-white">
-                  Review questions already on Stack Overflow to see if your
-                  question is a duplicate.
-                </h2>
-                <p class="text-gray-500">
-                  Review questions already on Stack Overflow to see if your
-                  question is a duplicate.
-                </p>
-                <div class="card-actions">
-                  <input
-                    type="text"
-                    placeholder="Type here"
-                    class="input input-bordered w-full"
-                  />
+                  <tag-input
+                    formControlName="tags"
+                    class="text-black"
+                    [(ngModel)]="itemsAsObjects"
+                    [editable]="false"
+                    [identifyBy]="'id'"
+                    [displayBy]="'name'"
+                    [separatorKeyCodes]="[32, 9]"
+                    ><tag-input-dropdown
+                      [autocompleteObservable]="requestAutocompleteItems"
+                      [showDropdownIfEmpty]="true"
+                      [dynamicUpdate]="false"
+                      [identifyBy]="'id'"
+                      [displayBy]="'name'"
+                    >
+                    </tag-input-dropdown>
+                  </tag-input>
                 </div>
               </div>
             </div>
             <div class="card w-full mt-3 text-primary-content">
               <div class="card-body">
                 <div class="card-actions items-end">
-                  <button class="btn btn-primary">Create</button>
+                  <button class="btn btn-primary" type="submit">Create</button>
                 </div>
               </div>
             </div>
