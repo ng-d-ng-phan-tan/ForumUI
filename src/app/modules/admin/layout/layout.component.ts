@@ -40,6 +40,7 @@ export class LayoutComponent {
       this.userId = this.cookieService.get('user_id');
       let userInfo = localStorage.getItem('loginUser');
       if (userInfo) {
+        debugger
         this.loginUser = JSON.parse(userInfo) as User;
       }
       return true;
