@@ -7,12 +7,13 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root',
 })
 export class TagsService {
-  constructor(private http: HttpClient) {}
+  apiUrl = '';
 
-  private url = 'http://127.0.0.1:8003/api';
-  private device_token = '';
+  constructor(private http: HttpClient) {
+    this.apiUrl = 'http://localhost:8003/api/tags/';
+  }
 
   getTags() {
-    return this.http.get<any>(this.url + '/tags');
+    return this.http.get<any>(this.apiUrl);
   }
 }

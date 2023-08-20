@@ -20,5 +20,6 @@ import { environment } from 'src/environments/environment.development';
     AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [ApiService, MessagingService, DatePipe, CookieService],
+  exports: [FormatDistancePipe],
 })
 export class CoreModule {}
