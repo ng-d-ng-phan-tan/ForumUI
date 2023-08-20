@@ -59,6 +59,8 @@ export class LayoutComponent {
         if (res.status == 200) {
           this.cookieService.delete('access_token');
           this.cookieService.delete('refresh_token');
+          localStorage.removeItem('loginUser');
+          this.loginUser = undefined;
         }
       });
   }

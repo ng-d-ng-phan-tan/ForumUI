@@ -21,6 +21,7 @@ export class UserInfoComponent implements OnInit {
   isLoading = true;
   numOfPost: number = 0;
   numOfCmt: number = 0;
+  isChangeData: boolean = false;
   constructor(
     private route: ActivatedRoute,
     private userService: UsersService,
@@ -31,8 +32,6 @@ export class UserInfoComponent implements OnInit {
     this.loginUserID = this.cookieService.get('user_id');
 
     route.params.subscribe((params) => {
-      console.log('params', params);
-
       this.userService.getUser(params['user_id']).subscribe((res) => {
         if (res.status == '200') {
           this.user = res.data[0] as User;
@@ -45,12 +44,12 @@ export class UserInfoComponent implements OnInit {
             }),
             name: new FormControl({
               value: this.user.name,
-              disabled: false && this.loginUserID != this.user.user_id,
+              disabled: this.loginUserID != this.user.user_id,
             }),
             email: new FormControl({ value: this.user.email, disabled: true }),
             gender: new FormControl({
-              value: this.user.gender ? 'Nam' : 'Nữ',
-              disabled: true,
+              value: this.user.gender,
+              disabled: this.loginUserID != this.user.user_id,
             }),
             role: new FormControl({ value: this.user.role, disabled: true }),
             avatar: new FormControl({
@@ -71,6 +70,8 @@ export class UserInfoComponent implements OnInit {
             this.user.name = value.name;
             this.user.about = value.about;
             this.user.address = value.address;
+            this.user.gender = value.gender;
+            this.isChangeData = true;
           });
 
           this.lstUserIDs = [this.user.user_id];
@@ -83,20 +84,31 @@ export class UserInfoComponent implements OnInit {
 
   ngOnInit() {}
   changeBDay(evt: any) {
-    this.user.date_of_birth = evt.value;
+    let today = new Date();
+    let choosed = new Date(evt.value);
 
-    this.df.detectChanges();
+    if (choosed < today) {
+      this.user.date_of_birth = evt.value;
+      this.isChangeData = true;
+      this.df.detectChanges();
+    } else {
+      evt.value = this.user.date_of_birth;
+      toast('Failed', 'Birthday must be in the past', 'error', 3000);
+      this.df.detectChanges();
+    }
   }
 
   updateInfo() {
     console.log(this.user);
-    this.isUpdating = true;
-    this.userService.updateUser(this.user).subscribe((res) => {
-      console.log('update res', res);
-      if (res.status == '200') {
-        this.isUpdating = false;
-        toast('Success', 'Updated', 'success', 3000);
-      }
-    });
+    if (this.isChangeData) {
+      this.isUpdating = true;
+      this.userService.updateUser(this.user).subscribe((res) => {
+        console.log('update res', res);
+        if (res.status == '200') {
+          this.isUpdating = false;
+          toast('Success', 'Updated', 'success', 3000);
+        }
+      });
+    }
   }
 }
