@@ -30,7 +30,7 @@
                     [showName]="true"
                     [showAddress]="false"
                     [showEmail]="false"
-                    [width]="12"
+                    [width]="30"
                     [lstUsers]="[loginUser]"
                   >
                     <!-- [lstIDs]="[userId]" -->
@@ -654,4 +654,9 @@
       </div>
     </footer>
   </div>
+</div>
+
+<!-- loading something -->
+<div *ngIf="loadingSomething == true">
+  <div style="position: fixed; bottom: 30px; right: 30px;" class="loading loading-spinner loading-lg text-primary"></div>
 </div>
