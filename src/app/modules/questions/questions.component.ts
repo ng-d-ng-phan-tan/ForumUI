@@ -1,3 +1,4 @@
+import { UsersService } from 'src/app/modules/users/users.service';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { QuestionsService } from './question.service';
@@ -13,7 +14,8 @@ export class QuestionsComponent implements OnInit {
 
   constructor(
     private titleService: Title,
-    private questionsService: QuestionsService
+    private questionsService: QuestionsService,
+    private usersService: UsersService
   ) {
     this.titleService.setTitle('Questions - VietDevelop');
   }
@@ -24,7 +26,21 @@ export class QuestionsComponent implements OnInit {
 
   getQuestions() {
     this.questionsService.getQuestions().subscribe((result: any) => {
+      let lstUserID: any[] = [];
       this.questions = result.data;
+      this.questions.map((question: any) => {
+        lstUserID.push(question.questioner_id);
+      });
+      let users = [];
+      this.usersService.getUsers(lstUserID).subscribe((res: any) => {
+        if (res.status === '200') {
+          users = res.data;
+          //Map user
+          // this.questions.map((question) => {
+              
+          // });
+        }
+      });
     });
   }
 

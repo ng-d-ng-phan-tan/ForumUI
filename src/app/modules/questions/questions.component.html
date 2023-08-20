@@ -74,20 +74,20 @@
                 </div>
                 <div class="c5uxf cg15g">
                   <div class="flex justify-center items-center">
-                    <a class="c6bh0 cejt1 ctlm4 cpefv cnsvb ciojy" href="#0">{{
+                    <!-- <a class="c6bh0 cejt1 ctlm4 cpefv cnsvb ciojy" href="#0">{{
                       question?.questioner_id
-                    }}</a>
-                    <!-- <app-avatars
+                    }}</a> -->
+                    <app-avatars
                       *ngIf="question?.questioner_id"
                       [allowChangeAvatar]="false"
                       [showName]="true"
                       [showAddress]="false"
                       [showEmail]="false"
-                      [width]="12"
-                      [lstIDs]="[question?.questioner_id]"
+                      [width]="24"
+                      [lstUsers]="question?.user"
                     >
                       {{ question?.questioner_id }}
-                    </app-avatars> -->
+                    </app-avatars>
                     ·
                     <div class="cmkbe">{{ question?.created_at | date }}</div>
                     ·
