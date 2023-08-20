@@ -66,6 +66,8 @@ export class LayoutComponent {
           debugger
           this.cookieService.delete('access_token');
           this.cookieService.delete('refresh_token');
+          localStorage.removeItem('loginUser');
+          this.loginUser = undefined;
         }
       });
   }

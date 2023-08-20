@@ -66,12 +66,21 @@
           for="gender"
           >Gender</label
         >
-        <input
+        <!-- <input
           class="input input-bordered w-full max-w-xs"
           id="gender"
           formControlName="gender"
           type="text"
-        />
+        /> -->
+        <select
+          id="countries"
+          formControlName="gender"
+          class="input input-bordered w-full max-w-xs"
+        >
+          <!-- <option selected>Gender</option> -->
+          <option value="true">Male</option>
+          <option value="false">Female</option>
+        </select>
       </div>
       <div class="info-bday mb-3 flex flex-column items-center justify-center">
         <label
@@ -87,8 +96,6 @@
           [value]="this.user.date_of_birth"
           [disabled]="this.loginUserID != this.user.user_id"
         />
-        <!-- [valueAsDate]="this.user.date_of_birth | date : 'dd/MM/yyyy'" -->
-        <!-- [(ngModel)]="" -->
       </div>
 
       <!-- <div class="info-role">
@@ -138,7 +145,7 @@
       class="btn btn-accent mt-4"
       (click)="updateInfo()"
       *ngIf="loginUserID == user.user_id"
-      [disabled]="isUpdating"
+      [disabled]="isUpdating || isChangeData"
     >
       Update
       <div class="w-full flex justify-center" *ngIf="isUpdating">

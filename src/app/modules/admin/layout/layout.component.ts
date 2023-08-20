@@ -7,7 +7,7 @@ import { User } from 'src/app/shared/models/user.model';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css']
+  styleUrls: ['./layout.component.css'],
 })
 export class LayoutComponent {
   userId: any;
@@ -28,6 +28,8 @@ export class LayoutComponent {
         if (res.status == 200) {
           this.cookieService.delete('access_token');
           this.cookieService.delete('refresh_token');
+          localStorage.removeItem('loginUser');
+          this.loginUser = undefined;
           this.navigateToLoginPage();
         }
       });
@@ -46,7 +48,7 @@ export class LayoutComponent {
     return false;
   }
 
-  navigateToLoginPage(){
+  navigateToLoginPage() {
     this.router.navigate(['/admin/auth/login']);
   }
 }
