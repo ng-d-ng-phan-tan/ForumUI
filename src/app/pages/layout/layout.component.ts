@@ -1,8 +1,9 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { AuthService } from 'src/app/modules/auth/auth.service';
-import { User } from 'src/app/shared/models/user.model';
+import {Component, ViewChild, ElementRef} from '@angular/core';
+import {Router} from '@angular/router';
+import {CookieService} from 'ngx-cookie-service';
+import {AuthService} from 'src/app/modules/auth/auth.service';
+import {User} from 'src/app/shared/models/user.model';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-layout',
@@ -11,30 +12,25 @@ import { User } from 'src/app/shared/models/user.model';
 })
 export class LayoutComponent {
   loadingSomething = false;
-
-  notifications: any = [
-    {
-      title: 'New message from John Doe',
-      body: 'Hi, I just wanted to let you know that I finished the project you assigned me.',
-      type: 'info',
-    },
-    {
-      title: 'Your account has been updated',
-      body: 'Your account has been updated with the latest security settings.',
-      type: 'success',
-    },
-    {
-      title: 'Your order has been shipped',
-      body: 'Your order has been shipped and will arrive within 2-3 business days.',
-      type: 'warning',
-    },
-  ];
+  notifications: any[] = []
 
   constructor(
     private router: Router,
     private cookieService: CookieService,
-    private auth: AuthService
-  ) {}
+    private auth: AuthService,
+    private http: HttpClient
+  ) {
+  }
+
+  ngOnInit(): void {
+    if (this.alreadyLogin()) {
+      this.http
+        .get(`http://localhost:8005/api/notification/${this.userId}`)
+        .subscribe((res: any) => {
+          this.notifications = res?.notifications || [];
+        });
+    }
+  }
 
   userId: any;
   loginUser: User | undefined;
@@ -71,7 +67,8 @@ export class LayoutComponent {
     }
   }
 
-  showNotificationList() {}
+  showNotificationList() {
+  }
 
   showNotification(notification: Notification) {
     this.notifications.push(notification);
