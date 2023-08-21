@@ -29,7 +29,7 @@
   <!-- Posts -->
   <div class="cpg3l">
     <!-- List container -->
-    <div class="cjfii c5uxf ctj5y c8gep">
+    <div *ngIf="!isLoading" class="cjfii c5uxf ctj5y c8gep">
       <!-- Item -->
       <div
         *ngFor="let question of questions"
@@ -74,9 +74,6 @@
                 </div>
                 <div class="c5uxf cg15g">
                   <div class="flex justify-center items-center">
-                    <!-- <a class="c6bh0 cejt1 ctlm4 cpefv cnsvb ciojy" href="#0">{{
-                      question?.questioner_id
-                    }}</a> -->
                     <app-avatars
                       *ngIf="question?.questioner_id"
                       [allowChangeAvatar]="false"
@@ -86,7 +83,6 @@
                       [width]="24"
                       [lstUsers]="question?.user"
                     >
-                      {{ question?.questioner_id }}
                     </app-avatars>
                     ·
                     <div class="cmkbe">{{ question?.created_at | date }}</div>
@@ -128,4 +124,11 @@
       </button>
     </div>
   </div>
+</div>
+
+<div *ngIf="isLoading">
+  <div
+    style="position: fixed; bottom: 30px; right: 30px"
+    class="loading loading-spinner loading-lg text-primary"
+  ></div>
 </div>

@@ -59,9 +59,11 @@ export class AvatarsComponent implements OnInit {
         }
       });
     } else {
-      this.curUser = this.lstUsers[0];
-      for (let index = 0; index < this.showMax; index++) {
-        this.lstShowUsers.push(this.lstUsers[index]);
+      if (this.lstUsers) {
+        this.curUser = this.lstUsers[0];
+        for (let index = 0; index < this.showMax; index++) {
+          this.lstShowUsers.push(this.lstUsers[index]);
+        }
       }
     }
   }

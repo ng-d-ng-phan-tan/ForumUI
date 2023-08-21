@@ -16,7 +16,6 @@ export class SignupComponent {
   constructor(private auth: AuthService) {}
 
   onClickRegister(){
-    debugger
     this.processingSignUp = true;
     let obj ={
       name: this.nameValue,

@@ -52,7 +52,6 @@ export class LoginComponent {
         this.cookieService.set('refresh_token', res.data.refreshToken, 7200);
         this.userService.getUser(res.data.userId).subscribe((userResponse) => {
           if (userResponse.status == '200') {
-            debugger;
             if (userResponse.data[0] as User) {
               localStorage.setItem(
                 'loginUser',

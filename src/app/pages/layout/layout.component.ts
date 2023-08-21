@@ -43,7 +43,6 @@ export class LayoutComponent {
   }
 
   alreadyLogin() {
-    debugger
     if (this.cookieService.check('access_token')) {
       this.userId = this.cookieService.get('user_id');
       let userInfo = localStorage.getItem('loginUser');
@@ -61,9 +60,7 @@ export class LayoutComponent {
       .logout(this.cookieService.get('access_token'))
       .subscribe((res) => {
         this.loadingSomething = false;
-        debugger
         if (res.status == 200) {
-          debugger
           this.cookieService.delete('access_token');
           this.cookieService.delete('refresh_token');
           localStorage.removeItem('loginUser');

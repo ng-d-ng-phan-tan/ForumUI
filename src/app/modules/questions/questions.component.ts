@@ -11,6 +11,8 @@ import { QuestionsService } from './question.service';
 export class QuestionsComponent implements OnInit {
   questions: any;
   curPage = '1';
+  isSearching = true;
+  isLoading = true;
 
   constructor(
     private titleService: Title,
@@ -35,21 +37,60 @@ export class QuestionsComponent implements OnInit {
       this.usersService.getUsers(lstUserID).subscribe((res: any) => {
         if (res.status === '200') {
           users = res.data;
-          //Map user
-          // this.questions.map((question) => {
-              
-          // });
+
+          let result = [];
+
+          for (const question of this.questions) {
+            let user = users.filter((user: any) => {
+              return question.questioner_id === user.user_id;
+            });
+            const questionWithUser = {
+              ...question,
+              user,
+            };
+            result.push(questionWithUser);
+          }
+
+          this.questions = result;
         }
+        this.isLoading = false;
       });
     });
   }
 
   loadMore() {
+    this.isLoading = true;
     this.curPage = (+this.curPage + 1).toString();
     this.questionsService
       .getQuestions(this.curPage)
       .subscribe((result: any) => {
+        let lstUserID: any[] = [];
         this.questions = result.data;
+        this.questions.map((question: any) => {
+          lstUserID.push(question.questioner_id);
+        });
+        let users = [];
+        this.usersService.getUsers(lstUserID).subscribe((res: any) => {
+          if (res.status === '200') {
+            users = res.data;
+
+            let result = [];
+
+            for (const question of this.questions) {
+              let user = users.filter((user: any) => {
+                return question.questioner_id === user.user_id;
+              });
+              const questionWithUser = {
+                ...question,
+                user,
+              };
+              result.push(questionWithUser);
+            }
+
+            this.questions = result;
+          }
+          this.isLoading = false;
+        });
       });
   }
 }
