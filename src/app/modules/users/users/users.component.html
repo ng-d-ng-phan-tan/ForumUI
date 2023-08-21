@@ -5,7 +5,7 @@
     <input
       type="text"
       placeholder="User Name"
-      class="input input-bordered w-full max-w-xs mr-2"
+      class="input input-bordered w-full max-w-xs mr-2 text-black"
       (change)="searchName($event)"
       [disabled]="isSearching"
       (keyup)="keyUpEvent($event)"
@@ -48,18 +48,17 @@
   </div>
 
   <div class="flex justify-center w-full mt-5">
-    <!-- Previous Button -->
     <button
       (click)="goToSearchPage(false)"
-      [disabled]="curPage < 2"
+      [disabled]="curSeachPage < 2"
       class="btn btn-info flex items-center justify-center px-4 h-10 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
     >
       Previous
     </button>
 
-    <!-- Next Button -->
     <button
       (click)="goToSearchPage(true)"
+      [disabled]="curSeachPage * 15 >= searchCount"
       class="btn btn-info flex items-center justify-center px-4 h-10 ml-3 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
     >
       Next
@@ -92,7 +91,7 @@
     <button
       (click)="goToPage(false)"
       [disabled]="curPage < 2"
-      class="btn btn-info flex items-center justify-center px-4 h-10 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+      class="btn btn-info flex items-center justify-center rounded-lg px-4 h-10 text-base font-medium"
     >
       Previous
     </button>
@@ -100,8 +99,8 @@
     <!-- Next Button -->
     <button
       (click)="goToPage(true)"
-      [disabled]="curPage * 15 > count"
-      class="btn btn-info flex items-center justify-center px-4 h-10 ml-3 text-base font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+      [disabled]="curPage * 15 >= count"
+      class="btn btn-info flex items-center justify-center rounded-lg px-4 h-10 ml-3 text-base font-medium"
     >
       Next
     </button>

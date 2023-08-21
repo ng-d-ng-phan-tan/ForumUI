@@ -24,6 +24,7 @@ export class UsersComponent implements OnInit {
   lstSearchUsers: User[] = [];
   curSeachPage: number = 1;
   count = 0;
+  searchCount = 0;
   curSearchValue: string = '';
   loginUserID: string = '';
   isAdmin: boolean = false;
@@ -49,7 +50,7 @@ export class UsersComponent implements OnInit {
           if (res.status == '200') {
             this.lstUsers = res.data.data;
             this.isLoading = false;
-            this.userService.getCount().subscribe((res) => {
+            this.userService.getCount(this.isAdmin).subscribe((res) => {
               if (res.status == '200') {
                 this.count = res.data;
                 console.log('count', this.count);
@@ -62,13 +63,6 @@ export class UsersComponent implements OnInit {
         });
       this.df.detectChanges();
     }
-    // let user = new User();
-    // user.user_id = '1234';
-    // user.name = 'Test';
-    // user.email = 'test@example.com';
-    // user.gender = true;
-    // user.avatar = './images/avatar-01.jpg';
-    // this.lstUsers = [user];
   }
 
   selectUser(user: User) {
@@ -106,16 +100,18 @@ export class UsersComponent implements OnInit {
       this.searchUsers();
     }
   }
+
   searchUsers() {
     this.isSearching = true;
     if (this.curSearchValue != '') {
       //#region ElasticSearch
       this.userService
-        .searchUsers(this.curSearchValue)
+        .searchUsers(this.curSearchValue, this.curSeachPage)
         .subscribe((res: any) => {
           if (res) {
             this.lstSearchUsers = res.users as User[];
             this.isSearching = false;
+            this.searchCount = res.total;
             if (this.lstSearchUsers.length == 0) {
               toast('Failed', 'No user matches the given name', 'error', 3000);
             }
@@ -125,20 +121,6 @@ export class UsersComponent implements OnInit {
             toast('Failed', 'No user matches the given name', 'error', 3000);
           }
         });
-      //#endregion
-      //#region search Paging
-      // this.userService
-      //   .getUsersPaging(this.curSeachPage, this.isAdmin, this.curSearchValue)
-      //   .subscribe((res: any) => {
-      //     if (res?.status == '200') {
-      //       this.lstSearchUsers = res.data.data as User[];
-      //       this.isSearching = false;
-      //       if (this.lstSearchUsers.length == 0) {
-      //         toast('Failed', 'No user matches the given name', 'error', 3000);
-      //       }
-      //     }
-      //   });
-      //#endregion
     } else {
       this.isSearching = false;
       this.lstSearchUsers = [];

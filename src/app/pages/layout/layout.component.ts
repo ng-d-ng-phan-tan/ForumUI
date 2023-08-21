@@ -11,6 +11,7 @@ import {HttpClient} from '@angular/common/http';
   styleUrls: ['./layout.component.css'],
 })
 export class LayoutComponent {
+  loadingSomething = false;
   notifications: any[] = []
 
   constructor(
@@ -33,7 +34,6 @@ export class LayoutComponent {
 
   userId: any;
   loginUser: User | undefined;
-
   goToPage(pageName: string) {
     this.router.navigate([`${pageName}`]);
   }
@@ -51,14 +51,20 @@ export class LayoutComponent {
   }
 
   logOut() {
-    this.auth
-      .logout(this.cookieService.get('access_token'))
-      .subscribe((res) => {
-        if (res.status == 200) {
-          this.cookieService.delete('access_token');
-          this.cookieService.delete('refresh_token');
-        }
-      });
+    if(this.cookieService.check('access_token')){
+      this.loadingSomething = true;
+      let access_token = this.cookieService.get('access_token');
+      this.cookieService.delete('access_token');
+      this.cookieService.delete('refresh_token');
+      this.cookieService.delete('user_id');
+      localStorage.removeItem('loginUser');
+      this.loginUser = undefined;
+      this.auth
+        .logout(access_token)
+        .subscribe((res) => {
+          this.loadingSomething = false;
+        });
+    }
   }
 
   showNotificationList() {

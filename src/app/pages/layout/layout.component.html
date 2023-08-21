@@ -6,7 +6,7 @@
       <div class="cqsr5 cotbe cweql cyf6z">
         <div class="c5uxf cnmwy cg15g c3wfj cgiwh">
           <!-- Site branding -->
-          <div class="c0jvr c9d2g">
+          <div class="flex justify-center items-center">
             <!-- Logo -->
             <a class="group csx82" [routerLink]="['/']" aria-label="UDPT">
               <img
@@ -16,6 +16,7 @@
                 alt="Community"
               />
             </a>
+            <h1 class="text-2xl">VietDevelop</h1>
           </div>
 
           <!-- Desktop navigation -->
@@ -30,7 +31,7 @@
                     [showName]="true"
                     [showAddress]="false"
                     [showEmail]="false"
-                    [width]="12"
+                    [width]="30"
                     [lstUsers]="[loginUser]"
                   >
                     <!-- [lstIDs]="[userId]" -->
@@ -63,29 +64,34 @@
                 </div>
                 <div class="dropdown dropdown-bottom">
                   <label tabindex="0" class="cursor-pointer">
-                  <i class="fa-solid fa-gear" style="color: #d8dce4; font-size: 18px;"></i>
+                    <i
+                      class="fa-solid fa-gear"
+                      style="color: #d8dce4; font-size: 18px"
+                    ></i>
                   </label>
-                  <ul tabindex="0" class="dropdown-content menu shadow bg-base-100 rounded-box w-44">
-                    <li
-                    >
+                  <ul
+                    tabindex="0"
+                    class="dropdown-content menu shadow bg-base-100 rounded-box w-44"
+                  >
+                    <li>
                       <a
-                      [routerLink]="['/auth/changepassword']"
+                        [routerLink]="['/auth/changepassword']"
                         class="text-sm text-black"
-                      >Change password</a>
+                        >Change password</a
+                      >
                     </li>
-                    <li
-                    >
+                    <li>
                       <a
-                      [routerLink]="['/users', userId]"
+                        [routerLink]="['/users', userId]"
                         class="text-sm text-black"
-                      >Profile</a>
+                        >Profile</a
+                      >
                     </li>
-                    <li
-                    >
-                      <a
-                      (click)="logOut()"
-                      class="text-sm text-black"
-                      >Logout</a>
+                    
+                    <li>
+                      <a (click)="logOut()" class="text-sm text-black"
+                        >Logout</a
+                      >
                     </li>
                   </ul>
                 </div>
@@ -654,4 +660,9 @@
       </div>
     </footer>
   </div>
+</div>
+
+<!-- loading something -->
+<div *ngIf="loadingSomething == true">
+  <div style="position: fixed; bottom: 30px; right: 30px;" class="loading loading-spinner loading-lg text-primary"></div>
 </div>

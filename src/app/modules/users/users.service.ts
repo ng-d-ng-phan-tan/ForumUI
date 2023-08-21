@@ -51,9 +51,11 @@ export class UsersService {
     });
   }
 
-  searchUsers(name: string): Observable<any> {
+  searchUsers(name: string, page: number): Observable<any> {
+    let limit = 15;
     return this.http.post(this.userUrl + this.searchUserByNameMethod, {
       name: name,
+      offset: (page - 1) * limit + 1,
     });
   }
 
@@ -101,7 +103,9 @@ export class UsersService {
     });
   }
 
-  getCount(): Observable<any> {
-    return this.http.post(this.userUrl + this.countMethod, {});
+  getCount(isAdmin: boolean): Observable<any> {
+    return this.http.post(this.userUrl + this.countMethod, {
+      isAdmin: isAdmin,
+    });
   }
 }

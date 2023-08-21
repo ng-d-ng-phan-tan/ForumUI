@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { Error404Component } from './pages/error404/error404.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LayoutComponent } from './pages/layout/layout.component';
+import { CommonModule } from '@angular/common';
+import { AvatarsComponent } from './shared/components/avatars/avatars.component';
+import { SharedModule } from './shared/shared.module';
 
 const routes: Routes = [
   {
@@ -55,7 +58,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [HomeComponent, Error404Component],
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), CommonModule, SharedModule],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -1,6 +1,6 @@
 <ng-container
   [class]="'m-2.5 w-' + width"
-  *ngIf="lstUsers.length == 1; else group"
+  *ngIf="lstUsers?.length == 1; else group"
 >
   <div [class]="'flex mb-2.5'">
     <div
@@ -85,7 +85,10 @@
       </div>
     </div>
 
-    <div class="avatar placeholder" *ngIf="lstUsers.length - showMax > 0">
+    <div
+      class="avatar placeholder"
+      *ngIf="lstUsers && lstUsers.length - showMax > 0"
+    >
       <div class="w-12 bg-neutral-focus text-neutral-content">
         <span>+{{ lstUsers.length - showMax }}</span>
       </div>

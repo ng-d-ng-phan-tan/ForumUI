@@ -24,7 +24,6 @@ export class LoginComponent {
   ) {}
 
   onClickLogin() {
-    debugger;
     this.processingLogin = true;
     let obj = {
       deviceToken: this.auth.getDeviceToken(),
