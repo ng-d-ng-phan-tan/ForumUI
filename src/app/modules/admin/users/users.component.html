@@ -99,6 +99,7 @@
         >
           Search
         </button>
+
         <!-- <div class="flex pl-0 mt-3 space-x-1 sm:pl-2 sm:mt-0">
           <a
             href="#"
@@ -251,7 +252,16 @@
                 scope="col"
                 class="p-4 text-xs text-center justify-center font-medium text-left text-gray-500 uppercase dark:text-gray-400"
               >
-                Role
+                <div class="filter">
+                  <select
+                    class="input input-bordered w-full max-w-xs"
+                    (change)="changeFilter($event, 'role')"
+                  >
+                    <option selected value="">ROLE</option>
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="USER">USER</option>
+                  </select>
+                </div>
               </th>
               <!-- <th
                 scope="col"
@@ -271,7 +281,16 @@
                 scope="col"
                 class="p-4 text-xs text-center justify-center font-medium text-left text-gray-500 uppercase dark:text-gray-400"
               >
-                Status
+                <div>
+                  <select
+                    class="input input-bordered w-full max-w-xs"
+                    (change)="changeFilter($event, 'status')"
+                  >
+                    <option selected value="0">STATUS</option>
+                    <option value="1">ACTIVE</option>
+                    <option value="2">DELETED</option>
+                  </select>
+                </div>
               </th>
               <th
                 scope="col"

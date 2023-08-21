@@ -30,7 +30,7 @@ export class UserInfoComponent implements OnInit {
     private cookieService: CookieService
   ) {
     this.loginUserID = this.cookieService.get('user_id');
-
+    this.loginUserID = '324e23de-4034-11ee-be03-06b6018e9be9';
     route.params.subscribe((params) => {
       this.userService.getUser(params['user_id']).subscribe((res) => {
         if (res.status == '200') {
@@ -77,10 +77,8 @@ export class UserInfoComponent implements OnInit {
               this.user.address = value.address;
             }
             if (value.gender != null) {
-              this.user.gender = value.gender;
+              this.user.gender = value.gender == 'true';
             }
-
-            this.isChangeData = true;
           });
 
           this.lstUserIDs = [this.user.user_id];
@@ -109,15 +107,14 @@ export class UserInfoComponent implements OnInit {
 
   updateInfo() {
     console.log(this.user);
-    if (this.isChangeData) {
-      this.isUpdating = true;
-      this.userService.updateUser(this.user).subscribe((res) => {
-        console.log('update res', res);
-        if (res.status == '200') {
-          this.isUpdating = false;
-          toast('Success', 'Updated', 'success', 3000);
-        }
-      });
-    }
+    this.isUpdating = true;
+    this.userService.updateUser(this.user).subscribe((res) => {
+      console.log('update res', res);
+      if (res.status == '200') {
+        this.isUpdating = false;
+        this.isChangeData = false;
+        toast('Success', 'Updated', 'success', 3000);
+      }
+    });
   }
 }
