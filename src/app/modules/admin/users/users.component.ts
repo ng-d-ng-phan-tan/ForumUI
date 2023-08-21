@@ -22,16 +22,22 @@ export class UsersComponent implements OnInit, AfterViewInit {
   ) {}
 
   lstUsers: User[] = [];
+  lstTmpUsers: User[] = [];
   isAdmin = true;
   curPage = 1;
+  curSearchPage = 1;
   curSearchValue = '';
-  isLoading = true;
   curUser!: User | null;
   count = 0;
+  searchCount = 0;
   loginUser!: User;
 
   //Modal
   delModal!: ModalInterface;
+
+  //loading
+  isLoading = true;
+  isSearching = false;
 
   ngOnInit(): void {
     let userInfo = localStorage.getItem('loginUser');
@@ -72,7 +78,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
           if (res.status == '200') {
             this.lstUsers = res.data.data;
             this.isLoading = false;
-            this.userService.getCount().subscribe((res) => {
+            this.userService.getCount(this.isAdmin).subscribe((res) => {
               if (res.status == '200') {
                 this.count = res.data;
               }
@@ -91,6 +97,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
       this.curPage -= 1;
     }
     this.getUsersPagination();
+  }
+
+  goToSearchPage(isNextPage: boolean) {
+    if (isNextPage) {
+      this.curSearchPage += 1;
+    } else {
+      this.curSearchPage -= 1;
+    }
+    this.searchUsers();
   }
 
   openDelModal() {
@@ -129,5 +144,50 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   viewProfile(user: User) {
     window.location.href += '/' + user.user_id;
+  }
+  searchName(evt: any) {
+    this.curSearchValue = evt.target.value;
+    if (this.curSearchValue == '') {
+      this.lstUsers = this.lstTmpUsers;
+      this.lstTmpUsers = [];
+      this.isSearching = false;
+    }
+  }
+
+  keyUpEvent(event: any) {
+    if (event.key.toLowerCase() == 'enter') {
+      this.searchUsers();
+    }
+  }
+  searchUsers() {
+    this.isSearching = true;
+    if (this.curSearchValue != '') {
+      //#region ElasticSearch
+      this.userService
+        .searchUsers(this.curSearchValue, this.curSearchPage)
+        .subscribe((res: any) => {
+          if (res) {
+            this.lstTmpUsers = this.lstUsers;
+            this.lstUsers = res.users as User[];
+            this.searchCount = res.total;
+            this.isSearching = false;
+            if (this.lstUsers.length == 0) {
+              toast('Failed', 'No user matches the given name', 'error', 3000);
+              this.lstUsers = this.lstTmpUsers;
+              this.lstTmpUsers = [];
+            }
+            this.df.detectChanges();
+          } else {
+            this.isSearching = false;
+            this.lstTmpUsers = [];
+            toast('Failed', 'No user matches the given name', 'error', 3000);
+            this.df.detectChanges();
+          }
+        });
+    } else {
+      this.isSearching = false;
+      this.lstTmpUsers = [];
+      this.df.detectChanges();
+    }
   }
 }

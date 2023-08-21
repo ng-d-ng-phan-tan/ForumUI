@@ -35,7 +35,7 @@ export class UserInfoComponent implements OnInit {
       this.userService.getUser(params['user_id']).subscribe((res) => {
         if (res.status == '200') {
           this.user = res.data[0] as User;
-          console.log(this.user);
+          console.log('on routing', this.user);
           this.isLoading = false;
           this.formGroup = new FormGroup({
             user_id: new FormControl({
@@ -49,7 +49,7 @@ export class UserInfoComponent implements OnInit {
             email: new FormControl({ value: this.user.email, disabled: true }),
             gender: new FormControl({
               value: this.user.gender,
-              disabled: this.loginUserID != this.user.user_id,
+              disabled: false, // this.loginUserID != this.user.user_id,
             }),
             role: new FormControl({ value: this.user.role, disabled: true }),
             avatar: new FormControl({
@@ -67,10 +67,19 @@ export class UserInfoComponent implements OnInit {
           });
 
           this.formGroup.valueChanges.subscribe((value: any) => {
-            this.user.name = value.name;
-            this.user.about = value.about;
-            this.user.address = value.address;
-            this.user.gender = value.gender;
+            if (value.name != null) {
+              this.user.name = value.name;
+            }
+            if (value.about != null) {
+              this.user.about = value.about;
+            }
+            if (value.address != null) {
+              this.user.address = value.address;
+            }
+            if (value.gender != null) {
+              this.user.gender = value.gender;
+            }
+
             this.isChangeData = true;
           });
 

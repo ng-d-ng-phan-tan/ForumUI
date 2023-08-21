@@ -4,7 +4,7 @@
     <div class="flex flex-col mb-2.5">
       <div class="ava flex justify-center">
         <!-- <label
-        class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
+        class="block mb-2 text-sm font-medium text-amber "
         for=""
         class="h1"
         >Ảnh đại diện</label
@@ -30,29 +30,27 @@
       *ngIf="formGroup"
     >
       <div class="info-name mb-3 flex flex-column items-center justify-center">
-        <label
-          class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
-          for="name"
-        >
+        <label class="block mb-2 text-sm font-medium text-amber" for="name">
           Name
         </label>
         <input
           class="input input-bordered w-full max-w-xs"
           formControlName="name"
           id="name"
+          style="color: black"
           type="text"
         />
       </div>
 
       <div class="info-email mb-3 flex flex-column items-center justify-center">
-        <label
-          class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
-          for="email"
+        <label class="block mb-2 text-sm font-medium text-amber" for="email"
           >Email</label
         >
         <input
           class="input input-bordered w-full max-w-xs"
+          style="color: black"
           formControlName="email"
+          style="color: black"
           id="email"
           type="text"
         />
@@ -61,9 +59,7 @@
       <div
         class="info-gender mb-3 flex flex-column items-center justify-center"
       >
-        <label
-          class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
-          for="gender"
+        <label class="block mb-2 text-sm font-medium text-amber" for="gender"
           >Gender</label
         >
         <!-- <input
@@ -76,6 +72,7 @@
           id="countries"
           formControlName="gender"
           class="input input-bordered w-full max-w-xs"
+          style="color: black"
         >
           <!-- <option selected>Gender</option> -->
           <option value="true">Male</option>
@@ -84,7 +81,7 @@
       </div>
       <div class="info-bday mb-3 flex flex-column items-center justify-center">
         <label
-          class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
+          class="block mb-2 text-sm font-medium text-amber"
           for="date_of_birth"
           >Birthday</label
         >
@@ -95,12 +92,13 @@
           (change)="changeBDay($event?.target)"
           [value]="this.user.date_of_birth"
           [disabled]="this.loginUserID != this.user.user_id"
+          style="color: black"
         />
       </div>
 
       <!-- <div class="info-role">
         <label
-          class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
+          class="block mb-2 text-sm font-medium text-amber "
           for="role"
           >Role</label
         >
@@ -114,9 +112,7 @@
       <div
         class="info-address mb-1 flex flex-column items-center justify-center"
       >
-        <label
-          class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
-          for="address"
+        <label class="block mb-2 text-sm font-medium text-amber" for="address"
           >Address</label
         >
         <input
@@ -124,29 +120,26 @@
           formControlName="address"
           id="address"
           type="text"
+          style="color: black"
         />
       </div>
       <div class="info-about mb-1 flex flex-column items-center justify-center">
-        <label
-          class="block mb-2 text-sm font-medium text-teal-200 dark:text-white"
-          for="about"
+        <label class="block mb-2 text-sm font-medium text-amber" for="about"
           >About</label
         >
         <input
           class="input input-bordered w-full max-w-xs"
           type="text"
           formControlName="about"
+          style="color: black"
         />
         <!-- [innerHTML]="this.user.about" -->
       </div>
     </form>
 
-    <button
-      class="btn btn-accent mt-4"
-      (click)="updateInfo()"
-      *ngIf="loginUserID == user.user_id"
-      [disabled]="isUpdating || isChangeData"
-    >
+    <button class="btn btn-accent mt-4" (click)="updateInfo()">
+      <!-- *ngIf="loginUserID == user.user_id"
+      [disabled]="isUpdating || isChangeData" -->
       Update
       <div class="w-full flex justify-center" *ngIf="isUpdating">
         <div class="loading loading-spinner loading-lg text-primary"></div>
