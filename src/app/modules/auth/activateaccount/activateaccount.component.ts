@@ -21,7 +21,6 @@ export class ActivateaccountComponent implements OnInit {
     this.email = this.route.snapshot.queryParamMap.get('email');
     this.activate = this.route.snapshot.queryParamMap.get('activate');
     this.auth.activateAccount(this.email, this.activate).subscribe((res) => {
-      debugger
       if(res.status == 200){
         this.activateSuccess = true;
       }

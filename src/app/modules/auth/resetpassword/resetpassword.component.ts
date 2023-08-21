@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {toast} from 'src/assets/js/main.js';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-resetpassword',
@@ -13,7 +14,8 @@ export class ResetpasswordComponent {
   newPasswordValue : string = '';
   resetPswProcess = false;
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService,
+    private router: Router) {}
 
   onClickResetPassword(){
     // toast('Thông tin', 'Bạn vừa bấm vào nút đăng nhập','info',3000);
@@ -46,7 +48,10 @@ export class ResetpasswordComponent {
     this.auth.resetPassword(obj).subscribe((res) => {
   this.resetPswProcess = false;
       if(res.status == 200){    
-        toast('Success', 'Reset password success','success',3000);
+        toast('Success', 'Reset password success','success',2000);
+        setTimeout(() => {
+          this.router.navigate(['/auth/login']);
+        }, 2000)
       }
       else{
         toast('Failed', 'Reset password failed','error',3000);

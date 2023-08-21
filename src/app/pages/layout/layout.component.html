@@ -31,7 +31,7 @@
                     [showName]="true"
                     [showAddress]="false"
                     [showEmail]="false"
-                    [width]="12"
+                    [width]="30"
                     [lstUsers]="[loginUser]"
                   >
                     <!-- [lstIDs]="[userId]" -->
@@ -87,6 +87,7 @@
                         >Profile</a
                       >
                     </li>
+                    
                     <li>
                       <a (click)="logOut()" class="text-sm text-black"
                         >Logout</a
@@ -659,4 +660,9 @@
       </div>
     </footer>
   </div>
+</div>
+
+<!-- loading something -->
+<div *ngIf="loadingSomething == true">
+  <div style="position: fixed; bottom: 30px; right: 30px;" class="loading loading-spinner loading-lg text-primary"></div>
 </div>

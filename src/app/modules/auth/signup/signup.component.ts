@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import {toast} from 'src/assets/js/main.js';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -13,7 +14,8 @@ export class SignupComponent {
   passwordValue: string = '';
   processingRegister = false;
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService,
+    private router: Router) {}
 
   onClickSignUp(){
     this.processingRegister = true;
@@ -43,6 +45,9 @@ export class SignupComponent {
     this.processingRegister = false;
       if(res.status == 200){
         toast('Success', res.message,'success',3000);
+        setTimeout(() => {
+          this.router.navigate(['/auth/login']);
+        }, 3000)
       }
       else{
         toast('Failed', res.message,'error',3000);

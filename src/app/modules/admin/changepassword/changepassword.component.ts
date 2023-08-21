@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import {toast} from 'src/assets/js/main.js';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-changepassword',
@@ -13,7 +14,8 @@ export class ChangepasswordComponent {
   newPasswordValue : string = '';
   processingChangePsw = false;
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService,
+    private router: Router) {}
 
   onClickChangePsw(){
     this.processingChangePsw = true;
@@ -46,7 +48,10 @@ export class ChangepasswordComponent {
     this.auth.changePassword(obj).subscribe((res) => {
   this.processingChangePsw = false;
       if(res.status == 200){
-        toast('Success', 'Change password success','success',3000);
+        toast('Success', 'Change password success','success',2000);
+        setTimeout(() => {
+          this.router.navigate(['/admin/auth/login']);
+        }, 2000)
       }
       else {
         toast('Failed', 'Change password failed','error',3000);

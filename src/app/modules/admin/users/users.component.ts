@@ -9,6 +9,7 @@ import { UsersService } from '../../users/users.service';
 import { User } from 'src/app/shared/models/user.model';
 import { Modal, ModalInterface, ModalOptions } from 'flowbite';
 import { toast } from 'src/assets/js/main.js';
+import { AdminService } from '../admin.service';
 
 @Component({
   selector: 'app-users',
@@ -18,7 +19,8 @@ import { toast } from 'src/assets/js/main.js';
 export class UsersComponent implements OnInit, AfterViewInit {
   constructor(
     private userService: UsersService,
-    private df: ChangeDetectorRef
+    private df: ChangeDetectorRef,
+    private adminService: AdminService
   ) {}
 
   lstUsers: User[] = [];
@@ -189,5 +191,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
       this.lstTmpUsers = [];
       this.df.detectChanges();
     }
+  }
+
+  export() {
+    this.adminService.exportData(this.lstUsers, 'Sample');
   }
 }
