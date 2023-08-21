@@ -56,16 +56,17 @@ export class LayoutComponent {
 
   logOut() {
     this.loadingSomething = true;
+    if(this.cookieService.check('access_token')){
+      this.cookieService.delete('access_token');
+      this.cookieService.delete('refresh_token');
+      this.cookieService.delete('user_id');
+      localStorage.removeItem('loginUser');
+      this.loginUser = undefined;
+    }
     this.auth
       .logout(this.cookieService.get('access_token'))
       .subscribe((res) => {
         this.loadingSomething = false;
-        if (res.status == 200) {
-          this.cookieService.delete('access_token');
-          this.cookieService.delete('refresh_token');
-          localStorage.removeItem('loginUser');
-          this.loginUser = undefined;
-        }
       });
   }
 

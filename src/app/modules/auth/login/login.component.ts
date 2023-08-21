@@ -1,5 +1,5 @@
 import { UsersService } from 'src/app/modules/users/users.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { toast } from 'src/assets/js/main.js';
 import { AuthService } from '../auth.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -11,7 +11,7 @@ import { User } from 'src/app/shared/models/user.model';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css', '../../../../custome-style.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   emailValue: string = '';
   passwordValue: string = '';
   processingLogin = false;
@@ -22,6 +22,13 @@ export class LoginComponent {
     private userService: UsersService,
     private router: Router
   ) {}
+
+  ngOnInit(): void {
+    debugger
+    if(this.cookieService.check('access_token')){
+      this.router.navigate(['/']);
+    }
+  }
 
   onClickLogin() {
     this.processingLogin = true;
