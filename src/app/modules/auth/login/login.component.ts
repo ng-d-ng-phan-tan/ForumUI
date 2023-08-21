@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit{
         this.cookieService.set('user_id', res.data.userId, 3600);
         this.cookieService.set('refresh_token', res.data.refreshToken, 7200);
         this.userService.getUser(res.data.userId).subscribe((userResponse) => {
+
           if (userResponse.status == '200') {
             if (userResponse.data[0] as User) {
               localStorage.setItem(

@@ -22,20 +22,21 @@ export class LayoutComponent {
   ) {}
 
   logOut() {
-    this.loadingSomething = true;
     if(this.cookieService.check('access_token')){
+      this.loadingSomething = true;
+      let access_token = this.cookieService.get('access_token');
       this.cookieService.delete('access_token');
       this.cookieService.delete('refresh_token');
       this.cookieService.delete('user_id');
       localStorage.removeItem('loginUser');
       this.loginUser = undefined;
+      this.auth
+        .logout(access_token)
+        .subscribe((res) => {
+          this.loadingSomething = false;
+          this.navigateToLoginPage();
+        });
     }
-    this.auth
-      .logout(this.cookieService.get('access_token'))
-      .subscribe((res) => {
-        this.loadingSomething = false;
-        this.navigateToLoginPage();
-      });
   }
 
   alreadyLogin() {
