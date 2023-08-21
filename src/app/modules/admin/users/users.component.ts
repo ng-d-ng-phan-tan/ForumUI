@@ -41,6 +41,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
   isLoading = true;
   isSearching = false;
 
+  //Filter
+  curFilterRole = '';
+  curFilterStatus = '0' || '1' || '2';
   ngOnInit(): void {
     let userInfo = localStorage.getItem('loginUser');
     if (userInfo) {
@@ -79,6 +82,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
         .subscribe((res: any) => {
           if (res.status == '200') {
             this.lstUsers = res.data.data;
+            this.lstTmpUsers = this.lstUsers;
             this.isLoading = false;
             this.userService.getCount(this.isAdmin).subscribe((res) => {
               if (res.status == '200') {
@@ -195,5 +199,43 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   export() {
     this.adminService.exportData(this.lstUsers, 'Sample');
+  }
+
+  changeFilter(evt: any, type: string) {
+    switch (type) {
+      case 'role': {
+        this.curFilterRole = evt.target?.value;
+        break;
+      }
+      case 'status': {
+        this.curFilterStatus = evt.target?.value;
+        break;
+      }
+    }
+
+    this.lstUsers = this.lstTmpUsers.filter((u) => {
+      if (this.curFilterRole != '' && u.role != this.curFilterRole) {
+        return null;
+      }
+
+      switch (this.curFilterStatus) {
+        case '0': {
+          return u;
+        }
+        case '1': {
+          if (u.delete_at == null) {
+            return u;
+          }
+          return null;
+        }
+        case '2': {
+          if (u.delete_at != null) {
+            return u;
+          }
+          return null;
+        }
+      }
+      return u;
+    });
   }
 }
