@@ -49,7 +49,7 @@ export class UserInfoComponent implements OnInit {
             email: new FormControl({ value: this.user.email, disabled: true }),
             gender: new FormControl({
               value: this.user.gender,
-              disabled: false, // this.loginUserID != this.user.user_id,
+              disabled: this.loginUserID != this.user.user_id,
             }),
             role: new FormControl({ value: this.user.role, disabled: true }),
             avatar: new FormControl({
