@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Observable, of } from 'rxjs';
 
@@ -12,6 +19,7 @@ export class AskComponent implements OnInit {
   Editor = ClassicEditor;
   askQuestion!: FormGroup;
   itemsAsObjects = [];
+  submitted = false;
 
   items = [
     { id: '2', name: 'Vue' },
@@ -23,21 +31,20 @@ export class AskComponent implements OnInit {
 
   ngOnInit(): void {
     this.askQuestion = this.fb.group({
-      title: [
+      title: ['', Validators.compose([Validators.required])],
+      body: [
         '',
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(6),
-          Validators.pattern(/^[a-z]{6,32}$/i),
-        ]),
+        Validators.compose([Validators.required, Validators.minLength(20)]),
       ],
-      body: '',
-      tags: false,
+      tags: [
+        [],
+        Validators.compose([Validators.required]),
+      ],
     });
   }
 
-  get title() {
-    return this.askQuestion.get('title');
+  get registerFormControl() {
+    return this.askQuestion.controls;
   }
 
   requestAutocompleteItems = (text: string): Observable<any> => {
@@ -47,6 +54,12 @@ export class AskComponent implements OnInit {
   };
 
   createQuestion() {
-    
+    this.submitted = true;
+    if (this.askQuestion.valid) {
+      alert(
+        'Form Submitted succesfully!!!\n Check the values in browser console.'
+      );
+      console.table(this.askQuestion.value);
+    }
   }
 }
