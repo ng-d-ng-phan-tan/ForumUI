@@ -42,7 +42,7 @@
                     <button class="btn" (click)="showNotificationList()">
                       <i class="fa-solid fa-bell"></i>
                       <div class="badge badge-secondary">
-                        <span>{{ notifications.length }}</span>
+                        <span>{{ totalNotificationUnread }}</span>
                       </div>
                     </button>
                     <ul
@@ -87,7 +87,7 @@
                         >Profile</a
                       >
                     </li>
-                    
+
                     <li>
                       <span (click)="logOut()" class="text-sm text-black"
                         >Logout
