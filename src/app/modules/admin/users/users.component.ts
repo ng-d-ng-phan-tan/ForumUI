@@ -34,8 +34,12 @@ export class UsersComponent implements OnInit, AfterViewInit {
   searchCount = 0;
   loginUser!: User;
 
+  dataImport : any = []
+  lstKey: any = []
+  
   //Modal
   delModal!: ModalInterface;
+  importFileModal!: ModalInterface;
 
   //loading
   isLoading = true;
@@ -50,7 +54,28 @@ export class UsersComponent implements OnInit, AfterViewInit {
       this.loginUser = JSON.parse(userInfo) as User;
     }
     this.getUsersPagination();
+
+    const $modalElement: HTMLElement | null = document.querySelector('#modalEl');
+
+    if ($modalElement) {
+      const modalOptions: ModalOptions = {
+        placement: 'center',
+        backdrop: 'dynamic',
+        backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
+        closable: true,
+        onHide: () => {
+            console.log('modal is hidden');
+        },
+        onShow: () => {
+            console.log('modal is shown');
+        },
+        onToggle: () => {
+            console.log('modal has been toggled');
+        }
+      }
+      this.importFileModal = new Modal($modalElement, modalOptions);
   }
+}
 
   ngAfterViewInit() {
     let delModalEle = document.getElementById('delModal');
@@ -116,6 +141,10 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   openDelModal() {
     this.delModal.show();
+  }
+
+  closeModalImportFile(){
+    this.importFileModal.hide();
   }
 
   closeDelModal(confirmDel: boolean) {
@@ -199,6 +228,30 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   export() {
     this.adminService.exportData(this.lstUsers, 'Sample');
+  }
+
+  async import(event: any) {
+    debugger
+    const file: File = event.target.files[0];
+    if (file) {
+      const extension = file.name.split('.').pop();
+      if (extension === 'xlsx') {
+        this.adminService.importData(file).then((res) => {
+          this.dataImport = res;
+          console.log('data import', this.dataImport);
+           this.lstKey = Object.keys(this.dataImport[0]);
+          
+          // const checkboxElement = document.getElementById('my_modal_6');
+          // if (checkboxElement instanceof HTMLInputElement) {
+          //   checkboxElement.checked = true;
+          // }
+
+          this.importFileModal.show();
+        });
+      } else {
+        alert('File không hợp lệ');
+      }
+    }
   }
 
   changeFilter(evt: any, type: string) {

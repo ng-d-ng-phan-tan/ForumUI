@@ -9,6 +9,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { Error404Component } from 'src/app/pages/error404/error404.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { UserInfoComponent } from '../users/users/user-info/user-info.component';
+import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -39,10 +40,12 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        canActivate: [AuthGuard],
         component: AdminComponent,
       },
       {
         path: 'users',
+        canActivate: [AuthGuard],
         component: UsersComponent,
         // children: [
         //   {
@@ -53,10 +56,12 @@ const routes: Routes = [
       },
       {
         path: 'users/:user_id',
+        canActivate: [AuthGuard],
         component: UserInfoComponent,
       },
       {
         path: 'posts',
+        canActivate: [AuthGuard],
         component: PostsComponent,
       },
     ],
