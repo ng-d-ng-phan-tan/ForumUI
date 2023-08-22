@@ -392,15 +392,17 @@
                 </button>
                 <!-- style="background-color: rgb(220 38 38)" -->
                 <button
-                  *ngIf="user.delete_at == null"
                   [disabled]="
                     loginUser?.user_id == user.user_id ||
-                    user.role.toLowerCase() == 'admin'
+                    user.role.toLowerCase() == 'admin' ||
+                    user.delete_at != null
                   "
                   (click)="openDelModal()"
                   class="block justify-center text-white rounded-lg text-sm w-1/2 p-2"
                   [ngStyle]="{
-                    'background-color': user.role.toLowerCase() != 'admin' ? 'rgb(220 38 38)' : 'rgb(168 167 167)',
+                    'background-color': loginUser?.user_id == user.user_id ||
+                    user.role.toLowerCase() == 'admin' ||
+                    user.delete_at != null ? 'rgb(168 167 167)' : 'rgb(220 38 38)',
                   }"
                   type="button"
                 >
