@@ -34,6 +34,7 @@ export class LayoutComponent implements OnInit {
 
       this.realTimeMessage.currentMessage.subscribe((res) => {
         debugger
+        console.log('message moi nhat ne', this.realTimeMessage.currentMessage.value);
       })
     }
   }
