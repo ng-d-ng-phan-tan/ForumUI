@@ -139,7 +139,7 @@
     <button
       class="btn btn-accent mt-4"
       (click)="updateInfo()"
-      [disabled]="isUpdating || isChangeData"
+      [disabled]="isUpdating || !isChangeData"
       *ngIf="loginUserID == user.user_id"
     >
       Update

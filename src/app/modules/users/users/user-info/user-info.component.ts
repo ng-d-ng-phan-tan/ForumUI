@@ -69,15 +69,19 @@ export class UserInfoComponent implements OnInit {
           this.formGroup.valueChanges.subscribe((value: any) => {
             if (value.name != null) {
               this.user.name = value.name;
+              this.isChangeData = true;
             }
             if (value.about != null) {
               this.user.about = value.about;
+              this.isChangeData = true;
             }
             if (value.address != null) {
               this.user.address = value.address;
+              this.isChangeData = true;
             }
             if (value.gender != null) {
               this.user.gender = value.gender == 'true';
+              this.isChangeData = true;
             }
           });
 
@@ -108,13 +112,15 @@ export class UserInfoComponent implements OnInit {
   updateInfo() {
     console.log(this.user);
     this.isUpdating = true;
-    this.userService.updateUser(this.user).subscribe((res) => {
-      console.log('update res', res);
-      if (res.status == '200') {
-        this.isUpdating = false;
-        this.isChangeData = false;
-        toast('Success', 'Updated', 'success', 3000);
-      }
-    });
+    if ((this.isChangeData = true)) {
+      this.userService.updateUser(this.user).subscribe((res) => {
+        console.log('update res', res);
+        if (res.status == '200') {
+          this.isUpdating = false;
+          this.isChangeData = false;
+          toast('Success', 'Updated', 'success', 3000);
+        }
+      });
+    }
   }
 }

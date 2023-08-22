@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AdminService } from '../admin.service';
+import { QuestionsService } from '../../questions/question.service';
 
 @Component({
   selector: 'app-posts',
@@ -7,9 +8,18 @@ import { AdminService } from '../admin.service';
   styleUrls: ['./posts.component.css'],
 })
 export class PostsComponent implements OnInit {
-  constructor(private adminService: AdminService) {}
+  constructor(
+    private adminService: AdminService,
+    private questionService: QuestionsService,
+    private df: ChangeDetectorRef
+  ) {}
+  isSearching = false;
+  lstQuest: any[] = [];
+  lstTmpQuest: any[] = [];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getQuestionPaging();
+  }
 
   async import(event: any) {
     const file: File = event.target.files[0];
@@ -27,4 +37,16 @@ export class PostsComponent implements OnInit {
     const data: any[] = [];
     this.adminService.exportData(data, 'Sample');
   }
+
+  getQuestionPaging() {
+    this.questionService.getQuestions().subscribe((res: any) => {
+      if (res.data) {
+        this.lstQuest = res.data;
+        this.lstTmpQuest = res.data;
+        this.df.detectChanges();
+        console.log('lstquest', this.lstQuest);
+      }
+    });
+  }
+  searchPost() {}
 }
