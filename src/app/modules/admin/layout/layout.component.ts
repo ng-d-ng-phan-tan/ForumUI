@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../../auth/auth.service';
 import { User } from 'src/app/shared/models/user.model';
 import { UsersService } from '../../users/users.service';
+import { MessagingService } from 'src/app/core/services/messaging.service';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css'],
 })
-export class LayoutComponent {
+export class LayoutComponent implements OnInit{
   userId: any;
   loginUser: User | undefined;
   loadingSomething = false;
@@ -18,8 +19,17 @@ export class LayoutComponent {
     private router: Router,
     private cookieService: CookieService,
     private auth: AuthService,
-    private user: UsersService
+    private user: UsersService,
+    private realTimeMessage: MessagingService
   ) {}
+
+  ngOnInit(): void {
+    if(this.alreadyLogin()){
+      this.realTimeMessage.currentMessage.subscribe((res) => {
+        debugger
+      })
+    }
+  }
 
   logOut() {
     if(this.cookieService.check('access_token')){
@@ -28,6 +38,7 @@ export class LayoutComponent {
       this.cookieService.delete('access_token');
       this.cookieService.delete('refresh_token');
       this.cookieService.delete('user_id');
+      this.realTimeMessage.currentMessage.unsubscribe();
       localStorage.removeItem('loginUser');
       this.loginUser = undefined;
       this.auth
