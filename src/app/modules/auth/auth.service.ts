@@ -66,6 +66,13 @@ export class AuthService {
     return this.http.get<any>(this.url + '/getUserRole', { headers });
   }
 
+  authenticateUser(): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: this.cookieService.get('access_token'),
+    });
+    return this.http.get<any>(this.url + '/authenticateUser', { headers });
+  }
+
   checkUserInRole(role: any): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: this.cookieService.get('access_token'),

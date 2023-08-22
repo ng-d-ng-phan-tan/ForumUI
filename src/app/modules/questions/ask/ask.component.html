@@ -49,13 +49,22 @@
                 <p class="text-gray-500">Title</p>
                 <div class="card-actions">
                   <input
+                    class="input input-bordered w-full"
                     type="text"
                     id="title"
                     formControlName="title"
                     placeholder="Type here"
-                    class="input input-bordered w-full"
                     required
                   />
+                  <span
+                    class="text-red-500"
+                    *ngIf="
+                      (registerFormControl['title'].touched || submitted) &&
+                      registerFormControl['title'].errors?.['required']
+                    "
+                  >
+                    Title is required
+                  </span>
                 </div>
               </div>
             </div>
@@ -75,6 +84,24 @@
                     class="w-full text-black"
                     [editor]="Editor"
                   ></ckeditor>
+                  <span
+                    class="text-red-500"
+                    *ngIf="
+                    (registerFormControl['body'].touched || submitted) &&
+                    registerFormControl['body'].errors?.['required']
+                  "
+                  >
+                    Body is required
+                  </span>
+                  <span
+                    class="text-red-500"
+                    *ngIf="
+                    (registerFormControl['body'].touched || submitted) &&
+                    registerFormControl['body'].errors?.['minlength']
+                  "
+                  >
+                    The minimum length of the body text is 20 characters.
+                  </span>
                 </div>
               </div>
             </div>
@@ -105,6 +132,15 @@
                     </tag-input-dropdown>
                   </tag-input>
                 </div>
+                <span
+                  class="text-red-500"
+                  *ngIf="
+              (registerFormControl['tags'].touched || submitted) &&
+              registerFormControl['tags'].errors?.['required']
+            "
+                >
+                  Tags is required
+                </span>
               </div>
             </div>
             <div class="card w-full mt-3 text-primary-content">

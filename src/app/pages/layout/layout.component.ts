@@ -1,16 +1,17 @@
-import {Component, ViewChild, ElementRef} from '@angular/core';
+import {Component, ViewChild, ElementRef, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
 import {AuthService} from 'src/app/modules/auth/auth.service';
 import {User} from 'src/app/shared/models/user.model';
 import {HttpClient} from '@angular/common/http';
+import { MessagingService } from 'src/app/core/services/messaging.service';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css'],
 })
-export class LayoutComponent {
+export class LayoutComponent implements OnInit {
   loadingSomething = false;
   notifications: any[] = []
 
@@ -18,7 +19,8 @@ export class LayoutComponent {
     private router: Router,
     private cookieService: CookieService,
     private auth: AuthService,
-    private http: HttpClient
+    private http: HttpClient,
+    private realTimeMessage: MessagingService
   ) {
   }
 
@@ -29,6 +31,11 @@ export class LayoutComponent {
         .subscribe((res: any) => {
           this.notifications = res?.notifications || [];
         });
+
+      this.realTimeMessage.currentMessage.subscribe((res) => {
+        debugger
+        console.log('message moi nhat ne', this.realTimeMessage.currentMessage.value);
+      })
     }
   }
 
@@ -57,6 +64,7 @@ export class LayoutComponent {
       this.cookieService.delete('access_token');
       this.cookieService.delete('refresh_token');
       this.cookieService.delete('user_id');
+      this.realTimeMessage.currentMessage.unsubscribe();
       localStorage.removeItem('loginUser');
       this.loginUser = undefined;
       this.auth
