@@ -26,7 +26,7 @@ export class PostsComponent implements OnInit {
     if (file) {
       const extension = file.name.split('.').pop();
       if (extension === 'xlsx') {
-        this.adminService.importData(file);
+        const data = await this.adminService.importData(file);
       } else {
         alert('File không hợp lệ');
       }

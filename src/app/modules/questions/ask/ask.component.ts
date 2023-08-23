@@ -7,8 +7,11 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Observable, of } from 'rxjs';
+import { TagsService } from '../../tags/tags.service';
+import { QuestionsService } from '../question.service';
 
 @Component({
   selector: 'app-ask',
@@ -20,14 +23,16 @@ export class AskComponent implements OnInit {
   askQuestion!: FormGroup;
   itemsAsObjects = [];
   submitted = false;
+  items = [];
 
-  items = [
-    { id: '2', name: 'Vue' },
-    { id: '3', name: 'Nuxt' },
-    { id: '4', name: 'Next' },
-  ];
-
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private titleService: Title,
+    private fb: FormBuilder,
+    private questionsService: QuestionsService,
+    private tagsService: TagsService
+  ) {
+    this.titleService.setTitle('Ask question - VietDevelop');
+  }
 
   ngOnInit(): void {
     this.askQuestion = this.fb.group({
@@ -36,10 +41,12 @@ export class AskComponent implements OnInit {
         '',
         Validators.compose([Validators.required, Validators.minLength(20)]),
       ],
-      tags: [
-        [],
-        Validators.compose([Validators.required]),
-      ],
+      tags: [[], Validators.compose([Validators.required])],
+      questioner_id: '',
+    });
+
+    this.tagsService.getTags().subscribe((result) => {
+      this.items = result.data;
     });
   }
 
@@ -56,10 +63,12 @@ export class AskComponent implements OnInit {
   createQuestion() {
     this.submitted = true;
     if (this.askQuestion.valid) {
-      alert(
-        'Form Submitted succesfully!!!\n Check the values in browser console.'
-      );
-      console.table(this.askQuestion.value);
+      const loginUser = JSON.parse(localStorage.getItem('loginUser') as string);
+      this.askQuestion.patchValue({ questioner_id: loginUser.user_id });
+      console.log(this.askQuestion.value);
+      this.questionsService
+        .createQuestion(this.askQuestion.value)
+        .subscribe((res) => {});
     }
   }
 }

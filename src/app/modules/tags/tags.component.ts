@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TagsService } from './tags.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tags',
@@ -9,7 +10,9 @@ import { TagsService } from './tags.service';
 export class TagsComponent implements OnInit {
   tags: any = [];
 
-  constructor(private tagService: TagsService) {}
+  constructor(private titleService: Title, private tagService: TagsService) {
+    this.titleService.setTitle('Tags - VietDevelop');
+  }
 
   ngOnInit() {
     this.getTags();

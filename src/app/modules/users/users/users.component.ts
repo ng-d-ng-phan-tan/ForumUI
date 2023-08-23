@@ -4,6 +4,7 @@ import { UsersService } from '../users.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { toast } from 'src/assets/js/main.js';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-users',
@@ -12,12 +13,15 @@ import { toast } from 'src/assets/js/main.js';
 })
 export class UsersComponent implements OnInit {
   constructor(
+    private titleService: Title,
     private userService: UsersService,
     private activeRoute: ActivatedRoute,
     private router: Router,
     private df: ChangeDetectorRef,
     private cookieService: CookieService
-  ) {}
+  ) {
+    this.titleService.setTitle('Users - VietDevelop');
+  }
 
   lstUsers: User[] = [];
   curPage: number = 1;

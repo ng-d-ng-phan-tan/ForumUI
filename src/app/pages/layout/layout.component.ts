@@ -4,7 +4,7 @@ import {CookieService} from 'ngx-cookie-service';
 import {AuthService} from 'src/app/modules/auth/auth.service';
 import {User} from 'src/app/shared/models/user.model';
 import {HttpClient} from '@angular/common/http';
-import { MessagingService } from 'src/app/core/services/messaging.service';
+import {MessagingService} from 'src/app/core/services/messaging.service';
 
 @Component({
   selector: 'app-layout',
@@ -14,6 +14,7 @@ import { MessagingService } from 'src/app/core/services/messaging.service';
 export class LayoutComponent implements OnInit {
   loadingSomething = false;
   notifications: any[] = []
+  totalNotificationUnread = 0;
 
   constructor(
     private router: Router,
@@ -30,17 +31,21 @@ export class LayoutComponent implements OnInit {
         .get(`http://localhost:8005/api/notification/${this.userId}`)
         .subscribe((res: any) => {
           this.notifications = res?.notifications || [];
+          this.totalNotificationUnread = res?.totalUnread || 0;
         });
 
       this.realTimeMessage.currentMessage.subscribe((res) => {
-        debugger
-        console.log('message moi nhat ne', this.realTimeMessage.currentMessage.value);
+        if (res) {
+          this.notifications.unshift(res?.notification);
+          this.totalNotificationUnread++;
+        }
       })
     }
   }
 
   userId: any;
   loginUser: User | undefined;
+
   goToPage(pageName: string) {
     this.router.navigate([`${pageName}`]);
   }
@@ -58,7 +63,7 @@ export class LayoutComponent implements OnInit {
   }
 
   logOut() {
-    if(this.cookieService.check('access_token')){
+    if (this.cookieService.check('access_token')) {
       this.loadingSomething = true;
       let access_token = this.cookieService.get('access_token');
       this.cookieService.delete('access_token');
@@ -76,6 +81,10 @@ export class LayoutComponent implements OnInit {
   }
 
   showNotificationList() {
+    //update notification isRead
+    this.http.put(`http://localhost:8005/api/read-notification/${this.userId}`, {}).subscribe((res: any) => {
+      this.totalNotificationUnread = 0;
+    })
   }
 
   showNotification(notification: Notification) {

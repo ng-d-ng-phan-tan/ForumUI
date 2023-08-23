@@ -11,7 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuardUser implements CanActivate {
   constructor(private router: Router,
     private cookieService: CookieService) {}
 
@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
       return true;
     }
     else{
-      return this.router.parseUrl('admin/auth/login');
+      return this.router.parseUrl('/auth/login');
     }
   }
 }
