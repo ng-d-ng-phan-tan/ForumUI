@@ -133,8 +133,16 @@
                   </span>
                 </div>
                 <div class="cmm7i">
-                  <button class="cfs3l ck65l ce60u czu8g cp4mw" type="submit">
-                    Post Your Answer
+                  <button
+                    onclick="my_modal_1.showModal()"
+                    class="cbyji chpwp cxw9w cf3ch cvinr c37ex cg15g cpefv c8m8l cnsvb ctlm4 ctj5y cec07 chxzt cgvj8 crf9y c5uxf cap35 cm14g c0y9n cef8g mr-2"
+                  >
+                    <i class="fas fa-exclamation-triangle text-yellow-300"></i>
+                    <span class="cejt1 c6bh0 ccc0n">Report</span>
+                  </button>
+
+                  <button class="btn btn-primary" type="submit">
+                    <span class="text-white">Post Your Answer</span>
                   </button>
                 </div>
               </form>
@@ -151,3 +159,22 @@
     class="loading loading-spinner loading-lg text-primary"
   ></div>
 </div>
+<dialog #my_modal_1 id="my_modal_1" class="modal">
+  <form
+    method="dialog"
+    class="modal-box"
+    [formGroup]="reportFG"
+    (ngSubmit)="report()"
+  >
+    <h3 class="font-bold text-lg">Report this question</h3>
+    <div class="modal-action">
+      <input
+        type="text"
+        formControlName="content"
+        placeholder="Type your reason"
+        class="input input-bordered w-full max-w-xs"
+      />
+      <button type="submit" class="btn">Send</button>
+    </div>
+  </form>
+</dialog>

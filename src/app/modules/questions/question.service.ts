@@ -18,6 +18,13 @@ export class QuestionsService {
     return this.http.get(this.apiUrl + '?page=' + page);
   }
 
+  getQuestionCount() {
+    return this.http.post(
+      'http://localhost:8003/api/admin/questions/getCount',
+      {}
+    );
+  }
+
   getAnswers(question_id: string) {
     return this.http.get('http://localhost:8003/api/answers/' + question_id);
   }
@@ -32,5 +39,9 @@ export class QuestionsService {
 
   vote(question_id: string, data: any) {
     return this.http.post(this.apiUrl + '/vote/' + question_id, data);
+  }
+
+  report(question_id: string, data: any) {
+    return this.http.post(this.apiUrl + '/report/' + question_id, data);
   }
 }

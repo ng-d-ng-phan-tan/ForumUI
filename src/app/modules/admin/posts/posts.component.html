@@ -179,9 +179,21 @@
           class="inline-flex items-center justify-center w-1/2 px-3 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 sm:w-auto dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
           (click)="fileUpload.click()"
         >
-        <svg class="mr-2 w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"></path>
-      </svg>
+          <svg
+            class="mr-2 w-4 h-4 text-gray-800 dark:text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 16 18"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"
+            ></path>
+          </svg>
           Import
         </button>
         <button
@@ -196,7 +208,7 @@
           >
             <path
               fill-rule="evenodd"
-              d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z"
+              d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0020.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v3.586l-1.293-1.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V8z"
               clip-rule="evenodd"
             ></path>
           </svg> -->
@@ -210,23 +222,12 @@
 <div class="flex flex-col">
   <div class="overflow-x-auto">
     <div class="inline-block min-w-full align-middle">
-      <div class="overflow-hidden shadow">
+      <div class="shadow">
         <table
-          class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600"
+          class="w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600"
         >
           <thead class="bg-gray-100 dark:bg-gray-700">
             <tr>
-              <th scope="col" class="p-4">
-                <div class="flex items-center">
-                  <input
-                    id="checkbox-all"
-                    aria-describedby="checkbox-1"
-                    type="checkbox"
-                    class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label for="checkbox-all" class="sr-only">checkbox</label>
-                </div>
-              </th>
               <th
                 scope="col"
                 class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400"
@@ -237,25 +238,92 @@
                 scope="col"
                 class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400"
               >
-                Created by
+                body
               </th>
               <th
                 scope="col"
                 class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400"
               >
-                Created at
+                questioner
               </th>
               <th
                 scope="col"
                 class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400"
               >
-                Country
+                likes
               </th>
               <th
                 scope="col"
                 class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400"
               >
-                Status
+                dislikes
+              </th>
+              <th
+                scope="col"
+                class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400"
+              >
+                created at
+              </th>
+
+              <th
+                scope="col"
+                class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400"
+              >
+                <div class="filter">
+                  <select
+                    class="input input-bordered w-full max-w-xs"
+                    (change)="changeFilter($event, 'approve')"
+                  >
+                    <option [selected]="curFilterApproveStt == ''" value="">
+                      APPROVE
+                    </option>
+                    <option
+                      [selected]="curFilterApproveStt == 'APPROVED'"
+                      value="APPROVED"
+                    >
+                      APPROVED
+                    </option>
+                    <option
+                      [selected]="curFilterApproveStt == 'PENDING'"
+                      value="PENDING"
+                    >
+                      PENDING
+                    </option>
+                    <option
+                      [selected]="curFilterApproveStt == 'DENIED'"
+                      value="DENIED"
+                    >
+                      DENIED
+                    </option>
+                  </select>
+                </div>
+              </th>
+              <th
+                scope="col"
+                class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400"
+              >
+                <div class="filter">
+                  <select
+                    class="input input-bordered w-full max-w-xs"
+                    (change)="changeFilter($event, 'report')"
+                  >
+                    <option [selected]="curFilterApproveStt == ''" value="">
+                      REPORT
+                    </option>
+                    <option
+                      [selected]="curFilterApproveStt == 'REPORTED'"
+                      value="REPORTED"
+                    >
+                      REPORTED
+                    </option>
+                    <option
+                      [selected]="curFilterApproveStt == 'NOT REPORTED'"
+                      value="NOT REPORTED"
+                    >
+                      NOT REPORTED
+                    </option>
+                  </select>
+                </div>
               </th>
               <th
                 scope="col"
@@ -268,91 +336,114 @@
           <tbody
             class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700"
           >
-            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+            <tr
+              class="hover:bg-gray-100 dark:hover:bg-gray-700"
+              *ngFor="let quest of lstQuest"
+            >
               <td class="w-4 p-4">
-                <div class="flex items-center">
-                  <input
-                    id=""
-                    aria-describedby="checkbox-1"
-                    type="checkbox"
-                    class="w-4 h-4 border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label for="" class="sr-only">checkbox</label>
+                <div class="flex items-center text-ellipsis overflow-hidden">
+                  {{ quest.title }}
                 </div>
               </td>
               <td
-                class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap"
+                class="flex items-center p-4 mr-12 space-x-6 whitespace-nowrap text-ellipsis overflow-hidden"
               >
-                <img class="w-10 h-10 rounded-full" src="" alt=" avatar" />
-                <div
-                  class="text-sm font-normal text-gray-500 dark:text-gray-400"
-                >
-                  <div
-                    class="text-base font-semibold text-gray-900 dark:text-white"
-                  ></div>
-                  <div
-                    class="text-sm font-normal text-gray-500 dark:text-gray-400"
-                  ></div>
-                </div>
+                <p>
+                  {{ quest.body }}
+                </p>
               </td>
               <td
-                class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400"
-              ></td>
+                class="p-4 text-base font-medium text-gray-900 dark:text-white"
+              >
+                <app-avatars
+                  *ngIf="quest?.questioner_id"
+                  [allowChangeAvatar]="false"
+                  [showName]="true"
+                  [showAddress]="false"
+                  [showEmail]="false"
+                  [width]="24"
+                  [lstUsers]="quest?.user"
+                >
+                </app-avatars>
+              </td>
+              <td
+                class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 text-ellipsis overflow-hidden xl:max-w-xs dark:text-gray-400"
+              >
+                {{ quest.num_of_likes }}
+              </td>
+              <td
+                class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 text-ellipsis overflow-hidden xl:max-w-xs dark:text-gray-400"
+              >
+                {{ quest.num_of_dislikes }}
+              </td>
+
               <td
                 class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              ></td>
-              <td
-                class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              ></td>
+              >
+                {{ quest.created_at | date }}
+              </td>
+
               <td
                 class="p-4 text-base font-normal text-gray-900 whitespace-nowrap dark:text-white"
               >
-                <div class="flex items-center">
-                  <div class="h-2.5 w-2.5 rounded-full bg-green-400 mr-2"></div>
+                <div class="flex items-center justify-center">
+                  <div
+                    class="h-2.5 w-2.5 rounded-full mr-2"
+                    [ngClass]="{
+                      'bg-green-400': quest.is_approved,
+                      'bg-red-400': !quest.is_approved,
+                    }"
+                  ></div>
                 </div>
               </td>
-              <td class="p-4 space-x-2 whitespace-nowrap">
-                <button
-                  type="button"
-                  data-modal-toggle="edit-user-modal"
-                  class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                >
-                  <svg
-                    class="w-4 h-4 mr-2"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
+              <td
+                class="p-4 text-base font-normal text-gray-900 whitespace-nowrap dark:text-white"
+              >
+                <div class="flex items-center justify-center">
+                  <div
+                    class="h-2.5 w-2.5 rounded-full mr-2"
+                    [ngClass]="{
+                      'bg-green-400': !quest.is_reported,
+                      'bg-red-400': quest.is_reported,
+                    }"
+                  ></div>
+                </div>
+              </td>
+              <td
+                class="p-4 text-base font-normal text-gray-900 whitespace-nowrap dark:text-white"
+              >
+                <div class="flex items-center justify-center">
+                  <!-- (click)="openDelModal()" -->
+                  <button
+                    [disabled]="quest.is_approved"
+                    class="block justify-center text-white rounded-lg text-sm w-1/2 p-2"
+                    [ngStyle]="{
+                    'background-color': !quest.is_approved ? 'rgb(29 184 240)' : 'rgb(168 167 167)',
+                  }"
+                    type="button"
                   >
-                    <path
-                      d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
-                    ></path>
-                    <path
-                      fill-rule="evenodd"
-                      d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  Edit user
-                </button>
-                <button
-                  type="button"
-                  data-modal-toggle="delete-user-modal"
-                  class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900"
-                >
-                  <svg
-                    class="w-4 h-4 mr-2"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
+                    Approve
+                  </button>
+                  <button
+                    [disabled]="quest.is_approved"
+                    class="block justify-center text-white rounded-lg text-sm w-1/2 p-2 ms-2"
+                    [ngStyle]="{
+                    'background-color': quest.is_approved ? 'rgb(168 167 167)' : 'rgb(220 38 38)',
+                  }"
+                    type="button"
                   >
-                    <path
-                      fill-rule="evenodd"
-                      d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                  Delete user
-                </button>
+                    Deny
+                  </button>
+                  <button
+                    class="block justify-center text-white rounded-lg text-sm w-1/2 p-2 ms-2"
+                    [ngStyle]="{
+                    'background-color': false ? 'rgb(168 167 167)' : 'rgb(220 38 38)',
+                  }"
+                    type="button"
+                  >
+                    Remove
+                  </button>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -362,11 +453,15 @@
   </div>
 </div>
 <div
-  class="sticky bottom-0 right-0 items-center w-full p-4 bg-white border-t border-gray-200 sm:flex sm:justify-between dark:bg-gray-800 dark:border-gray-700"
+  class="sticky bottom-0 right-0 items-center w-full p-4 bg-white border-t border-gray-200 sm:flex dark:bg-gray-800 dark:border-gray-700"
 >
-  <div class="flex items-center mb-4 sm:mb-0">
-    <a
-      href="#"
+  <ng-container
+    *ngIf="curSearchValue == ''"
+    class="flex items-center mb-4 sm:mb-0"
+  >
+    <button
+      [disabled]="curPage < 2"
+      (click)="goToPage(false)"
       class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
     >
       <svg
@@ -381,9 +476,10 @@
           clip-rule="evenodd"
         ></path>
       </svg>
-    </a>
-    <a
-      href="#"
+    </button>
+    <button
+      (click)="goToPage(true)"
+      [disabled]="curPage * 20 >= count"
       class="inline-flex justify-center p-1 mr-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
     >
       <svg
@@ -398,29 +494,48 @@
           clip-rule="evenodd"
         ></path>
       </svg>
-    </a>
+    </button>
     <span class="text-sm font-normal text-gray-500 dark:text-gray-400"
       >Showing
-      <span class="font-semibold text-gray-900 dark:text-white">1-20</span> of
       <span class="font-semibold text-gray-900 dark:text-white"
-        >2290</span
-      ></span
+        >{{ (this.curPage - 1) * 20 }} -
+        {{ this.curPage * 20 < count ? this.curPage * 20 : count }}</span
+      >
+      of
+      <span class="font-semibold text-gray-900 dark:text-white">{{
+        count
+      }}</span></span
     >
-  </div>
-  <div class="flex items-center space-x-3">
-    <a
-      href="#"
-      class="inline-flex items-center justify-center flex-1 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+  </ng-container>
+  <ng-container
+    *ngIf="curSearchValue != ''"
+    class="flex items-center mb-4 sm:mb-0"
+  >
+    <button
+      [disabled]="curSearchPage < 2 || isSearching"
+      (click)="goToSearchPage(false)"
+      class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
     >
-      Previous
-    </a>
-    <a
-      href="#"
-      class="inline-flex items-center justify-center flex-1 px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-    >
-      Next
       <svg
-        class="w-5 h-5 ml-1 -mr-1"
+        class="w-7 h-7"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+    </button>
+    <button
+      (click)="goToSearchPage(true)"
+      [disabled]="curSearchPage * 20 >= searchCount || isSearching"
+      class="inline-flex justify-center p-1 mr-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+    >
+      <svg
+        class="w-7 h-7"
         fill="currentColor"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"
@@ -431,8 +546,23 @@
           clip-rule="evenodd"
         ></path>
       </svg>
-    </a>
-  </div>
+    </button>
+    <span class="text-sm font-normal text-gray-500 dark:text-gray-400"
+      >Showing
+      <span class="font-semibold text-gray-900 dark:text-white"
+        >{{ (this.curSearchPage - 1) * 20 }} -
+        {{
+          this.curSearchPage * 20 < searchCount
+            ? this.curSearchPage * 20
+            : searchCount
+        }}</span
+      >
+      of
+      <span class="font-semibold text-gray-900 dark:text-white">{{
+        searchCount
+      }}</span></span
+    >
+  </ng-container>
 </div>
 
 <!-- Edit User Modal -->
