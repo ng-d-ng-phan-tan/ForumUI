@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { QuestionsService } from '../question.service';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../users/users.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-detail',
@@ -17,7 +17,10 @@ export class DetailComponent implements OnInit {
   question_id: string = '';
   isLoading = true;
   answerQuestion!: FormGroup;
+  reportFG!: FormGroup;
   submitted = false;
+
+  reason: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,12 +42,22 @@ export class DetailComponent implements OnInit {
       question_id: '',
       user_id: '',
     });
+    this.reportFG = this.fb.group({
+      content: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(20)]),
+      ],
+    });
     this.getQuestion(this.question_id);
     this.getAwnswer(this.question_id);
   }
 
   get registerFormControl() {
     return this.answerQuestion.controls;
+  }
+
+  get registerReportFormControl() {
+    return this.reportFG.controls;
   }
 
   getQuestion(question_id: string) {
@@ -104,7 +117,14 @@ export class DetailComponent implements OnInit {
       this.answerQuestion.patchValue({ question_id: this.question_id });
       this.questionsService
         .answer(this.answerQuestion.value)
-        .subscribe((res) => {});
+        .subscribe((res) => {
+          this.answerQuestion.reset();
+          Object.keys(this.answerQuestion.controls).forEach((key) => {
+            this.answerQuestion.get(key)?.clearValidators();
+            this.answerQuestion.get(key)?.updateValueAndValidity();
+          });
+          this.getAwnswer(this.question_id);
+        });
     }
   }
 
@@ -124,6 +144,17 @@ export class DetailComponent implements OnInit {
     this.questionsService
       .vote(this.question_id, {
         type: '2',
+        created_by: loginUser.user_id,
+        created_at: Date.now().toString(),
+      })
+      .subscribe();
+  }
+
+  report() {
+    const loginUser = JSON.parse(localStorage.getItem('loginUser') as string);
+    this.questionsService
+      .report(this.question_id, {
+        content: this.reportFG.get('content')?.value,
         created_by: loginUser.user_id,
         created_at: Date.now().toString(),
       })

@@ -40,4 +40,8 @@ export class QuestionsService {
   vote(question_id: string, data: any) {
     return this.http.post(this.apiUrl + '/vote/' + question_id, data);
   }
+
+  report(question_id: string, data: any) {
+    return this.http.post(this.apiUrl + '/report/' + question_id, data);
+  }
 }
