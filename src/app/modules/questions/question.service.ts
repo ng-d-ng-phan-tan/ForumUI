@@ -18,7 +18,19 @@ export class QuestionsService {
     return this.http.get(this.apiUrl + '?page=' + page);
   }
 
-  createQuestion() {
-    return this.http.post(this.apiUrl + '', {});
+  getAnswers(question_id: string) {
+    return this.http.get('http://localhost:8003/api/answers/' + question_id);
+  }
+
+  createQuestion(data: any) {
+    return this.http.post(this.apiUrl + '', data);
+  }
+
+  answer(data: any) {
+    return this.http.post('http://localhost:8003/api/answers', data);
+  }
+
+  vote(question_id: string, data: any) {
+    return this.http.post(this.apiUrl + '/vote/' + question_id, data);
   }
 }
