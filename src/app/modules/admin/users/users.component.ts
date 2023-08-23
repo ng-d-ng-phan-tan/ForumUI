@@ -76,6 +76,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
   getUsersPagination() {
     if (this.curPage > 0) {
       this.isLoading = true;
+      this.curFilterRole = '';
+      this.curFilterStatus = '0';
       this.lstUsers = [];
       this.userService
         .getUsersPaging(this.curPage, this.isAdmin, this.curSearchValue)
@@ -167,6 +169,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
   searchUsers() {
     this.isSearching = true;
+    this.curFilterRole = '';
+    this.curFilterStatus = '0';
     if (this.curSearchValue != '') {
       //#region ElasticSearch
       this.userService

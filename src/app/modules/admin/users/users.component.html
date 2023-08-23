@@ -257,9 +257,15 @@
                     class="input input-bordered w-full max-w-xs"
                     (change)="changeFilter($event, 'role')"
                   >
-                    <option selected value="">ROLE</option>
-                    <option value="ADMIN">ADMIN</option>
-                    <option value="USER">USER</option>
+                    <option [selected]="curFilterRole == ''" value="">
+                      ROLE
+                    </option>
+                    <option [selected]="curFilterRole == 'ADMIN'" value="ADMIN">
+                      ADMIN
+                    </option>
+                    <option [selected]="curFilterRole == 'USER'" value="USER">
+                      USER
+                    </option>
                   </select>
                 </div>
               </th>
@@ -286,9 +292,15 @@
                     class="input input-bordered w-full max-w-xs"
                     (change)="changeFilter($event, 'status')"
                   >
-                    <option selected value="0">STATUS</option>
-                    <option value="1">ACTIVE</option>
-                    <option value="2">DELETED</option>
+                    <option [selected]="curFilterStatus == '0'" value="0">
+                      STATUS
+                    </option>
+                    <option [selected]="curFilterStatus == '1'" value="1">
+                      ACTIVE
+                    </option>
+                    <option [selected]="curFilterStatus == '2'" value="2">
+                      DELETED
+                    </option>
                   </select>
                 </div>
               </th>
