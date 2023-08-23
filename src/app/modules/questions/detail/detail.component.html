@@ -1,4 +1,4 @@
-<section>
+<section *ngIf="!isLoading">
   <div class="cotbe cyf6z cqsr5 cweql">
     <div class="ctzxw cnl8d clc8r c8qoh">
       <!-- Page content -->
@@ -38,7 +38,7 @@
                   <div class="cg15g c5uxf">
                     <div class="cv360 cmnuk">
                       <app-avatars
-                        *ngIf="question?.questioner_id"
+                        *ngIf="question?.questioner_id && question?.user"
                         [allowChangeAvatar]="false"
                         [showName]="true"
                         [showAddress]="false"
