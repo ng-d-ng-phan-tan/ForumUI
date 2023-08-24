@@ -22,12 +22,12 @@
 
 <div
   class="w-full flex justify-center"
-  *ngIf="lstUsers.length == 0 || isSearching"
+  *ngIf="(lstUsers && lstUsers.length == 0) || isSearching"
 >
   <div class="loading loading-spinner loading-lg text-primary"></div>
 </div>
 
-<ng-container *ngIf="lstSearchUsers.length > 0">
+<ng-container *ngIf="lstSearchUsers && lstSearchUsers.length > 0">
   <div class="grid grid-cols-3 gap-3">
     <div
       *ngFor="let user of lstSearchUsers"
@@ -66,7 +66,7 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="lstUsers.length > 0 && curSearchValue == ''">
+<ng-container *ngIf="lstUsers && lstUsers.length > 0 && curSearchValue == ''">
   <div class="grid grid-cols-3 gap-3">
     <div
       *ngFor="let user of lstUsers"
@@ -91,8 +91,12 @@
     <button
       (click)="goToPage(false)"
       [disabled]="curPage < 2"
-      [ngClass]="curPage < 2 ? 'btn px-4 h-10 text-white bg-gray-300 rounded focus:outline-none' : 'btn btn-info flex items-center justify-center rounded-lg px-4 h-10 text-base font-medium'"
-      >
+      [ngClass]="
+        curPage < 2
+          ? 'btn px-4 h-10 text-white bg-gray-300 rounded focus:outline-none'
+          : 'btn btn-info flex items-center justify-center rounded-lg px-4 h-10 text-base font-medium'
+      "
+    >
       <!-- class="btn btn-info flex items-center justify-center rounded-lg px-4 h-10 text-base font-medium" -->
       Previous
     </button>
