@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../../shared/models/user.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class UsersService {
   constructor(private http: HttpClient) {}
 
   //user server
-  private userUrl = 'http://localhost:8002/api/';
+  private userUrl = environment.USER_SERVICE_URL;
   private getUserMethod = 'getUser';
   private getUsersMethod = 'getUsers';
   private searchUserByNameMethod = 'searchUserByName';
@@ -21,15 +22,12 @@ export class UsersService {
   private countMethod = 'getCount';
 
   //file server
-  private fileUrl = 'http://localhost:8005/';
+  private fileUrl = environment.NOTI_SERVICE_URL;
   private uploadFileMethod = 'upload-file';
 
   //post server
-  private postUrl = 'http://localhost:8004/api/post/questions/';
+  private postUrl = environment.POST_SERVICE_URL;
   private postInfoMethod = 'count';
-
-  //search server
-  private searchUrl = 'http://localhost:8001/api/search';
 
   getUser(user_id: string): Observable<any> {
     return this.http.post(this.userUrl + this.getUserMethod, {
