@@ -12,6 +12,5 @@ export const environment = {
   AUTH_SERVICE_URL: 'http://localhost:8001/api/',
   USER_SERVICE_URL: 'http://localhost:8002/api/',
   POST_SERVICE_URL: 'http://localhost:8003/api/',
-  ADMIN_POST_SERVICE_URL: 'http://localhost:8003/api/admin/',
   NOTI_SERVICE_URL: 'http://localhost:8005/',
 };
