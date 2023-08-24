@@ -34,7 +34,7 @@ export class LayoutComponent implements OnInit {
 
   toggleDropdown() {
     this.isDropdownActive = !this.isDropdownActive;
-    this.http.put(`http://localhost:8005/api/read-notification/${this.userId}`, {}).subscribe((res: any) => {
+    this.http.put(`${environment.NOTI_SERVICE_URL}read-notification/${this.userId}`, {}).subscribe((res: any) => {
       this.totalNotificationUnread = 0;
     })
   }
