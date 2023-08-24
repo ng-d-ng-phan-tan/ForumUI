@@ -1,3 +1,13 @@
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/modules/auth/auth.service';
+import { User } from 'src/app/shared/models/user.model';
+import { HttpClient } from '@angular/common/http';
+import { MessagingService } from 'src/app/core/services/messaging.service';
+import { UsersService } from 'src/app/modules/users/users.service';
+import { QuestionsService } from 'src/app/modules/questions/question.service';
+import { environment } from 'src/environments/environment';
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
@@ -14,8 +24,9 @@ import {formatDistance} from 'date-fns';
 })
 export class LayoutComponent implements OnInit {
   loadingSomething = false;
-  notifications: any[] = []
+  notifications: any[] = [];
   totalNotificationUnread = 0;
+  questions: any = [];
   isDropdownActive: boolean = false;
 
   constructor(
@@ -23,9 +34,10 @@ export class LayoutComponent implements OnInit {
     private cookieService: CookieService,
     private auth: AuthService,
     private http: HttpClient,
-    private realTimeMessage: MessagingService
-  ) {
-  }
+    private realTimeMessage: MessagingService,
+    private usersService: UsersService,
+    private questionsService: QuestionsService
+  ) {}
 
   toggleDropdown() {
     this.isDropdownActive = !this.isDropdownActive;
@@ -36,7 +48,7 @@ export class LayoutComponent implements OnInit {
   ngOnInit(): void {
     if (this.alreadyLogin()) {
       this.http
-        .get(`http://localhost:8005/api/notification/${this.userId}`)
+        .get(`${environment.NOTI_SERVICE_URL}notification/${this.userId}`)
         .subscribe((res: any) => {
           this.notifications = res?.notifications || [];
           this.totalNotificationUnread = res?.totalUnread || 0;
@@ -47,8 +59,9 @@ export class LayoutComponent implements OnInit {
           this.notifications.unshift(res?.notification);
           this.totalNotificationUnread++;
         }
-      })
+      });
     }
+    this.getNewDiscussions();
   }
 
   userId: any;
@@ -80,11 +93,9 @@ export class LayoutComponent implements OnInit {
       this.realTimeMessage.currentMessage.unsubscribe();
       localStorage.removeItem('loginUser');
       this.loginUser = undefined;
-      this.auth
-        .logout(access_token)
-        .subscribe((res) => {
-          this.loadingSomething = false;
-        });
+      this.auth.logout(access_token).subscribe((res) => {
+        this.loadingSomething = false;
+      });
     }
   }
 
@@ -101,4 +112,37 @@ export class LayoutComponent implements OnInit {
   formatDistance(date: Date) {
     return formatDistance(new Date(date), new Date(), {addSuffix: true});
   }
+
+  getNewDiscussions() {
+    this.questionsService.getQuestions().subscribe((result: any) => {
+      let lstUserID: any[] = [];
+      this.questions = result.data.slice(0, 3);
+      this.questions.map((question: any) => {
+        lstUserID.push(question.questioner_id);
+      });
+      let users = [];
+      this.usersService.getUsers(lstUserID).subscribe((res: any) => {
+        if (res.status === '200') {
+          users = res.data;
+
+          let result = [];
+
+          for (const question of this.questions) {
+            let user = users.filter((user: any) => {
+              return question.questioner_id === user.user_id;
+            });
+            const questionWithUser = {
+              ...question,
+              user,
+            };
+            result.push(questionWithUser);
+          }
+
+          this.questions = result;
+        }
+      });
+    });
+  }
+
+  getTopContributors() {}
 }

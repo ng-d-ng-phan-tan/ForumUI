@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    debugger
     if(this.cookieService.check('access_token')){
       this.router.navigate(['/']);
     }

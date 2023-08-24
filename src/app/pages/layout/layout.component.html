@@ -52,11 +52,10 @@
                           <p>{{ notification.body }}</p>
                           <span class="notify_time">{{formatDistance(notification.created_at)}}</span>
                         </div>
-                      </div>
-                    </div>
+                      </li>
+                    </ul>
                   </div>
                 </div>
-
                 <div class="dropdown dropdown-bottom">
                   <label tabindex="0" class="cursor-pointer">
                     <i
@@ -250,94 +249,36 @@
                       New Discussions
                     </div>
                     <ul class="c8gep">
-                      <li>
+                      <li *ngFor="let question of questions">
                         <div class="ck3vf c5uxf cg15g">
-                          <img
-                            class="cqb2r c9tvh"
-                            src="../../../assets/images/avatar-06.jpg"
-                            width="16"
-                            height="16"
-                            alt="User 06"
-                          />
                           <div class="ccc0n">
-                            <a
-                              class="c6bh0 cejt1 ctlm4 cpefv cnsvb ciojy"
-                              href="#0"
-                            >MaryLync77</a
+                            <app-avatars
+                              *ngIf="question?.questioner_id"
+                              [allowChangeAvatar]="false"
+                              [showName]="true"
+                              [showAddress]="false"
+                              [showEmail]="false"
+                              [width]="24"
+                              [lstUsers]="question?.user"
                             >
+                            </app-avatars>
                           </div>
                         </div>
                         <h3 class="ck3vf cmnuk">
                           <a
                             class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
                             [routerLink]="['/questions/1']"
-                          >Search Startup Jobs - Week 5 - Build in Public -
-                            Slow Week</a
+                            >{{ question?.title }}</a
                           >
                         </h3>
                         <div class="ccc0n cv360">
-                          <span class="cmkbe">22 Feb</span> ·
-                          <span class="cmkbe">14 Comments</span>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="ck3vf c5uxf cg15g">
-                          <img
-                            class="cqb2r c9tvh"
-                            src="../../../assets/images/avatar-09.jpg"
-                            width="16"
-                            height="16"
-                            alt="User 09"
-                          />
-                          <div class="ccc0n">
-                            <a
-                              class="c6bh0 cejt1 ctlm4 cpefv cnsvb ciojy"
-                              href="#0"
-                            >Zakaria_C</a
-                            >
-                          </div>
-                        </div>
-                        <h3 class="ck3vf cmnuk">
-                          <a
-                            class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
-                            [routerLink]="['/questions/1']"
-                          >What are the most useful tools for SEO
-                            marketing?</a
+                          <span class="cmkbe">{{
+                            question?.created_at | date
+                          }}</span>
+                          ·
+                          <span class="cmkbe"
+                            >{{ question?.num_of_answers ?? 0 }} Answers</span
                           >
-                        </h3>
-                        <div class="ccc0n cv360">
-                          <span class="cmkbe">22 Feb</span> ·
-                          <span class="cmkbe">44 Comments</span>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="ck3vf c5uxf cg15g">
-                          <img
-                            class="cqb2r c9tvh"
-                            src="../../../assets/images/avatar-05.jpg"
-                            width="16"
-                            height="16"
-                            alt="User 05"
-                          />
-                          <div class="ccc0n">
-                            <a
-                              class="c6bh0 cejt1 ctlm4 cpefv cnsvb ciojy"
-                              href="#0"
-                            >ElenMary182</a
-                            >
-                          </div>
-                        </div>
-                        <h3 class="ck3vf cmnuk">
-                          <a
-                            class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
-                            [routerLink]="['/questions/1']"
-                          >How can you minimize the customer acquisition
-                            cost?</a
-                          >
-                        </h3>
-                        <div class="ccc0n cv360">
-                          <span class="cmkbe">20 Feb</span> ·
-                          <span class="cmkbe">19 Comments</span>
                         </div>
                       </li>
                     </ul>
@@ -484,7 +425,7 @@
                           <a
                             class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
                             [routerLink]="['/questions/1']"
-                          >How do you approach building a team for your
+                            >How do you approach building a team for your
                             startup?</a
                           >
                         </h3>
@@ -660,6 +601,8 @@
 
 <!-- loading something -->
 <div *ngIf="loadingSomething == true">
-  <div style="position: fixed; bottom: 30px; right: 30px;"
-       class="loading loading-spinner loading-lg text-primary"></div>
+  <div
+    style="position: fixed; bottom: 30px; right: 30px"
+    class="loading loading-spinner loading-lg text-primary"
+  ></div>
 </div>

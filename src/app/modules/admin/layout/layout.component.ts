@@ -26,7 +26,6 @@ export class LayoutComponent implements OnInit{
   ngOnInit(): void {
     if(this.alreadyLogin()){
       this.realTimeMessage.currentMessage.subscribe((res) => {
-        debugger
         console.log('message moi nhat ne', this.realTimeMessage.currentMessage.value);
       })
     }

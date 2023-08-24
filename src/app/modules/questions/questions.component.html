@@ -1,18 +1,4 @@
 <div>
-  <div class="mb-2">
-    <h1 class="text-4xl">All Questions</h1>
-    <i>220 questions with bounties</i>
-  </div>
-
-  <div class="mb-2">
-    <div class="flex justify-between items-center">
-      <div class="text-lg">772,497 results</div>
-      <div class="join">
-        <button class="btn join-item">Newest</button>
-        <button class="btn join-item">Unanswered</button>
-      </div>
-    </div>
-  </div>
   <!-- Posts -->
   <div class="cpg3l">
     <!-- List container -->
@@ -80,29 +66,13 @@
                   </div>
                 </div>
               </div>
-              <div class="cgkrm c5uxf c9d2g cfsyy">
-                <img
-                  class="ck1re c9tvh cb9wi cpde7"
-                  src="../../../assets/images/avatar-02.jpg"
-                  width="24"
-                  height="24"
-                  alt="User 02"
-                />
-                <img
-                  class="ck1re c9tvh cb9wi cpde7"
-                  src="../../../assets/images/avatar-13.jpg"
-                  width="24"
-                  height="24"
-                  alt="User 13"
-                />
-              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <!-- Show more -->
-    <div class="cmm7i">
+    <div class="cmm7i" *ngIf="!isLoading">
       <button
         class="cp4mw cp6g0 cgvj8 cvinr cxw9w chpwp cf3ch c37ex czu8g cejt1 cbyji"
         (click)="loadMore()"
