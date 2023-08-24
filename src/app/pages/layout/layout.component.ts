@@ -1,13 +1,14 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { AuthService } from 'src/app/modules/auth/auth.service';
-import { User } from 'src/app/shared/models/user.model';
-import { HttpClient } from '@angular/common/http';
-import { MessagingService } from 'src/app/core/services/messaging.service';
-import { UsersService } from 'src/app/modules/users/users.service';
-import { QuestionsService } from 'src/app/modules/questions/question.service';
-import { environment } from 'src/environments/environment';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {CookieService} from 'ngx-cookie-service';
+import {AuthService} from 'src/app/modules/auth/auth.service';
+import {User} from 'src/app/shared/models/user.model';
+import {HttpClient} from '@angular/common/http';
+import {MessagingService} from 'src/app/core/services/messaging.service';
+import {UsersService} from 'src/app/modules/users/users.service';
+import {QuestionsService} from 'src/app/modules/questions/question.service';
+import {environment} from 'src/environments/environment';
+import {formatDistance} from 'date-fns';
 
 @Component({
   selector: 'app-layout',
@@ -19,6 +20,7 @@ export class LayoutComponent implements OnInit {
   notifications: any[] = [];
   totalNotificationUnread = 0;
   questions: any = [];
+  isDropdownActive: boolean = false;
 
   constructor(
     private router: Router,
@@ -30,6 +32,12 @@ export class LayoutComponent implements OnInit {
     private questionsService: QuestionsService
   ) {}
 
+  toggleDropdown() {
+    this.isDropdownActive = !this.isDropdownActive;
+    this.http.put(`http://localhost:8005/api/read-notification/${this.userId}`, {}).subscribe((res: any) => {
+      this.totalNotificationUnread = 0;
+    })
+  }
   ngOnInit(): void {
     if (this.alreadyLogin()) {
       this.http
@@ -84,15 +92,6 @@ export class LayoutComponent implements OnInit {
     }
   }
 
-  showNotificationList() {
-    //update notification isRead
-    this.http
-      .put(`http://localhost:8005/api/read-notification/${this.userId}`, {})
-      .subscribe((res: any) => {
-        this.totalNotificationUnread = 0;
-      });
-  }
-
   showNotification(notification: Notification) {
     this.notifications.push(notification);
   }
@@ -101,6 +100,10 @@ export class LayoutComponent implements OnInit {
     this.notifications = this.notifications.filter(
       (n: any) => n !== notification
     );
+  }
+
+  formatDistance(date: Date) {
+    return formatDistance(new Date(date), new Date(), {addSuffix: true});
   }
 
   getNewDiscussions() {
