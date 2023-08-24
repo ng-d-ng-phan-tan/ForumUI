@@ -12,6 +12,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Observable, of } from 'rxjs';
 import { TagsService } from '../../tags/tags.service';
 import { QuestionsService } from '../question.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ask',
@@ -27,6 +28,7 @@ export class AskComponent implements OnInit {
 
   constructor(
     private titleService: Title,
+    private router: Router,
     private fb: FormBuilder,
     private questionsService: QuestionsService,
     private tagsService: TagsService
@@ -65,10 +67,13 @@ export class AskComponent implements OnInit {
     if (this.askQuestion.valid) {
       const loginUser = JSON.parse(localStorage.getItem('loginUser') as string);
       this.askQuestion.patchValue({ questioner_id: loginUser.user_id });
-      console.log(this.askQuestion.value);
       this.questionsService
         .createQuestion(this.askQuestion.value)
-        .subscribe((res) => {});
+        .subscribe((res: any) => {
+          if (res.status === 201) {
+            this.router.navigate([`questions/${res.data._id}`]);
+          }
+        });
     }
   }
 }

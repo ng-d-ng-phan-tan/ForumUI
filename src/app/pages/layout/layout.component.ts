@@ -132,4 +132,6 @@ export class LayoutComponent implements OnInit {
       });
     });
   }
+
+  getTopContributors() {}
 }

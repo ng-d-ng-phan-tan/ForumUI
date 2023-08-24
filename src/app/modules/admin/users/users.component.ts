@@ -235,7 +235,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   async import(event: any) {
-    debugger
     const file: File = event.target.files[0];
     if (file) {
       const extension = file.name.split('.').pop();
@@ -243,13 +242,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
         this.adminService.importData(file).then((res) => {
           this.dataImport = res;
           console.log('data import', this.dataImport);
-           this.lstKey = Object.keys(this.dataImport[0]);
-          
+           this.lstKey = Object.keys(this.dataImport[0]);  
           // const checkboxElement = document.getElementById('my_modal_6');
           // if (checkboxElement instanceof HTMLInputElement) {
           //   checkboxElement.checked = true;
           // }
-
           this.importFileModal.show();
         });
       } else {

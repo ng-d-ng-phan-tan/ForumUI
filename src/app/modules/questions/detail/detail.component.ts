@@ -49,7 +49,7 @@ export class DetailComponent implements OnInit {
       ],
     });
     this.getQuestion(this.question_id);
-    this.getAwnswer(this.question_id);
+    this.getAnswer(this.question_id);
   }
 
   get registerFormControl() {
@@ -77,7 +77,7 @@ export class DetailComponent implements OnInit {
     });
   }
 
-  getAwnswer(question_id: string) {
+  getAnswer(question_id: string) {
     this.questionsService.getAnswers(question_id).subscribe((result: any) => {
       let lstUserID: any[] = [];
       this.answers = result.data;
@@ -115,16 +115,15 @@ export class DetailComponent implements OnInit {
       const loginUser = JSON.parse(localStorage.getItem('loginUser') as string);
       this.answerQuestion.patchValue({ user_id: loginUser.user_id });
       this.answerQuestion.patchValue({ question_id: this.question_id });
-      this.questionsService
-        .answer(this.answerQuestion.value)
-        .subscribe((res) => {
-          this.answerQuestion.reset();
-          Object.keys(this.answerQuestion.controls).forEach((key) => {
-            this.answerQuestion.get(key)?.clearValidators();
-            this.answerQuestion.get(key)?.updateValueAndValidity();
-          });
-          this.getAwnswer(this.question_id);
+      this.questionsService.answer(this.answerQuestion.value).subscribe(() => {
+        this.answerQuestion.reset();
+        Object.keys(this.answerQuestion.controls).forEach((key) => {
+          this.answerQuestion.get(key)?.clearValidators();
+          this.answerQuestion.get(key)?.updateValueAndValidity();
         });
+        this.getAnswer(this.question_id);
+        this.getQuestion(this.question_id);
+      });
     }
   }
 
@@ -136,7 +135,9 @@ export class DetailComponent implements OnInit {
         created_by: loginUser.user_id,
         created_at: Date.now().toString(),
       })
-      .subscribe();
+      .subscribe(() => {
+        this.getQuestion(this.question_id);
+      });
   }
 
   downvote() {
@@ -147,7 +148,9 @@ export class DetailComponent implements OnInit {
         created_by: loginUser.user_id,
         created_at: Date.now().toString(),
       })
-      .subscribe();
+      .subscribe(() => {
+        this.getQuestion(this.question_id);
+      });
   }
 
   report() {

@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AdminService } from '../admin.service';
 import { QuestionsService } from '../../questions/question.service';
+import { Modal, ModalInterface, ModalOptions } from 'flowbite';
 import { UsersService } from '../../users/users.service';
 
 @Component({
@@ -18,6 +19,12 @@ export class PostsComponent implements OnInit {
   isSearching = false;
   lstQuest: any[] = [];
   lstTmpQuest: any[] = [];
+
+  dataImport : any = []
+  lstKey: any = []
+
+  importFileModal!: ModalInterface;
+
   curPage = 1;
   curSearchPage = 1;
   curSearchValue = '';
@@ -27,6 +34,31 @@ export class PostsComponent implements OnInit {
   curFilterReportStt = '';
   ngOnInit(): void {
     this.getQuestionPaging();
+
+    const $modalElement: HTMLElement | null = document.querySelector('#modalEl');
+
+    if ($modalElement) {
+      const modalOptions: ModalOptions = {
+        placement: 'center',
+        backdrop: 'dynamic',
+        backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
+        closable: true,
+        onHide: () => {
+            console.log('modal is hidden');
+        },
+        onShow: () => {
+            console.log('modal is shown');
+        },
+        onToggle: () => {
+            console.log('modal has been toggled');
+        }
+      }
+      this.importFileModal = new Modal($modalElement, modalOptions);
+  }
+  }
+
+  closeModalImportFile(){
+    this.importFileModal.hide();
   }
 
   async import(event: any) {
@@ -34,7 +66,12 @@ export class PostsComponent implements OnInit {
     if (file) {
       const extension = file.name.split('.').pop();
       if (extension === 'xlsx') {
-        const data = await this.adminService.importData(file);
+        this.adminService.importData(file).then((res) => {
+          this.dataImport = res;
+          console.log('data import', this.dataImport);
+           this.lstKey = Object.keys(this.dataImport[0]);
+          this.importFileModal.show();
+        });
       } else {
         alert('File không hợp lệ');
       }
@@ -42,8 +79,7 @@ export class PostsComponent implements OnInit {
   }
 
   export() {
-    const data: any[] = [];
-    this.adminService.exportData(data, 'Sample');
+    this.adminService.exportData(this.lstQuest, 'Sample');
   }
 
   getQuestionPaging() {
