@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { MessagingService } from 'src/app/core/services/messaging.service';
 import { UsersService } from 'src/app/modules/users/users.service';
 import { QuestionsService } from 'src/app/modules/questions/question.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-layout',
@@ -32,7 +33,7 @@ export class LayoutComponent implements OnInit {
   ngOnInit(): void {
     if (this.alreadyLogin()) {
       this.http
-        .get(`http://localhost:8005/api/notification/${this.userId}`)
+        .get(`${environment.NOTI_SERVICE_URL}notification/${this.userId}`)
         .subscribe((res: any) => {
           this.notifications = res?.notifications || [];
           this.totalNotificationUnread = res?.totalUnread || 0;

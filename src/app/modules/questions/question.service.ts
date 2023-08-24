@@ -1,13 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class QuestionsService {
+  baseUrl = '';
   apiUrl = '';
   constructor(private http: HttpClient) {
-    this.apiUrl = 'http://localhost:8003/api/questions';
+    this.baseUrl = environment.POST_SERVICE_URL;
+    this.apiUrl = `${this.baseUrl}questions`;
   }
 
   getQuestion(question_id: string) {
@@ -20,13 +23,13 @@ export class QuestionsService {
 
   getQuestionCount() {
     return this.http.post(
-      'http://localhost:8003/api/admin/questions/getCount',
+      `${this.baseUrl}admin/questions/getCount`,
       {}
     );
   }
 
   getAnswers(question_id: string) {
-    return this.http.get('http://localhost:8003/api/answers/' + question_id);
+    return this.http.get(`${this.baseUrl}answers/` + question_id);
   }
 
   createQuestion(data: any) {
@@ -34,7 +37,7 @@ export class QuestionsService {
   }
 
   answer(data: any) {
-    return this.http.post('http://localhost:8003/api/answers', data);
+    return this.http.post(`${this.baseUrl}answers`, data);
   }
 
   vote(question_id: string, data: any) {
