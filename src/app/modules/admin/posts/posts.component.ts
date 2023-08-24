@@ -3,6 +3,7 @@ import { AdminService } from '../admin.service';
 import { QuestionsService } from '../../questions/question.service';
 import { Modal, ModalInterface, ModalOptions } from 'flowbite';
 import { UsersService } from '../../users/users.service';
+import { toast } from 'src/assets/js/main.js';
 
 @Component({
   selector: 'app-posts',
@@ -20,8 +21,8 @@ export class PostsComponent implements OnInit {
   lstQuest: any[] = [];
   lstTmpQuest: any[] = [];
 
-  dataImport : any = []
-  lstKey: any = []
+  dataImport: any = [];
+  lstKey: any = [];
 
   importFileModal!: ModalInterface;
 
@@ -35,29 +36,31 @@ export class PostsComponent implements OnInit {
   ngOnInit(): void {
     this.getQuestionPaging();
 
-    const $modalElement: HTMLElement | null = document.querySelector('#modalEl');
+    const $modalElement: HTMLElement | null =
+      document.querySelector('#modalEl');
 
     if ($modalElement) {
       const modalOptions: ModalOptions = {
         placement: 'center',
         backdrop: 'dynamic',
-        backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
+        backdropClasses:
+          'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
         closable: true,
         onHide: () => {
-            console.log('modal is hidden');
+          console.log('modal is hidden');
         },
         onShow: () => {
-            console.log('modal is shown');
+          console.log('modal is shown');
         },
         onToggle: () => {
-            console.log('modal has been toggled');
-        }
-      }
+          console.log('modal has been toggled');
+        },
+      };
       this.importFileModal = new Modal($modalElement, modalOptions);
-  }
+    }
   }
 
-  closeModalImportFile(){
+  closeModalImportFile() {
     this.importFileModal.hide();
   }
 
@@ -69,7 +72,7 @@ export class PostsComponent implements OnInit {
         this.adminService.importData(file).then((res) => {
           this.dataImport = res;
           console.log('data import', this.dataImport);
-           this.lstKey = Object.keys(this.dataImport[0]);
+          this.lstKey = Object.keys(this.dataImport[0]);
           this.importFileModal.show();
         });
       } else {
@@ -90,6 +93,8 @@ export class PostsComponent implements OnInit {
         this.curFilterReportStt = '';
         let lstUserID: any[] = [];
         this.lstQuest = result.data;
+        console.log('get', this.lstQuest);
+
         this.lstQuest.map((question: any) => {
           lstUserID.push(question.questioner_id);
         });
@@ -125,7 +130,6 @@ export class PostsComponent implements OnInit {
         });
       });
   }
-  searchPost() {}
 
   goToPage(isNextPage: boolean) {
     if (isNextPage) {
@@ -176,13 +180,13 @@ export class PostsComponent implements OnInit {
           return q;
         }
         case 'REPORTED': {
-          if (q.is_reported) {
+          if (q.isReported) {
             return q;
           }
           return null;
         }
         case 'NOT REPORTED': {
-          if (q.is_reported == false) {
+          if (q.isReported == false) {
             return q;
           }
           return null;
@@ -191,5 +195,61 @@ export class PostsComponent implements OnInit {
       return q;
     });
     this.df.detectChanges();
+  }
+
+  keyUpEvent(event: any) {
+    if (event.key.toLowerCase() == 'enter') {
+      this.searchPost();
+    }
+  }
+
+  searchPostTitleOrBody(evt: any) {
+    this.curSearchValue = evt.target.value;
+    if (this.curSearchValue == '') {
+      this.lstQuest = this.lstTmpQuest;
+      this.lstTmpQuest = [];
+      this.isSearching = false;
+    }
+  }
+
+  searchPost() {
+    this.isSearching = true;
+    this.curFilterApproveStt = '';
+    this.curFilterReportStt = '';
+
+    if (this.curSearchValue != '') {
+      //#region ElasticSearch
+      this.questionsService
+        .searchPostByTitleOrBody(this.curSearchValue, this.curSearchPage)
+        .subscribe((res: any) => {
+          if (res) {
+            res.posts.forEach((quest: any) => {
+              quest.isReported = quest.is_reported;
+              quest.created_at = quest?.created_at?.$date;
+            });
+            this.lstTmpQuest = this.lstQuest;
+            this.lstQuest = res.posts;
+            this.searchCount = res.total;
+            this.isSearching = false;
+            console.log('search', this.lstQuest);
+
+            if (this.lstQuest.length == 0) {
+              toast('Failed', 'No post matches the given value', 'error', 3000);
+              this.lstQuest = this.lstTmpQuest;
+              this.lstTmpQuest = [];
+            }
+            this.df.detectChanges();
+          } else {
+            this.isSearching = false;
+            this.lstTmpQuest = [];
+            toast('Failed', 'No user matches the given value', 'error', 3000);
+            this.df.detectChanges();
+          }
+        });
+    } else {
+      this.isSearching = false;
+      this.lstTmpQuest = [];
+      this.df.detectChanges();
+    }
   }
 }
