@@ -1,13 +1,3 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { AuthService } from 'src/app/modules/auth/auth.service';
-import { User } from 'src/app/shared/models/user.model';
-import { HttpClient } from '@angular/common/http';
-import { MessagingService } from 'src/app/core/services/messaging.service';
-import { UsersService } from 'src/app/modules/users/users.service';
-import { QuestionsService } from 'src/app/modules/questions/question.service';
-import { environment } from 'src/environments/environment';
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
@@ -15,6 +5,9 @@ import {AuthService} from 'src/app/modules/auth/auth.service';
 import {User} from 'src/app/shared/models/user.model';
 import {HttpClient} from '@angular/common/http';
 import {MessagingService} from 'src/app/core/services/messaging.service';
+import {UsersService} from 'src/app/modules/users/users.service';
+import {QuestionsService} from 'src/app/modules/questions/question.service';
+import {environment} from 'src/environments/environment';
 import {formatDistance} from 'date-fns';
 
 @Component({
