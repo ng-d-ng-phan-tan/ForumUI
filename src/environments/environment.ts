@@ -10,6 +10,6 @@ export const environment = {
   },
 
   USER_SERVICE_URL: 'http://localhost:8002/api/',
-  POST_SERVICE_URL: 'http://localhost:8004/api/post/questions/',
+  POST_SERVICE_URL: 'http://localhost:8004/api/',
   NOTI_SERVICE_URL: 'http://localhost:8005/',
 };

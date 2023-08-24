@@ -27,7 +27,7 @@ export class UsersService {
 
   //post server
   private postUrl = environment.POST_SERVICE_URL;
-  private postInfoMethod = 'count';
+  private postInfoMethod = 'post/questions/count';
 
   getUser(user_id: string): Observable<any> {
     return this.http.post(this.userUrl + this.getUserMethod, {
