@@ -9,7 +9,6 @@ import { CookieService } from 'ngx-cookie-service';
 export class AuthService {
   constructor(private http: HttpClient, private cookieService: CookieService) {}
   //base URL của BE
-  // private url = 'http://localhost:8080/api/auth';
   private url = 'http://localhost:8001/api';
   private device_token = '';
 

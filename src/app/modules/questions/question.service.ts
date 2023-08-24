@@ -6,22 +6,13 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class QuestionsService {
+  baseUrl = '';
   apiUrl = '';
   answerUrl = '';
   adminUrl = '';
   constructor(private http: HttpClient) {
-    this.answerUrl = environment.POST_SERVICE_URL + 'answers/';
-    this.apiUrl = environment.POST_SERVICE_URL + 'questions'; //'http://localhost:8003/api';
-    this.adminUrl = environment.ADMIN_POST_SERVICE_URL;
-  }
-
-  searchPostByTitleOrBody(value: string, page: number) {
-    let limit = 20;
-
-    return this.http.post(this.adminUrl + 'questions/searchPostByTitleOrBody', {
-      search: value,
-      offset: (page - 1) * limit + 1,
-    });
+    this.baseUrl = environment.POST_SERVICE_URL;
+    this.apiUrl = `${this.baseUrl}questions`;
   }
 
   getQuestion(question_id: string) {
@@ -33,12 +24,11 @@ export class QuestionsService {
   }
 
   getQuestionCount() {
-    return this.http.post(this.adminUrl + 'questions/getCount', {});
+    return this.http.post(`${this.baseUrl}admin/questions/getCount`, {});
   }
 
   getAnswers(question_id: string) {
-    // return this.http.get('http://localhost:8003/api/answers/' + question_id);
-    return this.http.get(this.answerUrl + question_id);
+    return this.http.get(`${this.baseUrl}answers/` + question_id);
   }
 
   createQuestion(data: any) {
@@ -46,8 +36,7 @@ export class QuestionsService {
   }
 
   answer(data: any) {
-    // return this.http.post('http://localhost:8003/api/answers', data);
-    return this.http.post(this.answerUrl, data);
+    return this.http.post(`${this.baseUrl}answers`, data);
   }
 
   vote(question_id: string, data: any) {

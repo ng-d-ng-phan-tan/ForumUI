@@ -9,8 +9,9 @@ export const environment = {
     measurementId: 'G-GKVZFFQGVJ',
   },
 
+  AUTH_SERVICE_URL: 'http://localhost:8001/api/',
   USER_SERVICE_URL: 'http://localhost:8002/api/',
-  POST_SERVICE_URL: 'http://localhost:8004/api/',
-  ADMIN_POST_SERVICE_URL: 'http://localhost:8004/api/admin/',
+  POST_SERVICE_URL: 'http://localhost:8003/api/',
+  ADMIN_POST_SERVICE_URL: 'http://localhost:8003/api/admin/',
   NOTI_SERVICE_URL: 'http://localhost:8005/',
 };
