@@ -23,6 +23,18 @@ export class QuestionsService {
     return this.http.get(this.apiUrl + '?page=' + page);
   }
 
+  searchPostByTitleOrBody(value: string, page: number) {
+    let limit = 20;
+
+    return this.http.post(
+      `${this.baseUrl}admin/questions/searchPostByTitleOrBody`,
+      {
+        search: value,
+        offset: (page - 1) * limit + 1,
+      }
+    );
+  }
+
   getQuestionCount() {
     return this.http.post(`${this.baseUrl}admin/questions/getCount`, {});
   }
