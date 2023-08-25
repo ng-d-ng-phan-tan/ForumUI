@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,8 @@ import { CookieService } from 'ngx-cookie-service';
 export class AuthService {
   constructor(private http: HttpClient, private cookieService: CookieService) {}
   //base URL của BE
-  private url = 'http://localhost:8001/api';
+  // private url = 'http://localhost:8001/api/';
+  private url = environment.AUTH_SERVICE_URL;
   private device_token = '';
 
   receiveDeviceToken(data: any) {
@@ -21,18 +23,18 @@ export class AuthService {
   }
 
   login(data: any): Observable<any> {
-    return this.http.post<any>(this.url + '/login', data /*, { headers } */);
+    return this.http.post<any>(this.url + 'login', data /*, { headers } */);
   }
 
   logout(token: any): Observable<any> {
     const headers = new HttpHeaders({ Authorization: token });
-    return this.http.get<any>(this.url + '/logout', { headers });
+    return this.http.get<any>(this.url + 'logout', { headers });
   }
 
   register(data: any): Observable<any> {
     // Có thể thêm các tùy chọn đối tượng HttpHeaders nếu cần thiết
     // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<any>(this.url + '/register', data /*, { headers } */);
+    return this.http.post<any>(this.url + 'register', data /*, { headers } */);
   }
 
   //gọi api getTokenPayLoad, api này có truyển trong header Key Authorization, value là token để backend xử lí token
@@ -41,19 +43,19 @@ export class AuthService {
       Authorization: this.cookieService.get('access_token'),
     });
     // Gửi request với header chứa JWT token
-    return this.http.get<any>(this.url + '/getTokenPayload', { headers });
+    return this.http.get<any>(this.url + 'getTokenPayload', { headers });
   }
 
   changePassword(data: any): Observable<any> {
-    return this.http.post<any>(this.url + '/changePassword', data);
+    return this.http.post<any>(this.url + 'changePassword', data);
   }
 
   resetPassword(data: any): Observable<any> {
-    return this.http.post<any>(this.url + '/resetPassword', data);
+    return this.http.post<any>(this.url + 'resetPassword', data);
   }
 
   registResetPassword(data: any): Observable<any> {
-    return this.http.get<any>(this.url + `/registResetPassword?email=${data}`);
+    return this.http.get<any>(this.url + `registResetPassword?email=${data}`);
   }
 
   //Lấy role của user dựa vào token gửi tới BE
@@ -62,14 +64,14 @@ export class AuthService {
       Authorization: this.cookieService.get('access_token'),
     });
     // Gửi request với header chứa JWT token
-    return this.http.get<any>(this.url + '/getUserRole', { headers });
+    return this.http.get<any>(this.url + 'getUserRole', { headers });
   }
 
   authenticateUser(): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: this.cookieService.get('access_token'),
     });
-    return this.http.get<any>(this.url + '/authenticateUser', { headers });
+    return this.http.get<any>(this.url + 'authenticateUser', { headers });
   }
 
   checkUserInRole(role: any): Observable<any> {
@@ -77,18 +79,18 @@ export class AuthService {
       Authorization: this.cookieService.get('access_token'),
     });
     // Gửi request với header chứa JWT token
-    return this.http.get<any>(this.url + `/checkUserInRole?role=${role}`, {
+    return this.http.get<any>(this.url + `checkUserInRole?role=${role}`, {
       headers,
     });
   }
 
   activateAccount(email: any, activeCode: any): Observable<any> {
     return this.http.get<any>(
-      this.url + `/activateAccount?email=${email}&activate=${activeCode}`
+      this.url + `activateAccount?email=${email}&activate=${activeCode}`
     );
   }
 
   reGenAccessToken(data: any): Observable<any> {
-    return this.http.post<any>(this.url + '/reGenAccessToken', data);
+    return this.http.post<any>(this.url + 'reGenAccessToken', data);
   }
 }
