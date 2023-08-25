@@ -1,12 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import * as XLSX from 'xlsx';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
-  constructor(private http: HttpClient) {}
+  baseUrl: string;
+
+  constructor(private http: HttpClient) {
+    this.baseUrl = environment.POST_SERVICE_URL;
+  }
 
   async importData(file: File) {
     const data = await file.arrayBuffer();
@@ -41,7 +46,7 @@ export class AdminService {
       approved_at: Date.now().toString(),
     };
     return this.http.post(
-      'http://localhost:8003/api/admin' + '/approve/' + question_id,
+      `${this.baseUrl}admin/questions/approve/` + question_id,
       data
     );
   }

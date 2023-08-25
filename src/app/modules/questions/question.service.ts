@@ -65,7 +65,7 @@ export class QuestionsService {
 
   verify(answer_id: string) {
     return this.http.post(
-      'http://localhost:8003/api/answers' + '/verify/' + answer_id,
+      `${this.baseUrl}answers` + '/verify/' + answer_id,
       {}
     );
   }
