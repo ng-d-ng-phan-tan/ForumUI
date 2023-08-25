@@ -30,7 +30,6 @@ export class UserInfoComponent implements OnInit {
     private cookieService: CookieService
   ) {
     this.loginUserID = this.cookieService.get('user_id');
-    this.loginUserID = '324e23de-4034-11ee-be03-06b6018e9be9';
     route.params.subscribe((params) => {
       this.userService.getUser(params['user_id']).subscribe((res) => {
         if (res.status == '200') {

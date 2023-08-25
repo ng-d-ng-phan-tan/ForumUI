@@ -50,4 +50,8 @@ export class AdminService {
       data
     );
   }
+
+  deny(question_id: string) {
+    return this.http.delete(`${this.baseUrl}admin/questions/` + question_id);
+  }
 }

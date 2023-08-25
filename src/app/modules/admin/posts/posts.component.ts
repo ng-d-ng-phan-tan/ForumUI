@@ -18,6 +18,7 @@ export class PostsComponent implements OnInit {
     private df: ChangeDetectorRef
   ) {}
   isSearching = false;
+  isUpdating = false;
   lstQuest: any[] = [];
   lstTmpQuest: any[] = [];
 
@@ -251,5 +252,34 @@ export class PostsComponent implements OnInit {
       this.lstTmpQuest = [];
       this.df.detectChanges();
     }
+  }
+
+  approve(quest: any) {
+    this.isUpdating = true;
+    this.adminService.approve(quest._id).subscribe((response: any) => {
+      if (response.status == '200') {
+        toast('Success', 'Updated', 'success', 3000);
+        quest.is_approved = true;
+      } else {
+        toast('Failed', 'Update fail', 'error', 3000);
+      }
+      this.isUpdating = false;
+      this.df.detectChanges();
+    });
+  }
+
+  deny(quest: any) {
+    this.isUpdating = true;
+    this.adminService.deny(quest._id).subscribe((response: any) => {
+      if (response.status == '200') {
+        toast('Success', 'Denied', 'success', 3000);
+        quest.is_approved = false;
+        quest.deleted_at = new Date();
+      } else {
+        toast('Failed', 'Update fail', 'error', 3000);
+      }
+      this.isUpdating = false;
+      this.df.detectChanges();
+    });
   }
 }
