@@ -266,6 +266,7 @@ export class PostsComponent implements OnInit {
       if (response.status == '201') {
         toast('Success', 'Updated', 'success', 3000);
         quest.is_approved = true;
+        quest.approved_at = new Date();
       } else {
         toast('Failed', 'Update fail', 'error', 3000);
       }
