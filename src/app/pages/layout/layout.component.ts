@@ -139,7 +139,6 @@ export class LayoutComponent implements OnInit {
             };
             result.push(questionWithUser);
           }
-
           this.questions = result;
         }
       });

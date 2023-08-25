@@ -25,6 +25,7 @@ export class AskComponent implements OnInit {
   itemsAsObjects = [];
   submitted = false;
   items = [];
+  loadingSomething = false;
 
   constructor(
     private titleService: Title,
@@ -63,6 +64,7 @@ export class AskComponent implements OnInit {
   };
 
   createQuestion() {
+    this.loadingSomething = true;
     this.submitted = true;
     if (this.askQuestion.valid) {
       const loginUser = JSON.parse(localStorage.getItem('loginUser') as string);
@@ -70,6 +72,7 @@ export class AskComponent implements OnInit {
       this.questionsService
         .createQuestion(this.askQuestion.value)
         .subscribe((res: any) => {
+          this.loadingSomething = false;
           if (res.status === 201) {
             this.router.navigate([`questions/${res.data._id}`]);
           }

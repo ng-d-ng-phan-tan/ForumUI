@@ -13,4 +13,9 @@ export const environment = {
   USER_SERVICE_URL: 'http://localhost:8002/api/',
   POST_SERVICE_URL: 'http://localhost:8003/api/',
   NOTI_SERVICE_URL: 'http://localhost:8005/api/',
+
+  // AUTH_SERVICE_URL: 'http://localhost:8080/api/auth/',
+  // USER_SERVICE_URL: 'http://localhost:8080/api/user/',
+  // POST_SERVICE_URL: 'http://localhost:8080/api/post/',
+  // NOTI_SERVICE_URL: 'http://localhost:8080/api/notification/',
 };
