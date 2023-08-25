@@ -79,6 +79,10 @@
                       *ngIf="answer?.user"
                     >
                       <button
+                        *ngIf="
+                          loginUser.user_id == question?.questioner_id ||
+                          answer?.is_verified
+                        "
                         (click)="verify(answer?._id)"
                         [disabled]="answer?.is_verified"
                         [title]="

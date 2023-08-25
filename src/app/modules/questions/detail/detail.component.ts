@@ -22,6 +22,7 @@ export class DetailComponent implements OnInit {
   submitted = false;
 
   reason: any;
+  loginUser: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +33,7 @@ export class DetailComponent implements OnInit {
     this.route.params.subscribe((params) => {
       this.question_id = params['question_id'];
     });
+    this.loginUser = JSON.parse(localStorage.getItem('loginUser') as string);
   }
 
   ngOnInit(): void {
