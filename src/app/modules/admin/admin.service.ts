@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as XLSX from 'xlsx';
 
@@ -5,7 +6,7 @@ import * as XLSX from 'xlsx';
   providedIn: 'root',
 })
 export class AdminService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   async importData(file: File) {
     const data = await file.arrayBuffer();
@@ -31,5 +32,17 @@ export class AdminService {
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet);
     XLSX.writeFile(workbook, `${fileName}.xlsx`, { compression: true });
+  }
+
+  approve(question_id: string) {
+    const data = {
+      user_approved_id: JSON.parse(localStorage.getItem('loginUser') as string)
+        .user_id,
+      approved_at: Date.now().toString(),
+    };
+    return this.http.post(
+      'http://localhost:8003/api/admin' + '/approve/' + question_id,
+      data
+    );
   }
 }
