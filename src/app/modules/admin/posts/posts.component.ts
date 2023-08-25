@@ -304,4 +304,8 @@ export class PostsComponent implements OnInit {
       this.df.detectChanges();
     });
   }
+
+  exportReport(data: any, question_id: string) {
+    this.adminService.exportData(data, `Reports of ${question_id}`);
+  }
 }

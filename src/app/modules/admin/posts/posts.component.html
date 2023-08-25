@@ -227,10 +227,20 @@
     <div class="inline-block min-w-full align-middle">
       <div class="shadow">
         <table
-          class="w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600"
+          class="max-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600 overflow-x-auto"
         >
           <thead class="bg-gray-100 dark:bg-gray-700">
             <tr>
+              <th
+                scope="col"
+                class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400"
+              ></th>
+              <th
+                scope="col"
+                class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400"
+              >
+                ID
+              </th>
               <th
                 scope="col"
                 class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400"
@@ -343,6 +353,25 @@
               class="hover:bg-gray-100 dark:hover:bg-gray-700"
               *ngFor="let quest of lstQuest"
             >
+              <td class="w-4 p-4">
+                <div class="flex items-center text-ellipsis overflow-hidden">
+                  <button
+                    *ngIf="quest.reports"
+                    (click)="exportReport(quest.reports, quest._id)"
+                  >
+                    <i
+                      title="This question was reported by someone. Click here to download details."
+                      class="fa fa-exclamation-triangle text-red-500"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                </div>
+              </td>
+              <td class="w-4 p-4">
+                <div class="flex items-center text-ellipsis overflow-hidden">
+                  {{ quest._id }}
+                </div>
+              </td>
               <td class="w-4 p-4">
                 <div class="flex items-center text-ellipsis overflow-hidden">
                   {{ quest.title }}
