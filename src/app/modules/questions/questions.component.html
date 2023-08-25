@@ -65,6 +65,14 @@
                     </div>
                   </div>
                 </div>
+                <div *ngIf="question?.tags">
+                  <div
+                    *ngFor="let tag of question?.tags"
+                    class="badge badge-neutral"
+                  >
+                    {{ tag?.name }}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

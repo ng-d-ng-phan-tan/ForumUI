@@ -301,89 +301,13 @@
                             >{{ question?.num_of_answers ?? 0 }} Answers</span
                           >
                         </div>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <!-- Latest Startups -->
-                  <div>
-                    <div class="cgp1v ccc0n c92f2 ce2z8 cv360">
-                      Latest Startups
-                    </div>
-                    <ul class="c8gep">
-                      <li>
-                        <div class="c5uxf cg15g c3wfj">
-                          <div class="cqb2r c5uxf cgqo8 cc9uf cg15g">
-                            <img
-                              class="c5q4u c9d2g"
-                              src="../../../assets/images/startup-01.svg"
-                              width="32"
-                              height="32"
-                              alt="Startup 01"
-                            />
-                            <h3 class="ckj6i cmnuk">
-                              <a
-                                class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
-                                href="#0"
-                                >Visual Studio X</a
-                              >
-                            </h3>
-                          </div>
-                          <button
-                            class="cj7ab c9tvh cgvj8 cvinr cxw9w chpwp cf3ch c37ex cc208 c10o4 c8m8l ccc0n c6bh0 cejt1 ctlm4 cpefv cnsvb cbyji"
+                        <div *ngIf="question?.tags">
+                          <div
+                            *ngFor="let tag of question?.tags"
+                            class="badge badge-neutral"
                           >
-                            Follow
-                          </button>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="c5uxf cg15g c3wfj">
-                          <div class="cqb2r c5uxf cgqo8 cc9uf cg15g">
-                            <img
-                              class="c5q4u c9d2g"
-                              src="../../../assets/images/startup-02.svg"
-                              width="32"
-                              height="32"
-                              alt="Startup 02"
-                            />
-                            <h3 class="ckj6i cmnuk">
-                              <a
-                                class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
-                                href="#0"
-                                >Gymp DevTools</a
-                              >
-                            </h3>
+                            {{ tag?.name }}
                           </div>
-                          <button
-                            class="cj7ab c9tvh cgvj8 cvinr cxw9w chpwp cf3ch c37ex cc208 c10o4 c8m8l ccc0n c6bh0 cejt1 ctlm4 cpefv cnsvb cbyji"
-                          >
-                            Follow
-                          </button>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="c5uxf cg15g c3wfj">
-                          <div class="cqb2r c5uxf cgqo8 cc9uf cg15g">
-                            <img
-                              class="c5q4u c9d2g"
-                              src="../../../assets/images/startup-03.svg"
-                              width="32"
-                              height="32"
-                              alt="Startup 03"
-                            />
-                            <h3 class="ckj6i cmnuk">
-                              <a
-                                class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
-                                href="#0"
-                                >Paytable Inc</a
-                              >
-                            </h3>
-                          </div>
-                          <button
-                            class="cj7ab c9tvh cgvj8 cvinr cxw9w chpwp cf3ch c37ex cc208 c10o4 c8m8l ccc0n c6bh0 cejt1 ctlm4 cpefv cnsvb cbyji"
-                          >
-                            Follow
-                          </button>
                         </div>
                       </li>
                     </ul>
@@ -425,6 +349,14 @@
                           <span class="cmkbe"
                             >{{ question?.num_of_answers ?? 0 }} Answers</span
                           >
+                        </div>
+                        <div *ngIf="question?.tags">
+                          <div
+                            *ngFor="let tag of question?.tags"
+                            class="badge badge-neutral"
+                          >
+                            {{ tag?.name }}
+                          </div>
                         </div>
                       </li>
                     </ul>

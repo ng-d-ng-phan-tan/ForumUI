@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {CookieService} from 'ngx-cookie-service';
-import {AuthService} from 'src/app/modules/auth/auth.service';
-import {User} from 'src/app/shared/models/user.model';
-import {HttpClient} from '@angular/common/http';
-import {MessagingService} from 'src/app/core/services/messaging.service';
-import {UsersService} from 'src/app/modules/users/users.service';
-import {QuestionsService} from 'src/app/modules/questions/question.service';
-import {environment} from 'src/environments/environment';
-import {formatDistance} from 'date-fns';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from 'src/app/modules/auth/auth.service';
+import { User } from 'src/app/shared/models/user.model';
+import { HttpClient } from '@angular/common/http';
+import { MessagingService } from 'src/app/core/services/messaging.service';
+import { UsersService } from 'src/app/modules/users/users.service';
+import { QuestionsService } from 'src/app/modules/questions/question.service';
+import { environment } from 'src/environments/environment';
+import { formatDistance } from 'date-fns';
 
 @Component({
   selector: 'app-layout',
@@ -35,9 +35,14 @@ export class LayoutComponent implements OnInit {
 
   toggleDropdown() {
     this.isDropdownActive = !this.isDropdownActive;
-    this.http.put(`${environment.NOTI_SERVICE_URL}read-notification/${this.userId}`, {}).subscribe((res: any) => {
-      this.totalNotificationUnread = 0;
-    })
+    this.http
+      .put(
+        `${environment.NOTI_SERVICE_URL}read-notification/${this.userId}`,
+        {}
+      )
+      .subscribe((res: any) => {
+        this.totalNotificationUnread = 0;
+      });
   }
   ngOnInit(): void {
     if (this.alreadyLogin()) {
@@ -105,7 +110,7 @@ export class LayoutComponent implements OnInit {
   }
 
   formatDistance(date: Date) {
-    return formatDistance(new Date(date), new Date(), {addSuffix: true});
+    return formatDistance(new Date(date), new Date(), { addSuffix: true });
   }
 
   getNewDiscussions() {
