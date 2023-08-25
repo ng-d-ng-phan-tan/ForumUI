@@ -13,6 +13,7 @@ export class QuestionsService {
   constructor(private http: HttpClient) {
     this.baseUrl = environment.POST_SERVICE_URL;
     this.apiUrl = `${this.baseUrl}questions`;
+    this.adminUrl = this.baseUrl + 'admin/questions';
   }
 
   getQuestion(question_id: string) {
@@ -21,6 +22,10 @@ export class QuestionsService {
 
   getQuestions(page: string = '1') {
     return this.http.get(this.apiUrl + '?page=' + page);
+  }
+
+  adminGetQuestions(page: string = '1') {
+    return this.http.get(this.adminUrl + '?page=' + page);
   }
 
   getTop3Questions() {
@@ -37,6 +42,9 @@ export class QuestionsService {
         offset: (page - 1) * limit + 1,
       }
     );
+  }
+  delete(_id: string) {
+    return this.http.delete(`${this.baseUrl}admin/questions/${_id}`);
   }
 
   getQuestionCount() {
