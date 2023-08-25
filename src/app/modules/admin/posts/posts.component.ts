@@ -263,7 +263,7 @@ export class PostsComponent implements OnInit {
   approve(quest: any) {
     this.isUpdating = true;
     this.adminService.approve(quest._id).subscribe((response: any) => {
-      if (response.status == '200') {
+      if (response.status == '201') {
         toast('Success', 'Updated', 'success', 3000);
         quest.is_approved = true;
       } else {
@@ -277,7 +277,7 @@ export class PostsComponent implements OnInit {
   deny(quest: any) {
     this.isUpdating = true;
     this.adminService.deny(quest._id).subscribe((response: any) => {
-      if (response.status == '200') {
+      if (response.status == '201') {
         toast('Success', 'Denied', 'success', 3000);
         quest.is_approved = false;
         quest.approved_at = new Date();
@@ -292,7 +292,7 @@ export class PostsComponent implements OnInit {
   remove(quest: any) {
     this.isUpdating = true;
     this.questionsService.delete(quest._id).subscribe((response: any) => {
-      if (response.status == '200') {
+      if (response.status == '201') {
         toast('Success', 'Deleted', 'success', 3000);
         quest.is_approved = false;
         quest.deleted_at = new Date();
