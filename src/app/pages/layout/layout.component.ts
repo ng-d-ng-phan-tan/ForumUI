@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/modules/auth/auth.service';
@@ -22,6 +22,7 @@ export class LayoutComponent implements OnInit {
   questions: any = [];
   isDropdownActive: boolean = false;
   top3Questions: any = [];
+  titleLike = '';
 
   constructor(
     private router: Router,
@@ -30,7 +31,8 @@ export class LayoutComponent implements OnInit {
     private http: HttpClient,
     private realTimeMessage: MessagingService,
     private usersService: UsersService,
-    private questionsService: QuestionsService
+    private questionsService: QuestionsService,
+    private df: ChangeDetectorRef
   ) {}
 
   toggleDropdown() {
@@ -173,5 +175,22 @@ export class LayoutComponent implements OnInit {
         }
       });
     });
+  }
+
+  changeSearchValue(evt: any) {
+    this.titleLike = evt?.target?.value;
+  }
+
+  keyUpEvent(event: any) {
+    if (event.key.toLowerCase() == 'enter' && this.titleLike != '') {
+      this.questionsService
+        .searchQuestByTitle(this.titleLike)
+        .subscribe((res: any) => {
+          if (res.status == '201') {
+            this.questions = res.data;
+            this.df.detectChanges();
+          }
+        });
+    }
   }
 }

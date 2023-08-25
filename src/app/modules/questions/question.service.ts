@@ -20,6 +20,10 @@ export class QuestionsService {
     return this.http.get(this.apiUrl + '/' + question_id);
   }
 
+  searchQuestByTitle(titleLike: string) {
+    return this.http.get(this.apiUrl + '/search?title=' + titleLike);
+  }
+
   getQuestions(page: string = '1') {
     return this.http.get(this.apiUrl + '?page=' + page);
   }
