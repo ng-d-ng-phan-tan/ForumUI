@@ -16,7 +16,7 @@
           <div class="c9d2g">
             <button
               disabled
-              class="c5uxf cgv14 cg15g cec07 cgvj8 cvinr cxw9w chpwp cf3ch c37ex c6cyz c557i cg7zi ctlm4 cpefv cnsvb cbyji"
+              class="mb-2 c5uxf cgv14 cg15g cec07 cgvj8 cvinr cxw9w chpwp cf3ch c37ex c6cyz c557i cg7zi ctlm4 cpefv cnsvb cbyji"
             >
               <i class="fas fa-arrow-up text-green-500"></i>
               <span class="cc9uf c8m8l ccc0n c6bh0 cejt1">{{
@@ -45,7 +45,7 @@
                 </h2>
               </div>
               <div class="c5uxf cg15g">
-                <div class="flex justify-center items-center">
+                <div class="flex flex-col justify-between">
                   <app-avatars
                     *ngIf="question?.questioner_id"
                     [allowChangeAvatar]="false"
@@ -56,11 +56,13 @@
                     [lstUsers]="question?.user"
                   >
                   </app-avatars>
-                  ·
-                  <div class="cmkbe">{{ question?.created_at | date }}</div>
-                  ·
-                  <div class="cmkbe">
-                    {{ question?.num_of_answers ?? 0 }} Answers
+
+                  <div class="flex justify-center items-center">
+                    <div class="cmkbe">{{ question?.created_at | date }}</div>
+
+                    <div class="cmkbe">
+                      {{ question?.num_of_answers ?? 0 }} Answers
+                    </div>
                   </div>
                 </div>
               </div>
