@@ -39,18 +39,39 @@
                 </div>
                 <div class="wrapper">
                   <div class="notification_wrap">
-                    <span class="notification_count" *ngIf="totalNotificationUnread !== 0">{{ totalNotificationUnread }}</span>
+                    <span
+                      class="notification_count"
+                      *ngIf="totalNotificationUnread !== 0"
+                      >{{ totalNotificationUnread }}</span
+                    >
                     <div class="notification_icon">
                       <i class="fas fa-bell" (click)="toggleDropdown()"></i>
                     </div>
-                    <div class="dropdown" [ngClass]="{'active': isDropdownActive}">
-                      <div class="notify_item" *ngFor="let notification of notifications; let index=index">
+                    <div
+                      class="dropdown"
+                      [ngClass]="{ active: isDropdownActive }"
+                    >
+                      <div
+                        class="notify_item"
+                        *ngFor="
+                          let notification of notifications;
+                          let index = index
+                        "
+                      >
                         <div class="notify_img">
-                          <img src="https://robohash.org/{{index}}.png?size=400x400" alt="profile_pic" style="width: 50px">
+                          <img
+                            src="https://robohash.org/{{
+                              index
+                            }}.png?size=400x400"
+                            alt="profile_pic"
+                            style="width: 50px"
+                          />
                         </div>
                         <div class="notify_info">
                           <p>{{ notification.body }}</p>
-                          <span class="notify_time">{{formatDistance(notification.created_at)}}</span>
+                          <span class="notify_time">{{
+                            formatDistance(notification.created_at)
+                          }}</span>
                         </div>
                       </div>
                     </div>
@@ -71,20 +92,20 @@
                       <a
                         [routerLink]="['/auth/changepassword']"
                         class="text-sm text-black"
-                      >Change password</a
+                        >Change password</a
                       >
                     </li>
                     <li>
                       <a
                         [routerLink]="['/users', userId]"
                         class="text-sm text-black"
-                      >Profile</a
+                        >Profile</a
                       >
                     </li>
 
                     <li>
                       <a (click)="logOut()" class="text-sm text-black"
-                      >Logout</a
+                        >Logout</a
                       >
                     </li>
                   </ul>
@@ -102,14 +123,14 @@
                   <a
                     [routerLink]="['/auth/login']"
                     class="c5uxf cg15g cd7gb chx2r cmnuk c6bh0 cgm02 ctlm4 cpefv cnsvb ce0ap crsga"
-                  >Sign in</a
+                    >Sign in</a
                   >
                 </div>
                 <div class="cw89k">
                   <a
                     class="cp4mw cniyg ck65l ce60u cfs3l"
                     [routerLink]="['/auth/signup']"
-                  >Join Community</a
+                    >Join Community</a
                   >
                 </div>
               </div>
@@ -218,7 +239,7 @@
                     <div class="c5uxf cdfxl">
                       <div class="cniyg">
                         <label class="cmwys csx82 cmnuk" for="search"
-                        >Search</label
+                          >Search</label
                         >
                         <div class="c0uko c5uxf cg15g">
                           <input
@@ -267,7 +288,7 @@
                         <h3 class="ck3vf cmnuk">
                           <a
                             class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
-                            [routerLink]="['/questions/1']"
+                            [routerLink]="['/questions/' + question?._id]"
                             >{{ question?.title }}</a
                           >
                         </h3>
@@ -304,7 +325,7 @@
                               <a
                                 class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
                                 href="#0"
-                              >Visual Studio X</a
+                                >Visual Studio X</a
                               >
                             </h3>
                           </div>
@@ -329,7 +350,7 @@
                               <a
                                 class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
                                 href="#0"
-                              >Gymp DevTools</a
+                                >Gymp DevTools</a
                               >
                             </h3>
                           </div>
@@ -354,7 +375,7 @@
                               <a
                                 class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
                                 href="#0"
-                              >Paytable Inc</a
+                                >Paytable Inc</a
                               >
                             </h3>
                           </div>
@@ -392,7 +413,7 @@
                         <h3 class="ck3vf cmnuk">
                           <a
                             class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
-                            [routerLink]="['/questions/1']"
+                            [routerLink]="['/questions/' + question._id]"
                             >{{ question?.title }}</a
                           >
                         </h3>
