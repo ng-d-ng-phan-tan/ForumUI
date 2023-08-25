@@ -58,7 +58,11 @@
                   </app-avatars>
 
                   <div class="flex justify-center items-center">
-                    <div class="cmkbe">{{ question?.created_at | date }}</div>
+                    <div class="cmkbe mr-2">
+                      <span class="italic">{{
+                        question?.created_at | date
+                      }}</span>
+                    </div>
 
                     <div class="cmkbe">
                       {{ question?.num_of_answers ?? 0 }} Answers

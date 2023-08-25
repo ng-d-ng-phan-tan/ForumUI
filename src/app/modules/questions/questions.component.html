@@ -1,6 +1,17 @@
 <div>
   <!-- Posts -->
   <div class="cpg3l">
+    <div>
+      <label class="cursor-pointer label" style="justify-content: end">
+        <span class="label-text" style="margin-right: 10px"> No answers</span>
+        <input
+          type="checkbox"
+          [checked]="isNoAnswer"
+          class="checkbox checkbox-secondary"
+          (click)="filter()"
+        />
+      </label>
+    </div>
     <!-- List container -->
     <div *ngIf="!isLoading" class="cjfii c5uxf ctj5y c8gep">
       <!-- Item -->
@@ -59,7 +70,9 @@
                     </app-avatars>
 
                     <div class="flex justify-center items-center">
-                      <div class="cmkbe">{{ question?.created_at | date }}</div>
+                      <div class="cmkbe mr-2">
+                        <span class="italic">{{ question?.created_at | date }}</span>
+                      </div>
 
                       <div class="cmkbe">
                         {{ question?.num_of_answers ?? 0 }} Answers

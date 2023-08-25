@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -24,8 +24,13 @@ export class QuestionsService {
     return this.http.get(this.apiUrl + '/search?title=' + titleLike);
   }
 
-  getQuestions(page: string = '1') {
-    return this.http.get(this.apiUrl + '?page=' + page);
+  getQuestions(page: string = '1', isFilter: boolean = false) {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('page', page);
+    queryParams = queryParams.append('filter', isFilter);
+    return this.http.get(this.apiUrl, {
+      params: queryParams,
+    });
   }
 
   adminGetQuestions(page: string = '1') {
