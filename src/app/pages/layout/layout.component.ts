@@ -21,6 +21,7 @@ export class LayoutComponent implements OnInit {
   totalNotificationUnread = 0;
   questions: any = [];
   isDropdownActive: boolean = false;
+  top3Questions: any = [];
 
   constructor(
     private router: Router,
@@ -55,6 +56,7 @@ export class LayoutComponent implements OnInit {
       });
     }
     this.getNewDiscussions();
+    this.getTop3Question();
   }
 
   userId: any;
@@ -137,5 +139,34 @@ export class LayoutComponent implements OnInit {
     });
   }
 
-  getTopContributors() {}
+  getTop3Question() {
+    this.questionsService.getTop3Questions().subscribe((result: any) => {
+      let lstUserID: any[] = [];
+      this.top3Questions = result.data.slice(0, 3);
+      this.top3Questions.map((question: any) => {
+        lstUserID.push(question.questioner_id);
+      });
+      let users = [];
+      this.usersService.getUsers(lstUserID).subscribe((res: any) => {
+        if (res.status === '200') {
+          users = res.data;
+
+          let result = [];
+
+          for (const question of this.top3Questions) {
+            let user = users.filter((user: any) => {
+              return question.questioner_id === user.user_id;
+            });
+            const questionWithUser = {
+              ...question,
+              user,
+            };
+            result.push(questionWithUser);
+          }
+
+          this.top3Questions = result;
+        }
+      });
+    });
+  }
 }

@@ -374,94 +374,36 @@
                       Popular Posts
                     </div>
                     <ul class="c8gep">
-                      <li>
+                      <li *ngFor="let question of top3Questions">
                         <div class="ck3vf c5uxf cg15g">
-                          <img
-                            class="cqb2r c9tvh"
-                            src="../../../assets/images/avatar-06.jpg"
-                            width="16"
-                            height="16"
-                            alt="User 06"
-                          />
                           <div class="ccc0n">
-                            <a
-                              class="c6bh0 cejt1 ctlm4 cpefv cnsvb ciojy"
-                              href="#0"
-                            >MaryLync77</a
+                            <app-avatars
+                              *ngIf="question?.questioner_id"
+                              [allowChangeAvatar]="false"
+                              [showName]="true"
+                              [showAddress]="false"
+                              [showEmail]="false"
+                              [width]="24"
+                              [lstUsers]="question?.user"
                             >
+                            </app-avatars>
                           </div>
                         </div>
                         <h3 class="ck3vf cmnuk">
                           <a
                             class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
                             [routerLink]="['/questions/1']"
-                          >How do you decide and keep focus on the
-                            <em class="coq3d">"right"</em> things?</a
+                            >{{ question?.title }}</a
                           >
                         </h3>
                         <div class="ccc0n cv360">
-                          <span class="cmkbe">22 Feb</span> ·
-                          <span class="cmkbe">14 Comments</span>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="ck3vf c5uxf cg15g">
-                          <img
-                            class="cqb2r c9tvh"
-                            src="../../../assets/images/avatar-09.jpg"
-                            width="16"
-                            height="16"
-                            alt="User 09"
-                          />
-                          <div class="ccc0n">
-                            <a
-                              class="c6bh0 cejt1 ctlm4 cpefv cnsvb ciojy"
-                              href="#0"
-                            >Zakaria_C</a
-                            >
-                          </div>
-                        </div>
-                        <h3 class="ck3vf cmnuk">
-                          <a
-                            class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
-                            [routerLink]="['/questions/1']"
-                            >How do you approach building a team for your
-                            startup?</a
+                          <span class="cmkbe">{{
+                            question?.created_at | date
+                          }}</span>
+                          ·
+                          <span class="cmkbe"
+                            >{{ question?.num_of_answers ?? 0 }} Answers</span
                           >
-                        </h3>
-                        <div class="ccc0n cv360">
-                          <span class="cmkbe">22 Feb</span> ·
-                          <span class="cmkbe">44 Comments</span>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="ck3vf c5uxf cg15g">
-                          <img
-                            class="cqb2r c9tvh"
-                            src="../../../assets/images/avatar-01.jpg"
-                            width="16"
-                            height="16"
-                            alt="User 01"
-                          />
-                          <div class="ccc0n">
-                            <a
-                              class="c6bh0 cejt1 ctlm4 cpefv cnsvb ciojy"
-                              href="#0"
-                            >IndieMark</a
-                            >
-                          </div>
-                        </div>
-                        <h3 class="ck3vf cmnuk">
-                          <a
-                            class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
-                            [routerLink]="['/questions/1']"
-                          >The 5 big lessons I've learnt from Geeks and
-                            Experts</a
-                          >
-                        </h3>
-                        <div class="ccc0n cv360">
-                          <span class="cmkbe">20 Feb</span> ·
-                          <span class="cmkbe">19 Comments</span>
                         </div>
                       </li>
                     </ul>

@@ -4,6 +4,7 @@ import { QuestionsService } from '../question.service';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../users/users.service';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { toast } from 'src/assets/js/main.js';
 
 @Component({
   selector: 'app-detail',
@@ -49,7 +50,7 @@ export class DetailComponent implements OnInit {
       ],
     });
     this.getQuestion(this.question_id);
-    this.getAnswer(this.question_id);
+    this.getAnswers(this.question_id);
   }
 
   get registerFormControl() {
@@ -77,7 +78,7 @@ export class DetailComponent implements OnInit {
     });
   }
 
-  getAnswer(question_id: string) {
+  getAnswers(question_id: string) {
     this.questionsService.getAnswers(question_id).subscribe((result: any) => {
       let lstUserID: any[] = [];
       this.answers = result.data;
@@ -121,7 +122,7 @@ export class DetailComponent implements OnInit {
           this.answerQuestion.get(key)?.clearValidators();
           this.answerQuestion.get(key)?.updateValueAndValidity();
         });
-        this.getAnswer(this.question_id);
+        this.getAnswers(this.question_id);
         this.getQuestion(this.question_id);
       });
     }
@@ -162,5 +163,14 @@ export class DetailComponent implements OnInit {
         created_at: Date.now().toString(),
       })
       .subscribe();
+  }
+
+  verify(answer_id: string) {
+    this.questionsService.verify(answer_id).subscribe((res: any) => {
+      if (res.status === 201) {
+        toast('Success', res.message, 'success', 2000);
+        this.getAnswers(this.question_id);
+      }
+    });
   }
 }

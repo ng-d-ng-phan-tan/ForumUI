@@ -23,6 +23,10 @@ export class QuestionsService {
     return this.http.get(this.apiUrl + '?page=' + page);
   }
 
+  getTop3Questions() {
+    return this.http.get(this.apiUrl + '/getTop3Question');
+  }
+
   searchPostByTitleOrBody(value: string, page: number) {
     let limit = 20;
 
@@ -57,5 +61,12 @@ export class QuestionsService {
 
   report(question_id: string, data: any) {
     return this.http.post(this.apiUrl + '/report/' + question_id, data);
+  }
+
+  verify(answer_id: string) {
+    return this.http.post(
+      'http://localhost:8003/api/answers' + '/verify/' + answer_id,
+      {}
+    );
   }
 }
