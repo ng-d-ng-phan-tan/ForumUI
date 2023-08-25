@@ -87,9 +87,14 @@ export class PostsComponent implements OnInit {
   }
 
   getQuestionPaging() {
+    this.isUpdating = true;
+    this.lstQuest = [];
+
+    this.df.detectChanges();
     this.questionsService
-      .getQuestions(this.curPage.toString())
+      .adminGetQuestions(this.curPage.toString())
       .subscribe((result: any) => {
+        this.isUpdating = false;
         this.curFilterApproveStt = '';
         this.curFilterReportStt = '';
         let lstUserID: any[] = [];
@@ -166,12 +171,13 @@ export class PostsComponent implements OnInit {
         return null;
       } else if (
         this.curFilterApproveStt == 'PENDING' &&
-        q.is_approved != false
+        // q.is_approved != false
+        q.approved_at != null
       ) {
         return null;
       } else if (
         this.curFilterApproveStt == 'DENIED' &&
-        q.is_approved != null
+        q.is_approved != false
       ) {
         return null;
       }
@@ -273,6 +279,21 @@ export class PostsComponent implements OnInit {
     this.adminService.deny(quest._id).subscribe((response: any) => {
       if (response.status == '200') {
         toast('Success', 'Denied', 'success', 3000);
+        quest.is_approved = false;
+        quest.approved_at = new Date();
+      } else {
+        toast('Failed', 'Update fail', 'error', 3000);
+      }
+      this.isUpdating = false;
+      this.df.detectChanges();
+    });
+  }
+
+  remove(quest: any) {
+    this.isUpdating = true;
+    this.questionsService.delete(quest._id).subscribe((response: any) => {
+      if (response.status == '200') {
+        toast('Success', 'Deleted', 'success', 3000);
         quest.is_approved = false;
         quest.deleted_at = new Date();
       } else {
