@@ -1,0 +1,228 @@
+<div id="toast"></div>
+<section *ngIf="!isLoading">
+  <div class="cotbe cyf6z cqsr5 cweql">
+    <div class="ctzxw cnl8d clc8r c8qoh">
+      <!-- Page content -->
+      <div class="crc1c c3ahs cs41y cyfhr">
+        <div class="c5dim caoxh">
+          <div class="cof72 csicb css0i cnyph ctj5y c5uxf">
+            <!-- Upvotes button -->
+            <div class="flex justify-center">
+              <button
+                (click)="vote()"
+                class="cbyji chpwp cxw9w cf3ch cvinr c37ex cg15g cpefv c8m8l cnsvb ctlm4 ctj5y cec07 chxzt cgvj8 crf9y c5uxf cap35 cm14g c0y9n cef8g mr-2"
+              >
+                <i class="fas fa-arrow-up text-green-500"></i>
+                <span class="cejt1 c6bh0 ccc0n">{{
+                  question?.num_of_likes
+                }}</span>
+              </button>
+              <button
+                (click)="downvote()"
+                class="cbyji chpwp cxw9w cf3ch cvinr c37ex cg15g cpefv c8m8l cnsvb ctlm4 ctj5y cec07 chxzt cgvj8 crf9y c5uxf cap35 cm14g c0y9n cef8g"
+              >
+                <i class="fas fa-arrow-down text-red-500"></i>
+                <span class="cejt1 c6bh0 ccc0n">{{
+                  question?.num_of_dislikes
+                }}</span>
+              </button>
+            </div>
+
+            <!-- Content -->
+            <div>
+              <article class="cnlkp">
+                <!-- Post header -->
+                <header class="c02n6">
+                  <h1 class="crxw9 ccbgj cgp1v ckq6n">
+                    {{ question?.title }}
+                  </h1>
+                  <div class="cg15g c5uxf">
+                    <div class="cv360 cmnuk">
+                      <app-avatars
+                        *ngIf="question?.questioner_id && question?.user"
+                        [allowChangeAvatar]="false"
+                        [showName]="true"
+                        [showAddress]="false"
+                        [showEmail]="false"
+                        [width]="24"
+                        [lstUsers]="question?.user"
+                      >
+                      </app-avatars>
+                      
+                      <span class="cmkbe">{{
+                        question?.created_at | date
+                      }}</span>
+                      ·
+                      <span class="cmkbe"
+                        >{{ question?.num_of_answers ?? 0 }} Answers</span
+                      >
+                    </div>
+                  </div>
+                  <div *ngIf="question?.tags">
+                    <div
+                      *ngFor="let tag of question?.tags"
+                      class="badge badge-neutral"
+                    >
+                      {{ tag?.name }}
+                    </div>
+                  </div>
+                </header>
+
+                <!-- Post content -->
+                <div class="cgm02 cnyph">
+                  <div [innerHTML]="question?.body"></div>
+                </div>
+              </article>
+
+              <!-- Answers list -->
+              <div>
+                <h4 class="crxw9 ctvp1 cyyzm">
+                  {{ question?.num_of_answers ?? 0 }} Answers
+                </h4>
+                <!-- Answers (1st level) -->
+                <ul>
+                  <li class="cw7gj" *ngFor="let answer of answers">
+                    <div
+                      class="flex justify-start items-start"
+                      *ngIf="answer?.user"
+                    >
+                      <button
+                        *ngIf="
+                          loginUser.user_id == question?.questioner_id ||
+                          answer?.is_verified
+                        "
+                        (click)="verify(answer?._id)"
+                        [disabled]="answer?.is_verified"
+                        [title]="
+                          answer?.is_verified
+                            ? 'Verified'
+                            : 'Verify this question'
+                        "
+                        [class.text-blue-500]="answer?.is_verified"
+                      >
+                        <svg
+                          width="24"
+                          height="24"
+                          stroke-width="1.5"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M10.5213 2.62368C11.3147 1.75255 12.6853 1.75255 13.4787 2.62368L14.4989 3.74391C14.8998 4.18418 15.4761 4.42288 16.071 4.39508L17.5845 4.32435C18.7614 4.26934 19.7307 5.23857 19.6757 6.41554L19.6049 7.92905C19.5771 8.52388 19.8158 9.10016 20.2561 9.50111L21.3763 10.5213C22.2475 11.3147 22.2475 12.6853 21.3763 13.4787L20.2561 14.4989C19.8158 14.8998 19.5771 15.4761 19.6049 16.071L19.6757 17.5845C19.7307 18.7614 18.7614 19.7307 17.5845 19.6757L16.071 19.6049C15.4761 19.5771 14.8998 19.8158 14.4989 20.2561L13.4787 21.3763C12.6853 22.2475 11.3147 22.2475 10.5213 21.3763L9.50111 20.2561C9.10016 19.8158 8.52388 19.5771 7.92905 19.6049L6.41553 19.6757C5.23857 19.7307 4.26934 18.7614 4.32435 17.5845L4.39508 16.071C4.42288 15.4761 4.18418 14.8998 3.74391 14.4989L2.62368 13.4787C1.75255 12.6853 1.75255 11.3147 2.62368 10.5213L3.74391 9.50111C4.18418 9.10016 4.42288 8.52388 4.39508 7.92905L4.32435 6.41553C4.26934 5.23857 5.23857 4.26934 6.41554 4.32435L7.92905 4.39508C8.52388 4.42288 9.10016 4.18418 9.50111 3.74391L10.5213 2.62368Z"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                          />
+                          <path
+                            d="M9 12L11 14L15 10"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </button>
+                      <div class="ck3vf">
+                        <div class="cg15g ck3vf c5uxf">
+                          <div class="cv360 ccc0n">
+                            <app-avatars
+                              *ngIf="answer"
+                              [allowChangeAvatar]="false"
+                              [showName]="true"
+                              [showAddress]="false"
+                              [showEmail]="false"
+                              [width]="24"
+                              [lstUsers]="answer?.user"
+                            >
+                            </app-avatars>
+                            <span class="cmkbe">{{
+                              answer?.created_at | date
+                            }}</span>
+                          </div>
+                        </div>
+                        <div class="cgm02 csxgm cmnuk ck3vf">
+                          <div [innerHTML]="answer?.answer"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Comment form -->
+              <form
+                class="cgp1v"
+                [formGroup]="answerQuestion"
+                (ngSubmit)="answer()"
+              >
+                <div class="cniyg cqzz1">
+                  <ckeditor
+                    #editor
+                    formControlName="answer"
+                    class="w-full text-black"
+                    [editor]="Editor"
+                  ></ckeditor>
+                  <span
+                    class="text-red-500"
+                    *ngIf="
+                  (registerFormControl['answer'].touched || submitted) &&
+                  registerFormControl['answer'].errors?.['required']
+                "
+                  >
+                    Body is required
+                  </span>
+                  <span
+                    class="text-red-500"
+                    *ngIf="
+                  (registerFormControl['answer'].touched || submitted) &&
+                  registerFormControl['answer'].errors?.['minlength']
+                "
+                  >
+                    The minimum length of the body text is 20 characters.
+                  </span>
+                </div>
+                <div class="cmm7i">
+                  <button
+                    onclick="my_modal_1.showModal()"
+                    class="cbyji chpwp cxw9w cf3ch cvinr c37ex cg15g cpefv c8m8l cnsvb ctlm4 ctj5y cec07 chxzt cgvj8 crf9y c5uxf cap35 cm14g c0y9n cef8g mr-2"
+                  >
+                    <i class="fas fa-exclamation-triangle text-yellow-300"></i>
+                    <span class="cejt1 c6bh0 ccc0n">Report</span>
+                  </button>
+
+                  <button class="btn btn-primary" type="submit">
+                    <span class="text-white">Post Your Answer</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div *ngIf="isLoading">
+  <div
+    style="position: fixed; bottom: 30px; right: 30px"
+    class="loading loading-spinner loading-lg text-primary"
+  ></div>
+</div>
+<dialog #my_modal_1 id="my_modal_1" class="modal">
+  <form
+    method="dialog"
+    class="modal-box"
+    [formGroup]="reportFG"
+    (ngSubmit)="report()"
+  >
+    <h3 class="font-bold text-lg">Report this question</h3>
+    <div class="modal-action">
+      <input
+        type="text"
+        formControlName="content"
+        placeholder="Type your reason"
+        class="input input-bordered w-full max-w-xs"
+      />
+      <button type="submit" class="btn">Send</button>
+    </div>
+  </form>
+</dialog>

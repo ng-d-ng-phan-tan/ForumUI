@@ -1,0 +1,114 @@
+<div>
+  <!-- Posts -->
+  <div class="cpg3l">
+    <div>
+      <label class="cursor-pointer label" style="justify-content: end">
+        <span class="label-text" style="margin-right: 10px"> No answers</span>
+        <input
+          type="checkbox"
+          [checked]="isNoAnswer"
+          class="checkbox checkbox-secondary"
+          (click)="filter()"
+        />
+      </label>
+    </div>
+    <!-- List container -->
+    <div *ngIf="!isLoading" class="cjfii c5uxf ctj5y c8gep">
+      <!-- Item -->
+      <div
+        *ngFor="let question of questions"
+        class="cxw9w chpwp cf3ch c37ex c61mk"
+      >
+        <div class="c0uko ccxgn">
+          <div
+            class="cqngb csiag clqlj c3sr8 ct7tm cwkvf cazey cp5zy cnyco csrr6 c7hzc c9chq cvfdf c6o98"
+            aria-hidden="true"
+          ></div>
+          <div class="cg15g c8gep c0bxk cjsol c4ndu">
+            <div class="c9d2g">
+              <button
+                disabled
+                class="mb-2 c5uxf cgv14 cg15g cec07 cgvj8 cvinr cxw9w chpwp cf3ch c37ex c6cyz c557i cg7zi ctlm4 cpefv cnsvb cbyji"
+              >
+                <i class="fas fa-arrow-up text-green-500"></i>
+                <span class="cc9uf c8m8l ccc0n c6bh0 cejt1">{{
+                  question?.num_of_likes
+                }}</span>
+              </button>
+              <button
+                disabled
+                class="c5uxf cgv14 cg15g cec07 cgvj8 cvinr cxw9w chpwp cf3ch c37ex c6cyz c557i cg7zi ctlm4 cpefv cnsvb cbyji"
+              >
+                <i class="fas fa-arrow-down text-red-500"></i>
+                <span class="cc9uf c8m8l ccc0n c6bh0 cejt1">{{
+                  question?.num_of_dislikes
+                }}</span>
+              </button>
+            </div>
+            <div class="cc9uf cg15g c3wfj c49ys cq65p cof72 csicb">
+              <div>
+                <div class="cyyzm">
+                  <h2>
+                    <a
+                      class="c92f2 crxw9 ctlm4 cpefv cnsvb cjnwp"
+                      [routerLink]="['/questions/' + question?._id]"
+                      >{{ question?.title }}</a
+                    >
+                  </h2>
+                </div>
+                <div class="c5uxf cg15g">
+                  <div class="flex flex-col justify-between">
+                    <app-avatars
+                      *ngIf="question?.questioner_id"
+                      [allowChangeAvatar]="false"
+                      [showName]="true"
+                      [showAddress]="false"
+                      [showEmail]="false"
+                      [width]="24"
+                      [lstUsers]="question?.user"
+                    >
+                    </app-avatars>
+
+                    <div class="flex justify-center items-center">
+                      <div class="cmkbe mr-2">
+                        <span class="italic">{{ question?.created_at | date }}</span>
+                      </div>
+
+                      <div class="cmkbe">
+                        {{ question?.num_of_answers ?? 0 }} Answers
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="question?.tags">
+                  <div
+                    *ngFor="let tag of question?.tags"
+                    class="badge badge-neutral"
+                  >
+                    {{ tag?.name }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Show more -->
+    <div class="cmm7i" *ngIf="!isLoading">
+      <button
+        class="cp4mw cp6g0 cgvj8 cvinr cxw9w chpwp cf3ch c37ex czu8g cejt1 cbyji"
+        (click)="loadMore()"
+      >
+        Show More <span class="c1rkt clvx8">-&gt;</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isLoading">
+  <div
+    style="position: fixed; bottom: 30px; right: 30px"
+    class="loading loading-spinner loading-lg text-primary"
+  ></div>
+</div>

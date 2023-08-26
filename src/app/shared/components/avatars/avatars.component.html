@@ -1,0 +1,97 @@
+<ng-container
+  [class]="'m-2.5 w-' + width"
+  *ngIf="lstUsers?.length == 1; else group"
+>
+  <div [class]="'flex mb-2.5'">
+    <div
+      [class]="'avatar'"
+      [style]="'width: ' + width + 'px;' + 'height: ' + width + 'px;'"
+    >
+      <div
+        *ngIf="curUser?.avatar; else TextAvatar"
+        class="rounded-full"
+        [style]="'width: ' + width + 'px;' + 'height: ' + width + 'px;'"
+      >
+        <img [src]="curUser?.avatar" />
+      </div>
+      <ng-template #TextAvatar>
+        <div
+          class="relative justify-center text-center items-center rounded-full bg-red-500 text-xl text-white uppercase"
+          style="display: flex"
+        >
+          {{ curUser?.name?.slice(0, 2) }}
+        </div>
+      </ng-template>
+    </div>
+
+    <input
+      #avatarFile
+      type="file"
+      style="display: none"
+      accept="image/*"
+      placeholder="Type here"
+      [disabled]="!allowChangeAvatar"
+      (change)="changeAvatar($event)"
+    />
+    <div class="more-info">
+      <div
+        *ngIf="showName"
+        [class]="
+          'ml-2.5 text-sm flex items-center ' +
+          (!showAddress && !showEmail ? 'h-full' : '')
+        "
+      >
+        {{ curUser?.name }}
+      </div>
+      <div *ngIf="showAddress" class="ml-2.5 text-sm">
+        {{ curUser?.address }}
+      </div>
+      <div *ngIf="showEmail" class="ml-2.5 text-sm">
+        {{ curUser?.email }}
+      </div>
+      <div
+        *ngIf="showDelete && curUser?.delete_at"
+        class="ml-2.5 text-sm rounded"
+        style="background-color: rgb(221, 56, 56); padding: 2%"
+      >
+        Đã xóa: {{ curUser?.delete_at | date : "dd/MM/yyyy" }}
+      </div>
+      <div
+        *ngIf="showPostInfo"
+        class="info-posts flex-col flex justify-center ml-5"
+        [style]="'height: ' + width + 'px;'"
+      >
+        <div class="num-of-post">Posts: {{ numOfQuestions }}</div>
+        <div class="num-of-cmt">Comments: {{ numOfAnswers }}</div>
+      </div>
+    </div>
+  </div>
+  <button
+    *ngIf="allowChangeAvatar"
+    class="file-upload btn btn-info pen mt-2"
+    (click)="avatarFile.click()"
+  >
+    <label for="">Change Avatar</label>
+  </button>
+</ng-container>
+
+<ng-template #group>
+  <div class="avatar-group -space-x-6">
+    <div class="avatar" *ngFor="let user of lstShowUsers">
+      <div>
+        <div [class]="'w-' + width">
+          <img [src]="user.avatar" />
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="avatar placeholder"
+      *ngIf="lstUsers && lstUsers.length - showMax > 0"
+    >
+      <div class="w-12 bg-neutral-focus text-neutral-content">
+        <span>+{{ lstUsers.length - showMax }}</span>
+      </div>
+    </div>
+  </div>
+</ng-template>

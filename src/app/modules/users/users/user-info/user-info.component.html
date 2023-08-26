@@ -1,0 +1,157 @@
+<ng-container *ngIf="user.user_id">
+  <div id="toast"></div>
+  <div class="container flex flex-col" style="padding: 10px">
+    <div class="flex flex-col mb-2.5">
+      <div class="ava flex justify-center">
+        <!-- <label
+        class="block mb-2 text-sm font-medium text-amber "
+        for=""
+        class="h1"
+        >Ảnh đại diện</label
+      > -->
+
+        <app-avatars
+          *ngIf="lstUserIDs || user.user_id"
+          [lstUsers]="[user]"
+          [width]="150"
+          [showMax]="2"
+          [showName]="false"
+          [showEmail]="false"
+          [showAddress]="false"
+          [showPostInfo]="true"
+          [allowChangeAvatar]="loginUserID == user.user_id"
+        >
+        </app-avatars>
+      </div>
+    </div>
+    <form
+      [formGroup]="formGroup"
+      class="info grid grid-cols-2 mt-3"
+      *ngIf="formGroup"
+    >
+      <div class="info-name mb-3 flex flex-column items-center justify-center">
+        <label class="block mb-2 text-sm font-medium text-amber" for="name">
+          Name
+        </label>
+        <input
+          class="input input-bordered w-full max-w-xs"
+          formControlName="name"
+          id="name"
+          style="color: black"
+          type="text"
+        />
+      </div>
+
+      <div class="info-email mb-3 flex flex-column items-center justify-center">
+        <label class="block mb-2 text-sm font-medium text-amber" for="email"
+          >Email</label
+        >
+        <input
+          class="input input-bordered w-full max-w-xs"
+          style="color: black"
+          formControlName="email"
+          style="color: black"
+          id="email"
+          type="text"
+        />
+      </div>
+
+      <div
+        class="info-gender mb-3 flex flex-column items-center justify-center"
+      >
+        <label class="block mb-2 text-sm font-medium text-amber" for="gender"
+          >Gender</label
+        >
+        <!-- <input
+          class="input input-bordered w-full max-w-xs"
+          id="gender"
+          formControlName="gender"
+          type="text"
+        /> -->
+        <select
+          formControlName="gender"
+          class="input input-bordered w-full max-w-xs"
+          style="color: black"
+        >
+          <!-- <option selected>Gender</option> -->
+          <option value="true">Male</option>
+          <option value="false">Female</option>
+        </select>
+      </div>
+      <div class="info-bday mb-3 flex flex-column items-center justify-center">
+        <label
+          class="block mb-2 text-sm font-medium text-amber"
+          for="date_of_birth"
+          >Birthday</label
+        >
+        <input
+          class="input input-bordered w-full max-w-xs"
+          id="date_of_birth"
+          type="date"
+          (change)="changeBDay($event?.target)"
+          [value]="this.user.date_of_birth"
+          [disabled]="this.loginUserID != this.user.user_id"
+          style="color: black"
+        />
+      </div>
+
+      <!-- <div class="info-role">
+        <label
+          class="block mb-2 text-sm font-medium text-amber "
+          for="role"
+          >Role</label
+        >
+        <input
+          class="input input-bordered w-full max-w-xs"
+          formControlName="role"
+          id="role"
+          type="text"
+        />
+      </div> -->
+      <div
+        class="info-address mb-1 flex flex-column items-center justify-center"
+      >
+        <label class="block mb-2 text-sm font-medium text-amber" for="address"
+          >Address</label
+        >
+        <input
+          class="input input-bordered w-full max-w-xs"
+          formControlName="address"
+          id="address"
+          type="text"
+          style="color: black"
+        />
+      </div>
+      <div class="info-about mb-1 flex flex-column items-center justify-center">
+        <label class="block mb-2 text-sm font-medium text-amber" for="about"
+          >About</label
+        >
+        <input
+          class="input input-bordered w-full max-w-xs"
+          type="text"
+          formControlName="about"
+          style="color: black"
+        />
+        <!-- [innerHTML]="this.user.about" -->
+      </div>
+    </form>
+
+    <button
+      class="btn btn-accent mt-4"
+      (click)="updateInfo()"
+      [disabled]="isUpdating || !isChangeData"
+      *ngIf="loginUserID == user.user_id"
+    >
+      Update
+      <div class="w-full flex justify-center" *ngIf="isUpdating">
+        <div class="loading loading-spinner loading-lg text-primary"></div>
+      </div>
+    </button>
+  </div>
+</ng-container>
+<div *ngIf="isLoading || isUpdating">
+  <div
+    style="position: fixed; bottom: 30px; right: 30px"
+    class="loading loading-spinner loading-lg text-primary"
+  ></div>
+</div>
