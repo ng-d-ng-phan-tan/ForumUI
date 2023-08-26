@@ -293,10 +293,12 @@ export class PostsComponent implements OnInit {
   remove(quest: any) {
     this.isUpdating = true;
     this.questionsService.delete(quest._id).subscribe((response: any) => {
-      if (response.status == '201') {
+      if (response.status == '204') {
         toast('Success', 'Deleted', 'success', 3000);
         quest.is_approved = false;
         quest.deleted_at = new Date();
+        this.lstQuest = this.lstQuest.filter((x) => x._id != quest._id);
+        this.lstTmpQuest = this.lstTmpQuest.filter((x) => x._id != quest._id);
       } else {
         toast('Failed', 'Update fail', 'error', 3000);
       }

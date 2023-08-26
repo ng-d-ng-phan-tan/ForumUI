@@ -353,6 +353,7 @@
               class="hover:bg-gray-100 dark:hover:bg-gray-700"
               *ngFor="let quest of lstQuest"
             >
+              <!-- <ng-container *ngIf="quest.deleted_at == null"> -->
               <td class="w-4 p-4">
                 <div class="flex items-center text-ellipsis overflow-hidden">
                   <button
@@ -480,6 +481,7 @@
                   </button>
                 </div>
               </td>
+              <!-- </ng-container> -->
             </tr>
           </tbody>
         </table>
